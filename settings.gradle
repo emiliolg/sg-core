@@ -62,11 +62,13 @@ include "codegen:base",
         "form:serializer",
         "form:view",
         "form:selenium",
-        "doc",
-		"doc:samples:snippets",
-		"doc:samples:school",
-		"doc:samples:doc-project",
-        "doc:samples:invites",
+  //      "doc",
+//		"doc:samples:snippets",
+//		"doc:samples:school",
+//		"doc:samples:doc-project",
+ //       "doc:samples:invites",
 		"eventbus:core",
 		"eventbus:kafka",
 		"eventbus:aws"
+
+includeBuild('../sg-common')

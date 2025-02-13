@@ -2,17 +2,17 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 dependencies {
-    compile webSocketClient
-    compile webSocket
-    compile asyncHttpClient
-    compile jackson
-    compile jacksonDataBind
-    compile logback_classic
+    implementation webSocketClient
+    implementation webSocket
+    implementation asyncHttpClient
+    implementation jackson
+    implementation jacksonDataBind
+    implementation logback_classic
 }
 
 mainClassName = 'tekgenesis.websocket.server.Main'
 jar {
-    from(configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }) {
+    from(configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }) {
         exclude "META-INF/*.SF"
         exclude "META-INF/*.DSA"
         exclude "META-INF/*.RSA"

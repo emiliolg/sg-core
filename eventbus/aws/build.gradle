@@ -1,7 +1,7 @@
 dependencies {
-    compile project(':eventbus:core')
-    compile project(':db:entity')
-    compile awsKinesisClient
-    compile awsKpl
-    testCompile project(':eventbus:core').sourceSets.test.output
+    implementation project(':eventbus:core')
+    implementation project(':db:entity')
+    implementation awsKinesisClient
+    implementation awsKpl
+    testImplementation project(':eventbus:core').sourceSets.test.output
 }

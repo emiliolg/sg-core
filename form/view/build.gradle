@@ -5,79 +5,79 @@ configurations {
 }
 
 dependencies {
-    compile gwtDev
-    compile gwtUser
-    compile gwtServlet
+    implementation gwtDev
+    implementation gwtUser
+    implementation gwtServlet
 
-    compile project(':form:serializer')
-    compile project(':parser:metamodel')
-    compile project(':parser:common')
-    compile project(':server:core')
-    compile project(':metadata:expr')
-    compile project(':metadata:util')
-    compile project(':metadata:workflow')
-    compile project(':runtime:cluster')
-    compile project(':runtime:persistence')
-    compile project(':runtime:metrics')
-    compile project(':runtime:web')
-    compile project(':runtime:task')
-    compile project(':db:base')
-    compile project(':db:cache')
-    compile project(':db:entity')
-    compile project(':db:etl')
-    compile project(':db:transaction')
-    compile project(':ix:db')
-    compile project(':metadata:entity')
-    compile project(':metadata:handler')
-    compile project(':projects:inbox')
-    compile project(':projects:admin')
-    compile project(':projects:console')
-    compile project(':projects:authorization')
-    compile project(':projects:social')
-    compile project(':process:core')
-    compile project(':metadata:builder')
-    compile project(':metadata:form')
-    compile project(':metadata:type')
-    compile project(':metadata:authorization')
-    compile project(':codegen:base')
-    compile project(':codegen:metamodel')
-    compile (gwtAjaxUpload) {
+    implementation project(':form:serializer')
+    implementation project(':parser:metamodel')
+    implementation project(':parser:common')
+    implementation project(':server:core')
+    implementation project(':metadata:expr')
+    implementation project(':metadata:util')
+    implementation project(':metadata:workflow')
+    implementation project(':runtime:cluster')
+    implementation project(':runtime:persistence')
+    implementation project(':runtime:metrics')
+    implementation project(':runtime:web')
+    implementation project(':runtime:task')
+    implementation project(':db:base')
+    implementation project(':db:cache')
+    implementation project(':db:entity')
+    implementation project(':db:etl')
+    implementation project(':db:transaction')
+    implementation project(':ix:db')
+    implementation project(':metadata:entity')
+    implementation project(':metadata:handler')
+    implementation project(':projects:inbox')
+    implementation project(':projects:admin')
+    implementation project(':projects:console')
+    implementation project(':projects:authorization')
+    implementation project(':projects:social')
+    implementation project(':process:core')
+    implementation project(':metadata:builder')
+    implementation project(':metadata:form')
+    implementation project(':metadata:type')
+    implementation project(':metadata:authorization')
+    implementation project(':codegen:base')
+    implementation project(':codegen:metamodel')
+    implementation (gwtAjaxUpload) {
         exclude group: 'junit', module: 'junit'
         exclude group: 'com.google.gwt', module: 'gwt-dev'
     }
-    compile fileUpload
-    compile commonsIo
-    compile infinispan
-    compile jackson
-    compile jacksonDataBind
-    compile hsqldb
-    compile oracle
-    compile postgres
-    compile apacheShiroWeb
-    compile gflot
-    compile openlayers
-    compile gwtCropper
-    compile jettyServlets
-    compile pegdown
-    compile logback_classic
-    compile jodaTime
-    compile (lessCssCompiler) { exclude group: 'org.slf4j', module: 'slf4j-simple' }
-    compile hikari
-    compile javaMail
+    implementation fileUpload
+    implementation commonsIo
+    implementation infinispan
+    implementation jackson
+    implementation jacksonDataBind
+    implementation hsqldb
+    implementation oracle
+    implementation postgres
+    implementation apacheShiroWeb
+    implementation gflot
+    implementation openlayers
+    implementation gwtCropper
+    implementation jettyServlets
+    implementation pegdown
+    implementation logback_classic
+    implementation jodaTime
+    implementation (lessCssCompiler) { exclude group: 'org.slf4j', module: 'slf4j-simple' }
+    implementation hikari
+    implementation javaMail
 
-    compile javaxInject
-    compile slf4j
-    compile jul_to_slf4j
-    runtime scribe
-    compileOnly commonGwt
-    testCompile commonGwt
+    implementation javaxInject
+    implementation slf4j
+    implementation jul_to_slf4j
+    runtimeOnly scribe
+    //compileOnly commonGwt
+    //testImplementation commonGwt
 
-    testCompile project(':server:core').sourceSets.test.output
-    testCompile project(':server:cluster')
-    testCompile project(':samples:basic')
-    testCompile project(':samples:showcase')
-    testRuntime project(':runtime:mail')
-    testRuntime files("${System.properties['java.home']}/../lib/tools.jar",
+    testImplementation project(':server:core').sourceSets.test.output
+    testImplementation project(':server:cluster')
+    testImplementation project(':samples:basic')
+    testImplementation project(':samples:showcase')
+    testRuntimeOnly project(':runtime:mail')
+    testRuntimeOnly files("${System.properties['java.home']}/../lib/tools.jar",
                         "src/test/java",
                         "src/main/java",
                         "../serializer/src/main/java",
@@ -92,7 +92,7 @@ def gwtDir =  new File(project.buildDir, "gwt")
 test {
     maxHeapSize '2048M'
     enableAssertions = false
-    systemProperty 'gwt.args', '-sourceLevel 1.8 -localWorkers 3 -draftCompile -logLevel ERROR -devMode'
+    systemProperty 'gwt.args', '-sourceLevel 1.8 -localWorkers 3 -draftimplementation -logLevel ERROR -devMode'
     systemProperty 'gwt.persistentunitcache', false
 
     // debug true
@@ -117,7 +117,7 @@ task compileGwt (dependsOn: classes, type: JavaExec) {
         [
                 sourceSets.main.java.srcDirs,           // Java source
                 sourceSets.main.output.resourcesDir,    // Generated resources
-                sourceSets.main.output.classesDir,      // Generated classes
+                sourceSets.main.output.classesDirs.singleFile,      // Generated classes
                 sourceSets.main.compileClasspath,       // Deps
                 files("../../common/core/src/main/java",
                 "../../form/serializer/src/main/java",

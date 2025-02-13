@@ -1,4 +1,4 @@
 dependencies {
-    compile project(':metadata:type')
-    compile project(':metadata:authorization')
+    implementation project(':metadata:type')
+    implementation project(':metadata:authorization')
 }

@@ -2,30 +2,30 @@ import tekgenesis.plugin.mm.MMPlugin
 
 apply plugin : MMPlugin
 dependencies {
-    compile project(':db:base')
-    compile project(':db:entity')
-    compile project(':runtime:web')
-    compile project(':runtime:persistence')
-    compile project(':metadata:type')
-    compile project(':metadata:builder')
-    compile project(':metadata:entity')
-    compile project(':metadata:form')
-    compile project(':metadata:workflow')
-    compile project(':metadata:authorization')
-    compile project(':codegen:metamodel')
-    compile project(':projects:authorization')
-    compile project(':server:core')
-    compile jackson
-    compile jacksonDataBind
-    compile javaxServlet
+    implementation project(':db:base')
+    implementation project(':db:entity')
+    implementation project(':runtime:web')
+    implementation project(':runtime:persistence')
+    implementation project(':metadata:type')
+    implementation project(':metadata:builder')
+    implementation project(':metadata:entity')
+    implementation project(':metadata:form')
+    implementation project(':metadata:workflow')
+    implementation project(':metadata:authorization')
+    implementation project(':codegen:metamodel')
+    implementation project(':projects:authorization')
+    implementation project(':server:core')
+    implementation jackson
+    implementation jacksonDataBind
+    implementation javaxServlet
     mm project(':projects:authorization')
-    testCompile project(':server:core').sourceSets.test.output
-    testCompile project(':db:etl').sourceSets.test.output
-    testCompile project(':db:entity').sourceSets.test.output
-    testCompile project(':samples:basic')
-    testCompile project(':runtime:test')
-    testRuntime hsqldb
-    testRuntime oracle
-    testRuntime postgres
+    testImplementation project(':server:core').sourceSets.test.output
+    testImplementation project(':db:etl').sourceSets.test.output
+    testImplementation project(':db:entity').sourceSets.test.output
+    testImplementation project(':samples:basic')
+    testImplementation project(':runtime:test')
+    testRuntimeOnly hsqldb
+    testRuntimeOnly oracle
+    testRuntimeOnly postgres
 }
 

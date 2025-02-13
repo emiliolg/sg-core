@@ -2,29 +2,29 @@ import tekgenesis.plugin.mm.MMPlugin
 
 apply plugin : MMPlugin
 dependencies {
-    compile apacheShiro
+    implementation apacheShiro
     mm project(':runtime:persistence')
     mm project(':projects:authorization')
     mm project(':projects:admin')
-    compile project(':db:base')
-    compile project(':db:entity')
-    compile project(':db:transaction')
-    compile project(':db:cache')
-    compile project(':server:core')
-    compile project(':server:cluster')
-    compile project(':runtime:persistence')
-    compile project(':runtime:web')
-    compile project(':runtime:task')
-    compile project(':runtime:mail')
-    compile project(':runtime:cluster')
-    compile project(':projects:authorization')
-    compile project(':projects:admin')
-    compile project(':metadata:form')
-    compile project(':metadata:type')
-    compile project(':metadata:entity')
-    compile project(':ix:db')
-    compile infinispan
-    compile jackson
-    compile jacksonDataBind
+    implementation project(':db:base')
+    implementation project(':db:entity')
+    implementation project(':db:transaction')
+    implementation project(':db:cache')
+    implementation project(':server:core')
+    implementation project(':server:cluster')
+    implementation project(':runtime:persistence')
+    implementation project(':runtime:web')
+    implementation project(':runtime:task')
+    implementation project(':runtime:mail')
+    implementation project(':runtime:cluster')
+    implementation project(':projects:authorization')
+    implementation project(':projects:admin')
+    implementation project(':metadata:form')
+    implementation project(':metadata:type')
+    implementation project(':metadata:entity')
+    implementation project(':ix:db')
+    implementation infinispan
+    implementation jackson
+    implementation jacksonDataBind
 }
 

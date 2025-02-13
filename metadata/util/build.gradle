@@ -1,12 +1,12 @@
 dependencies {
-    compile project(':metadata:type')
-    compile project(':metadata:expr')
-    compile project(':metadata:entity')
-    compile project(':metadata:builder')
-    compile project(':metadata:form')
-    compile project(':parser:metamodel')
-    compile project(':parser:common')
-    testCompile project(':metadata:builder')
-    testCompile project(':codegen:metamodel')
+    implementation project(':metadata:type')
+    implementation project(':metadata:expr')
+    implementation project(':metadata:entity')
+    implementation project(':metadata:builder')
+    implementation project(':metadata:form')
+    implementation project(':parser:metamodel')
+    implementation project(':parser:common')
+    testImplementation project(':metadata:builder')
+    testImplementation project(':codegen:metamodel')
 }
 

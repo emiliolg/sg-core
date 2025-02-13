@@ -1,15 +1,12 @@
 dependencies {
-    compileJava {
-        options.compilerArgs = ["-Xlint"]
-    }
-    compileTestJava {
+    tasks.withType(JavaCompile).configureEach {
         options.compilerArgs = ["-Xlint"]
     }
 
-    compile project(':db:base')
-    compile project(':db:transaction')
+    implementation project(':db:base')
+    implementation project(':db:transaction')
 
-    testCompile project(':runtime:test')
-    runtime hsqldb
-    testRuntime oracle
+    testImplementation project(':runtime:test')
+    runtimeOnly hsqldb
+    testRuntimeOnly oracle
 }

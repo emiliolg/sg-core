@@ -153,9 +153,9 @@ subprojects {
         jodaTime        = 'joda-time:joda-time:2.8.2'
         scribe          = 'com.github.scribejava:scribejava-apis:2.5.3'
 
-        commonAll       = 'com.tekgenesis:common-all:3.0.45-master'
-        commonTest      = 'com.tekgenesis:common-test:3.0.45-master'
-        commonGwt       = 'com.tekgenesis:common-core-gwt:3.0.45-master'
+        commonAll       = 'com.tekgenesis:sg-common:3.0.45-master'
+        commonTest      = 'com.tekgenesis:sg-common:3.0.45-master'
+        //commonGwt       = 'com.tekgenesis:common-core-gwt:3.0.45-master'
 
         awsDynamo       = 'com.amazonaws:aws-java-sdk-dynamodb:1.11.91'
         awsEc2          = 'com.amazonaws:aws-java-sdk-ec2:1.11.91'
@@ -180,20 +180,20 @@ subprojects {
 
 
     dependencies {
-        compile annotations
-        compile commonAll
-        testCompile junit
-        if (!excludeCommonTest(project)) {
-            testCompile commonTest
-        }
-        testCompile assertj
+        implementation annotations
+        implementation commonAll
+        testImplementation junit
+//        if (!excludeCommonTest(project)) {
+ //           testImplementation commonTest
+  //      }
+        testImplementation assertj
     }
     buildDir = new File(rootProject.projectDir, "target/" +projectDir.parentFile.name+"/"+project.name)
 
     sourceSets {
         main {
             compileClasspath += configurations.provided
-            output.resourcesDir = output.classesDir
+            output.resourcesDir = output.classesDirs.singleFile
 
             java {
                 exclude '**/gwtonly/**'
@@ -202,7 +202,7 @@ subprojects {
         test {
             compileClasspath += configurations.provided
             runtimeClasspath += configurations.provided
-            output.resourcesDir = output.classesDir
+            output.resourcesDir = output.classesDirs.singleFile
         }
     }
 
@@ -210,7 +210,7 @@ subprojects {
         sourceSets.main.output.resourcesDir = "/dev/null2"
     }
     jar.doLast {
-        sourceSets.main.output.resourcesDir = sourceSets.main.output.classesDir
+        sourceSets.main.output.resourcesDir = sourceSets.main.output.classesDirs.singleFile
     }
 
 
@@ -316,17 +316,19 @@ subprojects {
 
     def moduleName =  projectDir.parentFile.name+"-"+project.name
     task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
+        archiveClassifier.set("sources")
         from sourceSets.main.allSource
-        destinationDir new File(rootProject.projectDir, "target/sources")
-        archiveName  moduleName + "-src.jar"
+        destinationDirectory.set(new File(rootProject.projectDir, "target/sources"))
+        archiveFileName.set(moduleName + "-src.jar")
     }
 
     artifacts {
         archives sourcesJar
     }
 
-    jar.archiveName = moduleName+".jar"
+    jar {
+        archiveFileName.set(moduleName + ".jar")
+    }
     idea {
         module {
             excludeDirs += file('src/main/java/tekgenesis/gwtonly')

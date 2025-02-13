@@ -17,24 +17,24 @@ apply plugin : MMPlugin
 //tasks.mm.dependsOn(mmServices)
 
 dependencies {
-    compile project(':metadata:authorization')
-    compile project(':metadata:entity')
-    compile project(':metadata:form')
-    compile project(':metadata:type')
-    compile project(':db:entity')
-    compile project(':db:base')
-    compile project(':runtime:web')
-    compile project(':runtime:notification')
-    compile project(':runtime:mail')
-    compile project(':runtime:persistence')
-    compile project(':codegen:metamodel')
-    compile project(':codegen:base')
-    compile project(':parser:metamodel')
-    compile project(':runtime:task')
-    compile project(':projects:authorization')
-    compile apacheShiro
-    compile jackson
-    compile jacksonDataBind
-    compile gson
+    implementation project(':metadata:authorization')
+    implementation project(':metadata:entity')
+    implementation project(':metadata:form')
+    implementation project(':metadata:type')
+    implementation project(':db:entity')
+    implementation project(':db:base')
+    implementation project(':runtime:web')
+    implementation project(':runtime:notification')
+    implementation project(':runtime:mail')
+    implementation project(':runtime:persistence')
+    implementation project(':codegen:metamodel')
+    implementation project(':codegen:base')
+    implementation project(':parser:metamodel')
+    implementation project(':runtime:task')
+    implementation project(':projects:authorization')
+    implementation apacheShiro
+    implementation jackson
+    implementation jacksonDataBind
+    implementation gson
 }
 

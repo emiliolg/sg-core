@@ -1,10 +1,10 @@
 dependencies {
-    compile project(':db:entity')
-    compile project(':db:base')
-    compile project(':metadata:entity')
-    compile jackson
-    compile jacksonDataBind
-    compile javaxInject
-    compile slf4j
+    implementation project(':db:entity')
+    implementation project(':db:base')
+    implementation project(':metadata:entity')
+    implementation jackson
+    implementation jacksonDataBind
+    implementation javaxInject
+    implementation slf4j
 }
 

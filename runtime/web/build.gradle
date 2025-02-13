@@ -1,14 +1,14 @@
 dependencies {
-    compile project(':db:base')
-    compile project(':db:entity')
-    compile project(':metadata:authorization')
-    compile project(':metadata:builder')
-    compile project(':metadata:type')
-    compile project(':metadata:form')
-    compile project(':report:base')
-    compile javaxServlet
-    compile jackson
-    compile jacksonDataBind
-    compile jetty
-    compile thumbnailator
+    implementation project(':db:base')
+    implementation project(':db:entity')
+    implementation project(':metadata:authorization')
+    implementation project(':metadata:builder')
+    implementation project(':metadata:type')
+    implementation project(':metadata:form')
+    implementation project(':report:base')
+    implementation javaxServlet
+    implementation jackson
+    implementation jacksonDataBind
+    implementation jetty
+    implementation thumbnailator
 }

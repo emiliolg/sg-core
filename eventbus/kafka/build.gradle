@@ -1,7 +1,7 @@
 
 dependencies {
-    compile project(':eventbus:core')
-    compile project(':db:entity')
-    compile kafkaClient
-    testCompile project(':eventbus:core').sourceSets.test.output
+    implementation project(':eventbus:core')
+    implementation project(':db:entity')
+    implementation kafkaClient
+    testImplementation project(':eventbus:core').sourceSets.test.output
 }

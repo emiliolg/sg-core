@@ -5,32 +5,32 @@ configurations {
 }
 
 dependencies {
-    compile project(':db:entity')
-    compile project(':db:base')
-    compile project(':db:introspect')
-    compile project(':parser:common')
-    compile project(':parser:metamodel')
-    compile project(':plugin:common')
-    compile project(':plugin:jps')
-    compile project(':codegen:metamodel')
-    compile project(':codegen:base')
-    compile project(':metadata:util')
-    compile project(':metadata:form')
-    compile project(':metadata:type')
-    compile project(':metadata:entity')
-    compile project(':metadata:workflow')
-    compile project(':metadata:handler')
-    compile project(':metadata:builder')
-    compile project(':runtime:persistence')
-    compile project(':doc')
-    runtime project(':projects:authorization')
-    compile bingTranslate
+    implementation project(':db:entity')
+    implementation project(':db:base')
+    implementation project(':db:introspect')
+    implementation project(':parser:common')
+    implementation project(':parser:metamodel')
+    implementation project(':plugin:common')
+    implementation project(':plugin:jps')
+    implementation project(':codegen:metamodel')
+    implementation project(':codegen:base')
+    implementation project(':metadata:util')
+    implementation project(':metadata:form')
+    implementation project(':metadata:type')
+    implementation project(':metadata:entity')
+    implementation project(':metadata:workflow')
+    implementation project(':metadata:handler')
+    implementation project(':metadata:builder')
+    implementation project(':runtime:persistence')
+//    implementation project(':doc')
+    runtimeOnly project(':projects:authorization')
+    implementation bingTranslate
     provided fileTree(dir: '../ideaLibraries', include: '**/*.jar', exclude: '**/junit-*.jar')
-    compile fileTree(dir: '../lib', include: '**/*.jar')
+    implementation fileTree(dir: '../lib', include: '**/*.jar')
     if(Boolean.getBoolean("teamcity.inspections"))
-        compile fileTree(dir: '../ideaLibraries', include: '**/*.jar', exclude: '**/junit-*.jar')
-    testCompile project(':metadata:type')
-    testRuntime files("${System.properties['java.home']}/../lib/tools.jar")
+        implementation fileTree(dir: '../ideaLibraries', include: '**/*.jar', exclude: '**/junit-*.jar')
+    testImplementation project(':metadata:type')
+    testRuntimeOnly files("${System.properties['java.home']}/../lib/tools.jar")
 }
 
 test {
@@ -71,11 +71,11 @@ idea {
     }
 }
 
-def deps = project.configurations.runtime.files.findAll { f -> !f.absolutePath.contains("ideaLibraries")}
+def deps = project.configurations.runtimeClasspath.files.findAll { f -> !f.absolutePath.contains("ideaLibraries")}
 
 def classpath = ""
 
-project.configurations.compile.files.each {
+project.configurations.compileClasspath.files.each {
     classpath += it.getName()+";";
 }
 

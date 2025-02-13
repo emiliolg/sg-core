@@ -1,5 +1,5 @@
 dependencies {
-    compile project(':metadata:form')
-    compile project(':metadata:type')
-    compile gwtUser
+    implementation project(':metadata:form')
+    implementation project(':metadata:type')
+    implementation gwtUser
 }

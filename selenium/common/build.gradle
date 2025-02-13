@@ -1,14 +1,14 @@
 dependencies {
-    compile project(':runtime:test')
-    compile project(':server:core')
-    compile assertj
-    compile junit
-    compile (seleniumJava) {
+    implementation project(':runtime:test')
+    implementation project(':server:core')
+    implementation assertj
+    implementation junit
+    implementation (seleniumJava) {
         exclude group: 'org.webbitserver', module: 'webbit'
         exclude group: 'org.eclipse.jetty'
     }
-    compile jetty
-    compile jettyWebApp
+    implementation jetty
+    implementation jettyWebApp
 }
 
 

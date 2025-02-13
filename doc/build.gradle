@@ -19,13 +19,13 @@ import static org.pegdown.Extensions.ALL
 import static org.pegdown.Extensions.ANCHORLINKS
 
 dependencies {
-    compile project(':metadata:type')
-    compile pegdown
-    compile files('../plugin/ideaLibraries/annotations.jar')
-    compile project(':doc:samples:snippets')
-    compile project(':doc:samples:doc-project')
-    compile project(':doc:samples:invites')
-    testCompile project(':metadata:form')
+    implementation project(':metadata:type')
+    implementation pegdown
+    implementation files('../plugin/ideaLibraries/annotations.jar')
+    implementation project(':doc:samples:snippets')
+    implementation project(':doc:samples:doc-project')
+    implementation project(':doc:samples:invites')
+    testImplementation project(':metadata:form')
 }
 
 buildscript {

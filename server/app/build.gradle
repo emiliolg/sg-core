@@ -7,27 +7,27 @@ configurations {
     deploymentTestTrans { transitive = true}
 }
 dependencies {
-    compile project(':db:base')
-    compile project(':db:entity')
-    compile project(':db:transaction')
-    compile project(':server:core')
-    compile project(':runtime:persistence')
-    compile project(':runtime:task')
-    compile jetty
-    compile jettyWebApp
-    compile jettyJmx
-    compile spdyCore
-    compile (spdyJetty)  {
+    implementation project(':db:base')
+    implementation project(':db:entity')
+    implementation project(':db:transaction')
+    implementation project(':server:core')
+    implementation project(':runtime:persistence')
+    implementation project(':runtime:task')
+    implementation jetty
+    implementation jettyWebApp
+    implementation jettyJmx
+    implementation spdyCore
+    implementation (spdyJetty)  {
         exclude group: 'junit', module: 'junit'
     }
-    compile (spdyJettyHttp) {
+    implementation (spdyJettyHttp) {
         exclude group: 'junit', module: 'junit'
     }
-//    compile npnApi
-    compile alpnServer
+//    implementation npnApi
+    implementation alpnServer
     deployment alpnBoot
-    compile commonsCli
-    compile logback_classic
+    implementation commonsCli
+    implementation logback_classic
     deployment project(':projects:inbox')
     deployment project(':projects:console')
     deployment project(':ix:parser')
@@ -45,7 +45,7 @@ dependencies {
     deployment javaxAnnotation
     deployment asm
     deployment jettyPlus
-    compile jettyAnnotations
+    implementation jettyAnnotations
     deployment jettyJmx
     deploymentTest project(':runtime:test')
     deploymentTest project(':db:introspect')
@@ -59,11 +59,14 @@ dependencies {
     samples project(':samples:showcase')
 }
 
-def jettyJars = project.configurations.compile.files.findAll { f -> f.name.startsWith("jetty-") || f.name.startsWith("spdy") || f.name.startsWith("websocket")}
+def jettyJars = project.configurations.compileClasspath.files.findAll {
+    f -> f.name.startsWith("jetty-") || f.name.startsWith("spdy") || f.name.startsWith("websocket")
+}
+
 def jettyDeploymentJars = project.configurations.deployment.files.findAll { f -> f.name.startsWith("jetty-") || f.name.startsWith("spdy") || f.name.startsWith("websocket")}
 distributions {
     main {
-        baseName "suigeneris"
+        distributionBaseName.set("suigeneris")
         contents  {
 
             into '/'
@@ -140,8 +143,8 @@ distributions {
 
 task zipSymbolMaps(type: Zip) {
     from { project.buildDir.absolutePath + '/../../form/view/webapp/WEB-INF/deploy/sgforms/symbolMaps' }
-    destinationDir = new File(project.buildDir.absolutePath)
-    archiveName = 'symbolMaps.zip'
+    destinationDirectory.set(file(project.buildDir.absolutePath))
+    archiveFileName.set('symbolMaps.zip')
 }
 
 
@@ -192,6 +195,6 @@ apply plugin: 'maven-publish'
 
         }
         repositories {
-            add project.repositories.tekgenRepo
+        //    add project.repositories.tekgenRepo
         }
 }

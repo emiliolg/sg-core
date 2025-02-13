@@ -1,18 +1,18 @@
 import tekgenesis.plugin.mm.MMPlugin
 apply plugin : MMPlugin
 dependencies {
-    compile project(':runtime:web')
-    compile project(':runtime:metrics')
-    compile project(':server:cluster')
-    compile project(':metadata:authorization')
-    compile project(':metadata:entity')
-    compile project(':db:base')
-    compile project(':db:entity')
-    compile project(':db:transaction')
-    compile project(':codegen:metamodel')
-    compile javaMail
-    compile javaxInject
-    testCompile project(':runtime:test')
-    testCompile project(':runtime:persistence').sourceSets.main.output
-    testCompile project(':db:entity').sourceSets.test.output
+    implementation project(':runtime:web')
+    implementation project(':runtime:metrics')
+    implementation project(':server:cluster')
+    implementation project(':metadata:authorization')
+    implementation project(':metadata:entity')
+    implementation project(':db:base')
+    implementation project(':db:entity')
+    implementation project(':db:transaction')
+    implementation project(':codegen:metamodel')
+    implementation javaMail
+    implementation javaxInject
+    testImplementation project(':runtime:test')
+    testImplementation project(':runtime:persistence').sourceSets.main.output
+    testImplementation project(':db:entity').sourceSets.test.output
 }

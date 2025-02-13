@@ -3,9 +3,9 @@ import tekgenesis.plugin.mm.MMPlugin
 apply plugin : MMPlugin
 
 dependencies {
-    compile project(':db:base')
-    compile project(':db:entity')
-    compile project(':db:transaction')
-    compile project(':metadata:entity')
-    compile project(':codegen:metamodel')
+    implementation project(':db:base')
+    implementation project(':db:entity')
+    implementation project(':db:transaction')
+    implementation project(':metadata:entity')
+    implementation project(':codegen:metamodel')
 }

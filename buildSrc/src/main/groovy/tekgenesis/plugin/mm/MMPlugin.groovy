@@ -75,14 +75,14 @@ class MMPlugin implements Plugin<Project> {
 
             Jar servicesJar = project.getTasks().create("servicesJar", Jar.class);
             servicesJar.from(services.getOutput())
-            servicesJar.setClassifier('services')
-            servicesJar.setDestinationDir(new File(project.buildDir.absolutePath + "/services"))
+            servicesJar.archiveClassifier.set('services')
+            servicesJar.destinationDirectory.set(new File(project.buildDir.absolutePath + "/services"))
             servicesJar.dependsOn(project.compileServicesJava)
 
             Jar entitiesJar = project.getTasks().create("metamodelsJar", Jar.class);
             entitiesJar.from(getOutputDir(project, 'metamodels'))
-            entitiesJar.setClassifier('metamodels')
-            entitiesJar.setDestinationDir(new File(project.buildDir.absolutePath + "/metamodels"))
+            entitiesJar.archiveClassifier.set('metamodels')
+            entitiesJar.destinationDirectory.set(new File(project.buildDir.absolutePath + "/metamodels"))
             entitiesJar.dependsOn(project.compileMetamodelsJava)
 
             project.compileServicesJava.dependsOn(project.mmServices)
@@ -92,7 +92,7 @@ class MMPlugin implements Plugin<Project> {
 
             Jar servicesSrcJar = project.getTasks().create("servicesSourcesJar", Jar.class);
             servicesSrcJar.from(services.getAllSource())
-            servicesSrcJar.setClassifier('services-src')
+            servicesSrcJar.archiveClassifier.set('services-src')
 
 
             project.compileJava.dependsOn(project.mm)

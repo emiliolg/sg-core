@@ -1,16 +1,16 @@
 dependencies {
-    compile project(':db:base')
-    compile project(':db:cache')
-    compile project(':db:entity')
-    compile project(':db:transaction')
-    compile project(':metadata:entity')
-    compile project(':metadata:form')
-    compile project(':metadata:type')
-    compile project(':runtime:mail')
-    compile project(':runtime:persistence')
-    compile project(':runtime:task')
-    compile project(':server:cluster')
-    compile infinispan
-    compile jackson
-    compile jacksonDataBind
+    implementation project(':db:base')
+    implementation project(':db:cache')
+    implementation project(':db:entity')
+    implementation project(':db:transaction')
+    implementation project(':metadata:entity')
+    implementation project(':metadata:form')
+    implementation project(':metadata:type')
+    implementation project(':runtime:mail')
+    implementation project(':runtime:persistence')
+    implementation project(':runtime:task')
+    implementation project(':server:cluster')
+    implementation infinispan
+    implementation jackson
+    implementation jacksonDataBind
 }
