@@ -1,0 +1,2 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/EmptyPackage.mm
+(5, 6): Entity Entity2 has no attributes

@@ -1,0 +1,15 @@
+.arrows {
+	width: 17px;
+	height: 18px;
+    margin-right: 5px;
+    margin-top: 0;
+}
+
+.textBox {
+    width: 27px;
+    text-align: center;
+	font-family: sans-serif;
+    font-size: 11px !important;
+    margin-bottom: 0 !important;
+    margin-left: 5px;
+}

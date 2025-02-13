@@ -1,0 +1,9 @@
+<html sui-view="tekgenesis.sales.basic.service.Views" ng-app="site" sui-params="search : tekgenesis.sales.basic.service.Query">
+    <sui-include src="/http/test/head"/>
+    <body>
+        <span>Search <strong>{{search.q}}</strong> returned {{search.result.length}} matches.</span>
+        <div class="product" ng-repeat="product in search.result">
+            <span>({{product.productId}}) <strong>{{product.model}}</strong></span>
+        </div>
+    </body>
+</html>

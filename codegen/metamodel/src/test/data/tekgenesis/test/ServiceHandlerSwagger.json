@@ -1,0 +1,191 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "ServiceHandler",
+    "description" : "Service"
+  } ],
+  "paths" : {
+    "/" : {
+      "get" : {
+        "tags" : [ "ServiceHandler" ],
+        "summary" : "",
+        "operationId" : "all",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/tekgenesis.test.Product"
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "ServiceHandler" ],
+        "summary" : "",
+        "operationId" : "create",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "$ref" : "#/definitions/tekgenesis.test.Product"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    },
+    "/{id}" : {
+      "get" : {
+        "tags" : [ "ServiceHandler" ],
+        "summary" : "",
+        "operationId" : "get",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "$ref" : "#/definitions/tekgenesis.test.Product"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "ServiceHandler" ],
+        "summary" : "",
+        "operationId" : "update",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "$ref" : "#/definitions/tekgenesis.test.Product"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    },
+    "/list/{id}" : {
+      "get" : {
+        "tags" : [ "ServiceHandler" ],
+        "summary" : "",
+        "operationId" : "list",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "$ref" : "#/definitions/tekgenesis.test.ProductList"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "tekgenesis.test.Product" : {
+      "type" : "object",
+      "description" : "Product",
+      "properties" : {
+        "productId" : {
+          "description" : "Id",
+          "type" : "string",
+          "default" : "\"xyz\""
+        },
+        "model" : {
+          "description" : "Model No.",
+          "type" : "string"
+        },
+        "description" : {
+          "description" : "Description",
+          "type" : "string"
+        },
+        "price" : {
+          "description" : "Price",
+          "type" : "number",
+          "format" : "double",
+          "minimum" : 0.0
+        },
+        "serial" : {
+          "description" : "Serial No.",
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0.0,
+          "default" : "2000000"
+        },
+        "created" : {
+          "description" : "Created",
+          "type" : "string",
+          "format" : "date-time"
+        }
+      },
+      "required" : [ "model", "price", "created" ]
+    },
+    "tekgenesis.test.ProductList" : {
+      "type" : "object",
+      "description" : "Product List",
+      "properties" : {
+        "id" : {
+          "description" : "List Id",
+          "type" : "string"
+        },
+        "products" : {
+          "description" : "Products",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/tekgenesis.test.Product"
+          }
+        }
+      },
+      "required" : [ "id", "products" ]
+    }
+  }
+}

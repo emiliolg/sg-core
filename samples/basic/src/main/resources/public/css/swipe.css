@@ -1,0 +1,201 @@
+html, body { height:100%; }
+
+body {
+	padding:0;
+	margin:0;
+	background:#333;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	-o-user-select:none;
+	user-select:none;
+	-webkit-text-size-adjust:none;
+	-moz-text-size-adjust:none;
+	-ms-text-size-adjust:none;
+	-o-text-size-adjust:none;
+	text-size-adjust:none;
+	/*color:#eee;*/
+	font-family:helvetica;
+	font-size:12px;
+}
+
+.form {
+	width:100%;
+	min-width:320px;
+	height:100%;
+}
+
+.center {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+
+    display: -moz-box;
+    -moz-box-orient: horizontal;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+
+    display: box;
+    box-orient: horizontal;
+    box-pack: center;
+    box-align: center;
+
+    width: 100%;
+
+    position: fixed;
+    z-index:100;
+}
+
+#nav {
+	height:37px;
+    background:rgba(0,0,0,0.75);
+	padding:0;
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	-ms-border-radius:10px;
+	-o-border-radius:10px;
+	border-radius:10px;
+}
+
+#nav li {
+	display:block;
+	float:left;
+	width:30px;
+	height:30px;
+    line-height:14px;
+	-webkit-border-radius:7px;
+	-moz-border-radius:7px;
+	-ms-border-radius:7px;
+	-o-border-radius:7px;
+	border-radius:7px;
+	background:rgba(255,255,255,0.1);
+	overflow:hidden;
+	padding:0;
+	margin:3px 11px 0 0;
+	text-align:center;
+    color: #eee;
+}
+
+#nav li#prev {
+	margin-left:5px;
+	background:transparent;
+}
+
+#nav li#next {
+	margin-right:0;
+	background:transparent;
+}
+
+#nav li.selected {
+    border: 1px solid #da0000;
+}
+
+#swipeview-slider > div {
+	position:relative;
+	display:-webkit-box;
+	display:-moz-box;
+	display:-ms-box;
+	display:-o-box;
+	display:box;
+	-webkit-box-orient:vertical;
+	-moz-box-orient:vertical;
+	-ms-box-orient:vertical;
+	-o-box-orient:vertical;
+	box-orient:vertical;
+	-webkit-box-pack:center;
+	-moz-box-pack:center;
+	-ms-box-pack:center;
+	-o-box-pack:center;
+	box-pack:center;
+	-webkit-box-align:center;
+	-mox-box-align:center;
+	-ms-box-align:center;
+	-o-box-align:center;
+	box-align:center;
+	overflow:hidden;
+}
+
+#swipeview-slider span {
+	position:absolute;
+	bottom:0;
+	left:0;
+	width:100%;
+	padding:20px 0;
+	display:block;
+	background:rgba(0,0,0,0.75);
+	font-size:20px;
+	text-align:center;
+	text-shadow:0 1px 0 #000;
+	border-top:1px solid rgba(255,255,255,0.2);
+	-webkit-border-top-left-radius:10px;
+	-moz-border-top-left-radius:10px;
+	-ms-border-top-left-radius:10px;
+	-o-border-top-left-radius:10px;
+	border-top-left-radius:10px;
+	-webkit-border-top-right-radius:10px;
+	-moz-border-top-right-radius:10px;
+	-ms-border-top-right-radius:10px;
+	-o-border-top-right-radius:10px;
+	border-top-right-radius:10px;
+	-webkit-transition-duration:.3s;
+	-moz-transition-duration:.3s;
+	-ms-transition-duration:.3s;
+	-o-transition-duration:.3s;
+	transition-duration:.3s;
+	-webkit-transition-property:-webkit-transform;
+	-moz-transition-property:-moz-transform;
+	-ms-transition-property:-ms-transform;
+	-o-transition-property:-o-transform;
+	transition-property:transform;
+	-webkit-transform:translate(0,100%) translateZ(0);
+	-moz-transform:translate(0,100%) translateZ(0);
+	-ms-transform:translate(0,100%);
+	-ms-transform:translate(0,100%) translateZ(0);
+	-o-transform:translate(0,100%);
+	-o-transform:translate(0,100%) translateZ(0);
+	transform:translate(0,100%) translateZ(0);
+}
+
+#swipeview-slider .swipeview-active span {
+	-webkit-transform:translate(0,0) translateZ(0);
+	-moz-transform:translate(0,0) translateZ(0);
+	-ms-transform:translate(0,0);
+	-ms-transform:translate(0,0) translateZ(0);
+	-o-transform:translate(0,0);
+	-o-transform:translate(0,0) translateZ(0);
+	transform:translate(0,0) translateZ(0);
+    color: #eee;
+}
+
+.swipeview-loading {
+    background-image: url("/public/img/g-loading-color.png");
+    background-size: 320px 234px;
+    background-position:50% 50%, 50% 50%;
+    background-repeat:no-repeat;
+}
+
+.swipeview-loading div,
+#swipeview-slider div.loading {
+	-webkit-transition-duration:0s;
+	opacity:0;
+}
+
+div.loaded {
+    width:700px; height:680px; overflow:auto; background-color:white; padding:20px;
+}
+
+.swipeview-loading span {
+	-webkit-transition-duration:0s;
+	-moz-transition-duration:0s;
+	-ms-transition-duration:0s;
+	-o-transition-duration:0s;
+	transition-duration:0s;
+	-webkit-transform:translate(0,100%) translateZ(0);
+	-moz-transform:translate(0,100%) translateZ(0);
+	-ms-transform:translate(0,100%);
+	-ms-transform:translate(0,100%) translateZ(0);
+	-o-transform:translate(0,100%);
+	-o-transform:translate(0,100%) translateZ(0);
+	transform:translate(0,100%) translateZ(0);
+}

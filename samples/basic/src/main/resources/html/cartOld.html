@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/external/js/jquery-2.2.4.min.js"></script>
+    <script src="/sg/js/static/sg-forms.nocache.js"></script>
+
+    <script>
+    var form;
+    $(document).ready(function() {
+        $.getJSON('api/tekgenesis.sales.cart.Products', function(data) {
+            var products = data.products;
+            var table = '<table class="table table-striped">';
+            table += '<thead><tr><th>Product Id</th><th>Image</th><th>Model</th><th>Category</th><th>Description</th><th>Price</th></tr></thead>';
+
+            $.each(data.products, function (index, product) {
+                var disabled = product.active == 'false' ? 'disabled="disabled"' : '';
+                table += '<tr>' +
+                        '<td>'+product.productId+'</td>' +
+                        '<td><img width="30px" height="30px" src="/sg/resource?id='+product.image+'"></img></td>' +
+                        '<td><a href="javascript:edit(' + product.productId + ');">'+product.model+'</a></td>' +
+                        '<td>'+product.category+'</td>' +
+                        '<td>'+product.description+'</td>' +
+                        '<td>'+product.price+'</td>' +
+                        '<td style="text-align:right">' +
+                        '<button type="button" '+ disabled +' class="btn btn-primary" onclick="addToCart('+product.productId+');">Add to Cart</button>' +
+                        '</td>' +
+                        '</tr>';
+            });
+
+            table += '</table>';
+            $("#products").html(table);
+        });
+
+        form = $('#form').form();
+
+        form.addListener({
+
+            onUnload : function() { console.log("Canceled!!!"); },
+
+            onLoad : function(fqn, pk) { console.log(fqn + " with pk: " + pk + " loaded!!!"); },
+
+            onError : function(msg) { console.error("Error: " + msg); }
+
+        });
+    });
+
+    function edit(productId) { form.load('tekgenesis.sales.basic.ProductForm', ""+productId); }
+
+    function addToCart(productId) {
+        var json = { api : true, product : productId };
+        $.post('api/tekgenesis.sales.cart.AddToCart?_return=amount', JSON.stringify(json),
+                function(data)
+                {
+                    var amount = $("#amount");
+                    amount.empty();
+                    amount.append("<strong>" + data.amount + "</strong>");
+                }, "json");
+    }
+
+    function showCart() {
+        form.load('tekgenesis.sales.cart.CartForm');
+    }
+    </script>
+</head>
+
+<body>
+<div id="cart" class="container-fluid pull-right">
+    <img src="public/img/cart.png" onclick="showCart();" style="cursor: pointer;"/>
+    <div id="amount" class="badge badge-important" style="text-align: center">0</div>
+</div>
+<div id="products" class="container-fluid"></div>
+<div id="form" style="padding: 50px;"></div>
+</body>
+</html>

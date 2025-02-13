@@ -1,0 +1,13 @@
+package tekgenesis.test;
+
+
+/** User class for Task: LifecycleServerTask */
+public class LifecycleServerTask
+    extends LifecycleServerTaskBase
+{
+    //~ Methods ..................................................................................................................
+
+    /** Execute Task */
+    @Override public void execute() { throw new IllegalStateException("To be implemented"); }
+
+}

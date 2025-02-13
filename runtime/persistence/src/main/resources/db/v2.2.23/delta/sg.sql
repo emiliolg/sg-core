@@ -1,0 +1,1 @@
+alter table TableName(SG,RESOURCE_INDEX) add INFO clob;;

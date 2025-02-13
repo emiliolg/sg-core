@@ -1,0 +1,13 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/Form.mm
+(37, 10): Cannot resolve symbol 'sexman'
+(48, 34): Adding duplicate field print to permissions
+(50, 35): Cannot resolve symbol 'Decimaal'
+(53, 35): Cannot resolve symbol 'Seax'
+(67, 7): Cannot resolve symbol 'sex'
+(75, 22): Permission 'Create' is one of the predefined permissions (read, query, create, update, delete, handle_deprecated).
+(75, 30): Permission 'CREATE' is one of the predefined permissions (read, query, create, update, delete, handle_deprecated).
+(75, 38): Permission 'create' is one of the predefined permissions (read, query, create, update, delete, handle_deprecated).
+(81, 15): Invalid value 'invalid' for option 'button_type'
+(90, 16): Invalid value 'invalid' for option 'tab_type'
+(91, 21): Illegal value '[list]' for argument #2 in widget type 'tabs'.
+(74, 29): Save button '$B5' does not support argument 'invalid'

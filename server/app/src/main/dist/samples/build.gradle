@@ -1,0 +1,59 @@
+plugins {
+    id "tekgenesis.mm" version "0.3.2"
+}
+
+apply plugin: 'idea'
+
+idea {
+    project {
+        //if you want to set specific jdk and language level
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+    module {
+        excludeDirs += file('suigeneris')
+    }
+}
+
+tekgenesis {
+    url = "rsync://git.tekgenesis.com:/home/git/dists"
+    token = "LrPYxFbMUNjDWRoY2HkSO13MmVNgvPZtlPhfJb/lQvk="
+    dependencies {
+        suigeneris "com.tekgenesis:suigeneris:3.0.11137-master"
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.6'
+}
+
+
+subprojects {
+
+    repositories {
+        mavenCentral()
+    }
+
+    ext {
+        jsoup		= 'org.jsoup:jsoup:1.7.2'
+        javaxMail   = 'javax.mail:mail:1.4.7'
+        restFB   = 'com.restfb:restfb:1.6.14'
+        annotations = 'com.intellij:annotations:9.0.4'
+    }
+
+    configurations {
+        provided
+    }
+
+    dependencies {
+        provided annotations
+    }
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'tekgenesis.mm'
+
+    buildDir = new File(rootProject.projectDir, "target/"+project.name)
+
+    jar.archiveName = project.name+".jar"
+
+}

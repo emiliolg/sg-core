@@ -1,0 +1,7 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/Form.mm
+Total Errors: 5
+(50, 36): Unexpected '('.
+(93, 52): Expecting ':', but ""Faltan los :"" found.
+(94, 50): Expecting "STRING_LITERAL", but 'inliiinnee' found.
+(95, 57): Expecting "STRING_LITERAL", but 'errrrooorr' found.
+(96, 61): Expecting "STRING_LITERAL", but 'pepepe' found.

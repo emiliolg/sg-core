@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.admin.sg.Views" sg-params="notices : tekgenesis.admin.notice.Advice*">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Notices found</title>
+</head>
+<body>
+<h3>Notices</h3>
+<table>
+    <tr style="background-color: #7BA0B1">
+        <td>Created</td>
+        <td>Level</td>
+        <td>Description</td>
+    </tr>
+
+    {{#notices}}
+        <tr>
+            <td>{{this.creationTime}}</td>
+            <td>{{this.level}}</td>
+            <td>{{this.description}}</td>
+        </tr>
+    {{/notices}}
+</table>
+</body>
+</html>

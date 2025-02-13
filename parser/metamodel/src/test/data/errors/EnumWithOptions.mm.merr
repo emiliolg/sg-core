@@ -1,0 +1,7 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/EnumWithOptions.mm
+(7, 45): Extra value  '"extra"' for Enum 'tekgenesis.sales.basic.DocumentType'
+(8, 8): Missing value for field 'local' in Enum 'tekgenesis.sales.basic.DocumentType'
+(2, 17): Incompatible types, required 'Int' but found 'String(7)'
+(2, 17): Incompatible types, required 'Int' but found 'String(7)'
+(2, 17): Incompatible types, required 'Int' but found 'String(7)'
+(2, 17): Incompatible types, required 'Int' but found 'String(7)'

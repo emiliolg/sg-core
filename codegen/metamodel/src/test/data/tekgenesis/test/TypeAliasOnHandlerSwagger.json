@@ -1,0 +1,81 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "TypeAliasOnHandler",
+    "description" : "Type Alias On"
+  } ],
+  "paths" : {
+    "/stringAlias" : {
+      "post" : {
+        "tags" : [ "TypeAliasOnHandler" ],
+        "summary" : "",
+        "operationId" : "stringAlias",
+        "consumes" : [ "text/plain" ],
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Payload body",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "type" : "string"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    },
+    "/stringAliasArray" : {
+      "post" : {
+        "tags" : [ "TypeAliasOnHandler" ],
+        "summary" : "",
+        "operationId" : "stringAliasArray",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Payload body",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "type" : "string"
+              }
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : { }
+}

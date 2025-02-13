@@ -1,0 +1,6 @@
+package catalog;
+
+entity Minuscula "Minuscula"
+{
+   name  "name" : String(50);
+}

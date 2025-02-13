@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views" sg-params="text:String, number:Int, decimal:Decimal, bool:Boolean, list:String*">
+  <head>
+    <title>Parameters examples</title>
+  </head>
+  <body>
+    <div>Text: text</div>
+    <div>Number: 2</div>
+    <div>Decimal: 1.1</div>
+    <div>Currency: $1.10</div>
+    <div>Bool: true</div>
+    <div>String list: (one, two, three)</div>
+  </body>
+</html>

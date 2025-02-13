@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="tekgenesis.lang.mm.settings.MMInternationalizeSettings">
+  <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="590" height="400"/>
+    </constraints>
+    <properties>
+      <background color="-1118482"/>
+      <opaque value="true"/>
+      <visible value="true"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <tabbedpane id="39317" binding="tabbedPane1" default-binding="true">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="5472e" binding="languagePanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Languages"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <grid id="da47f" binding="currentLanguagePanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <focusCycleRoot value="false"/>
+                  <focusTraversalPolicyProvider value="false"/>
+                  <inheritsPopupMenu value="false"/>
+                </properties>
+                <border type="line" title="Translate To">
+                  <title-color swing-color="Label.foreground"/>
+                  <color system-color="windowBorder"/>
+                </border>
+                <children>
+                  <scrollpane id="33ab7">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="8bfc5" class="javax.swing.JList" binding="languageList">
+                        <constraints/>
+                        <properties>
+                          <background system-color="window"/>
+                          <enabled value="true"/>
+                          <model/>
+                          <selectionMode value="2"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                  <toolbar id="97519">
+                    <constraints border-constraint="North"/>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </toolbar>
+                </children>
+              </grid>
+              <grid id="237c6" binding="addLanguagePanel" layout-manager="GridBagLayout">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <background system-color="window"/>
+                  <focusCycleRoot value="false"/>
+                  <font swing-font="ToggleButton.font"/>
+                  <inheritsPopupMenu value="false"/>
+                </properties>
+                <border type="line" title="Add Other Languages">
+                  <title-color swing-color="Label.foreground"/>
+                  <color system-color="windowBorder"/>
+                </border>
+                <children>
+                  <component id="516d7" class="javax.swing.JComboBox" binding="translateToOthersComboBox">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="5" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="1.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <model/>
+                    </properties>
+                  </component>
+                  <component id="6b78d" class="javax.swing.JButton" binding="addLangButton">
+                    <constraints>
+                      <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="1.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Add"/>
+                    </properties>
+                  </component>
+                  <component id="cd65e" class="javax.swing.JButton" binding="defaultButton">
+                    <constraints>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <text value="Default"/>
+                    </properties>
+                  </component>
+                  <component id="5db65" class="javax.swing.JButton" binding="removeButton">
+                    <constraints>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <gridbag weightx="0.0" weighty="0.0"/>
+                    </constraints>
+                    <properties>
+                      <enabled value="false"/>
+                      <text value="Remove"/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="da64d" layout-manager="BorderLayout" hgap="0" vgap="0">
+                <constraints border-constraint="North"/>
+                <properties/>
+                <border type="line" title="Translate From">
+                  <title-color swing-color="Label.foreground"/>
+                  <color system-color="windowBorder"/>
+                </border>
+                <children>
+                  <component id="3e5e9" class="javax.swing.JComboBox" binding="translateFromComboBox">
+                    <constraints border-constraint="Center"/>
+                    <properties/>
+                  </component>
+                </children>
+              </grid>
+            </children>
+          </grid>
+          <grid id="45901" binding="setKeysPanel" layout-manager="FormLayout">
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:37px:noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <rowspec value="top:3dlu:noGrow"/>
+            <rowspec value="center:max(d;4px):noGrow"/>
+            <colspec value="fill:92px:noGrow"/>
+            <colspec value="left:4dlu:noGrow"/>
+            <colspec value="fill:max(d;4px):noGrow"/>
+            <colspec value="left:4dlu:noGrow"/>
+            <colspec value="fill:342px:noGrow"/>
+            <colspec value="left:4dlu:noGrow"/>
+            <colspec value="fill:d:grow"/>
+            <constraints>
+              <tabbedpane title="Set Keys"/>
+            </constraints>
+            <properties/>
+            <border type="line" title="Set Keys">
+              <title-color swing-color="Label.foreground"/>
+              <color system-color="windowBorder"/>
+            </border>
+            <children>
+              <component id="72ca8" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms/>
+                </constraints>
+                <properties>
+                  <text value="Client Id"/>
+                </properties>
+              </component>
+              <component id="cf9c4" class="javax.swing.JTextField" binding="clientIdField">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                  <forms defaultalign-horz="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="56da" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms/>
+                </constraints>
+                <properties>
+                  <text value="Client Secret"/>
+                </properties>
+              </component>
+              <component id="f8bd4" class="javax.swing.JTextField" binding="clientSecretField">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="5" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                  <forms defaultalign-horz="false"/>
+                </constraints>
+                <properties/>
+              </component>
+              <component id="2ba22" class="javax.swing.JButton" binding="testButton" default-binding="true">
+                <constraints>
+                  <grid row="4" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-horz="false"/>
+                </constraints>
+                <properties>
+                  <text value="Test"/>
+                </properties>
+              </component>
+              <component id="6052f" class="javax.swing.JButton" binding="helpButton" default-binding="true">
+                <constraints>
+                  <grid row="6" column="4" row-span="1" col-span="3" vsize-policy="0" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms defaultalign-horz="false" defaultalign-vert="false"/>
+                </constraints>
+                <properties>
+                  <text value="Help Me!!"/>
+                </properties>
+              </component>
+              <component id="cf57e" class="javax.swing.JLabel" binding="testLabel">
+                <constraints>
+                  <grid row="4" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <forms/>
+                </constraints>
+                <properties>
+                  <enabled value="true"/>
+                  <text value="Label"/>
+                  <visible value="false"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
+  </grid>
+</form>

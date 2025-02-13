@@ -1,0 +1,13 @@
+package tekgenesis.test;
+
+
+/** User class for Task: ScheduleSimpleTask */
+public class ScheduleSimpleTask
+    extends ScheduleSimpleTaskBase
+{
+    //~ Methods ..................................................................................................................
+
+    /** Execute Task */
+    @Override public void execute() { throw new IllegalStateException("To be implemented"); }
+
+}

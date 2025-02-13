@@ -1,0 +1,20 @@
+{
+  "idKey" : 1,
+  "invoiceDate" : 1356998400000,
+  "customer" : "tekgenesis.sales.basic.Customer/DNI:28808366:M",
+  "disc" : 10,
+  "items" : [ {
+    "product" : "tekgenesis.sales.basic.Product/Nexus7",
+    "unit" : 2048.00,
+    "quantity" : 1,
+    "discount" : 0,
+    "total" : 2048.00
+  } ],
+  "subtotal" : 2048.00,
+  "payments" : [ {
+    "type" : "CASH",
+    "payment" : "tekgenesis.sales.basic.PaymentType/1",
+    "amount" : 2048.00
+  } ],
+  "received" : 2048.00
+}

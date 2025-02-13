@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e -u
+
+BASEDIR=$(dirname $BASH_SOURCE)/..
+echo '====================================================================================='
+echo 'Starting Forwarder. In a near future this forwarder should be started in Genesis host'
+echo '====================================================================================='
+nohup java -jar $BASEDIR/build/libs/webproxy.jar forward ws://dereversamami:9090/backend http://gentest.garba.com.ar > /tmp/forwarder.output 2>&1 &

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" sui-scope="/html/sui-params.xhtml/0">
+    <head>
+    </head>
+    <body>
+    
+<script class="suiScopesCache">
+//<![CDATA[
+var suiScopesCache = {"/html/sui-params.xhtml/0":{"a":"Value 'a'","b":"Value 'b'","c":{"productId":"product.id","model":"Some model","description":"Some description with \"quoted\" words.","price":89.99,"created":"2014-01-31T03:00:00Z"}}};
+//]]>
+</script>
+</body>
+</html>

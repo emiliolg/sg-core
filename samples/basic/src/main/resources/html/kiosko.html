@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+        <!-- Standard iPhone -->
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/public/sg/img/apple-touch-icon-iphone.png" />
+        <!-- Retina iPhone -->
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/public/sg/img/apple-touch-icon-iphone.png" />
+        <!-- Standard iPad -->
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/public/sg/img/apple-touch-icon-ipad.png" />
+        <!-- Retina iPad -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/sg/img/apple-touch-icon-ipad.png" />
+
+        <script src="/external/js/jquery-2.2.4.min.js"></script>
+        <script src="/sg/js/sg-forms.nocache.js"></script>
+        <script src="/public/js/swipeview.js"></script>
+
+        <link rel="stylesheet" href="/public/css/swipe.css" id="swipe"/>
+
+        <!--
+        <link rel="apple-touch-startup-image"
+              href="/img/ipad-landscape-retina.png"/>"
+              media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) and (-webkit-min-device-pixel-ratio: 2)" />
+
+        <link href="/img/ipad-portrait-retina.png"/>"
+              media="(device-width: 1536px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+
+        <link href="/img/ipad-landscape-retina.png"/>"
+              media="(device-width: 1536px)  and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)"
+              rel="apple-touch-startup-image">
+        -->
+
+        <script type="text/javascript">
+            var boxit = function(div, productid) { //Init box.
+                var form = $(div).form( {focusOnLoad:false} );
+
+                form.addListener({ onLoad:function (fqn, pk) { div.className = 'loaded'; } });
+
+                form.load('tekgenesis.sales.cart.ProductDetail', productid);
+            };
+            var gallery;
+
+            $(document).ready(function() {
+                $.getJSON('api/tekgenesis.sales.cart.Products?_return=productId&_return=image&_return=description', function(data) {
+                    //products retrieved.
+                    var products = data.products;
+
+                    //build nav.
+                    var navHtml = '<li id="prev" style="cursor: pointer; margin-left: 0; margin-top: 10px;" onclick="gallery.prev()">-</li>';
+                    navHtml += '<li class="selected" style="cursor: pointer;" onclick="gallery.goToPage(0)"><img width="30px" height="30px" src="/sg/resource?id='+products[0].image+'"></li>';
+                    for (var p = 1 ; p < products.length; p++) {
+                        navHtml += '<li style="cursor: pointer;" onclick="gallery.goToPage(' + p + ')"><img width="30px" height="30px" src="/sg/resource?id='+products[p].image+'"></li>';
+                    }
+                    navHtml += '<li id="next" style="cursor: pointer; margin-top: 10px;" onclick="gallery.next()">+</li>';
+                    $("#nav").html(navHtml);
+
+                    var dots = document.querySelectorAll('#nav li');
+
+                    //init swipe view gallery on forms div.
+                    gallery = new SwipeView('#forms', { numberOfPages:products.length }); //hastyPageFlip:true
+
+                    //initial load.
+                    for (var i = 0 ; i < 3; i++) {
+                        //right page computation. (last - 0 - 1).
+                        var page = i == 0 ? products.length - 1 : i - 1;
+
+                        var div = document.createElement('div');
+                        div.id = 'form'+i;
+                        div.className = 'loading';
+
+                        //add form to the gallery.
+                        gallery.masterPages[i].appendChild(div);
+
+                        boxit(div, products[page].productId);
+
+                        var desc = document.createElement('span');
+                        desc.innerHTML = products[page].description;
+                        gallery.masterPages[i].appendChild(desc);
+                    }
+
+                    gallery.onFlip(function () {
+                        var upcoming;
+                        document.querySelector('#nav .selected').className = '';
+                        dots[gallery.pageIndex+1].className = 'selected';
+
+                        for (var i = 0; i < 3; i++) {
+                            upcoming = gallery.masterPages[i].dataset.upcomingPageIndex;
+
+                            if (upcoming != gallery.masterPages[i].dataset.pageIndex) {
+                                var box = $('#form'+i);
+                                box.className = 'loading';
+                                box.form().load('tekgenesis.sales.cart.ProductDetail', products[upcoming].productId);
+                                var desc = gallery.masterPages[i].querySelector('span');
+                                desc.innerHTML = products[upcoming].description;
+                            }
+                        }
+                    });
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="center">
+            <ul id="nav"></ul>
+        </div>
+        <div id="forms"></div>
+    </body>
+</html>

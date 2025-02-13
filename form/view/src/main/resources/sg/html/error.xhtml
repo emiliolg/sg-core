@@ -1,0 +1,74 @@
+<html sui-view="tekgenesis.admin.sg.Views" sui-params="title, code, message, errorMessage, whereErrorMessage, devModeStyle, notFound,
+    lastTriedRoutes: String*, errorLines: String*, errorContents: String*, errorClasses: String*" ng-app="App">
+<head>
+    <title>@title</title>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="@Sha(/sg/img/favicon.png)"/>
+    <link rel="stylesheet" type="text/css" href="@Sha(/sg/css/error.css)"/>
+
+    <script src="/external/js/jquery-2.2.4.min.js"></script>
+    <script src="/external/js/angular-1.5.5.min.js"></script>
+    <script src="@Sha(/sg/js/sui-module.js)"></script>
+
+    <script>
+        angular.module('App', ['sui']).controller('ErrorCtrl', function($scope) { });
+    </script>
+</head>
+<body ng-controller="ErrorCtrl">
+<div class="error-image">
+    <div>
+        <img alt="" src="@Sha(/sg/img/field.jpeg)" class="field"/>
+    </div>
+    <div class="content">
+
+        <div class="text">
+            <p class="error-code">@code</p>
+            <p class="error-text">@message</p>
+        </div>
+
+        <img alt="" src="@Sha(/sg/img/doht.png)" class="homer"/>
+
+    </div>
+</div>
+
+<div class="error-description" style="display: @devModeStyle;">
+    <div class="header">
+        <h3>Developer Mode</h3>
+    </div>
+
+    <div class="exception">
+        <h1>@errorMessage</h1>
+        <h2>@whereErrorMessage</h2>
+        <div></div>
+        <h2>Caused by:</h2>
+        <div>
+            <pre ng-repeat="line in errorLines" onclick="document.getElementById('stack-image-href').src='http://127.0.0.1:63330/file?file={{errorClasses[$index]}}&amp;line={{line}}'">
+                <span class="line">{{$index}}</span>
+                <span class="code">{{errorContents[$index]}}</span>
+            </pre>
+            <img id="stack-image-href" src=""/>
+        </div>
+    </div>
+</div>
+
+<div class="error-description" style="display: @notFound;">
+    <div class="header">
+        <h3>Developer Mode</h3>
+    </div>
+
+    <div class="exception">
+        <h1>404 Page Not Found</h1>
+        <h2>Could not find what you're looking for!</h2>
+        <div></div>
+        <h2>Routes that were tried:</h2>
+        <div>
+            <pre ng-repeat="route in lastTriedRoutes">
+                <span class="line">{{$index}}</span>
+                <span class="code">{{route}}</span>
+            </pre>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

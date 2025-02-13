@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views">
+    <head>
+      <title>Parent Template</title>
+    </head>
+    <body>
+      <h1>Include</h1>
+      <h2>Child Template</h2>
+    </body>
+</html>

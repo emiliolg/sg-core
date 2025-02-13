@@ -1,0 +1,10 @@
+CATALOGO=MCatalogo
+UMEDIDA=UnidadMedida
+FAMILIA
+CODIFICA:mtime
+MARCA
+STOCK:fecult,mtime=Stock
+VALART
+OPERADOR
+BAJAS
+CMPSUC:fechad,fechah=CmpSucursal

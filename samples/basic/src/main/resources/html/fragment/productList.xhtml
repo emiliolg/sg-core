@@ -1,0 +1,22 @@
+<div sui-view="tekgenesis.sales.sui.Views" sui-params="products : tekgenesis.sales.basic.service.Product*">
+    <h1>{{productList.title}}</h1>
+
+    <!-- CATEGORIES BREADCRUMB -->
+    <div itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb"
+              ng-repeat="category in productList.path">
+            <a ng-href="http://www.garbarino.com/{{category.pathId}}" title="{{category.pathDescription}}" itemprop="url">
+                <span itemprop="title">{{category.pathDescription}}</span>
+            </a>
+        </span>
+    </div>
+
+    <ul>
+        <li ng-repeat="product in products">
+            <a ng-href="#/product/{{product.id}}/{{product.description}}/{{product.price}}">
+                {{product.description}}
+            </a>
+        </li>
+    </ul>
+
+</div>

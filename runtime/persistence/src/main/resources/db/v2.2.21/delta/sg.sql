@@ -1,0 +1,1 @@
+drop table TableName(SG, TASK_RUNNING);;

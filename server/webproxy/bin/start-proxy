@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e -u
+
+BASEDIR=$(dirname $BASH_SOURCE)/..
+
+nohup java -jar $BASEDIR/build/libs/webproxy.jar proxy > /tmp/webproxy.output 2>&1 &

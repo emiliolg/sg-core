@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views">
+  <head>
+    <title>Tags examples</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown"><a id="userDropdown" class="dropdown-toggle user-dropdown"><span id="sg-user-name" data-sg-type="userName" data-sg-config="{&quot;picture&quot;:true, &quot;username&quot;:false}"></span></a>
+            <ul id="userOptions" class="dropdown-menu">
+              <li id="sg-user-profile" data-sg-type="userProfile"></li>
+              <li id="sg-shortcuts" data-sg-type="shortcuts"></li>
+              <li class="divider"></li>
+              <li id="sg-change-ou" data-sg-type="changeOu"></li>
+              <li id="sg-switch-user" data-sg-type="switchUser"></li>
+              <li id="sg-logout" data-sg-type="logout"></li>
+            </ul>
+          </li>
+          <li id="sg-fullscreen" data-sg-type="fullscreen"></li>
+        </ul>
+        <div class="navbar-header"><a id="sg-toggle-menu" data-sg-type="toggleMenu"></a><a href="/" class="navbar-brand">TekGenesis</a></div>
+        <div class="navbar-collapse collapse push-overlay-nav">
+          <div id="sg-menu" data-sg-type="menu" data-sg-config="{&quot;position&quot;:&quot;top&quot;}"></div>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div id="sg-form" data-sg-type="form" data-sg-config="{&quot;history&quot;:true}"></div>
+    </div>
+<link rel='stylesheet' href='/public/sg/css/suigeneris.css'/>
+<link rel='stylesheet' href='/sha/public/css/forms.css/fc1c7ef8dd'/>
+<script id='sg-forms' src='/public/sg/js/sg-forms.js' data-sg-type='bootstrap' data-sg-config='{"userId":"admin","locale":"en_US","version":"Sui Generis Dev"}'></script>
+  </body>
+</html>

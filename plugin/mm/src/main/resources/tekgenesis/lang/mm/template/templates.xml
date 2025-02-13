@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--suppress XmlUnboundNsPrefix -->
+<templateSet  group="MetaModel">
+
+   <!-- <template name="entpk" value="entity $ENT_NAME$ &quot;$ENT_LABEL$&quot; &#10;    primary_key $ATTR_KEY$&#10;    described_by $ATTR_KEY$&#10;{&#10;    $ATTR_KEY$ : $ATTR_TYPE$;&#10;    $END$&#10;}"
+              description="SuiGen | Generate Entity With Primary Key" toReformat="true" toShortenFQNames="true">
+        <variable name="ENT_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="ENT_LABEL" expression="ENT_NAME" defaultValue="" alwaysStopAt="true" />
+        <variable name="ATTR_KEY" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="ATTR_TYPE" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="METAMODEL" value="true"/>
+        </context>
+    </template>-->
+
+    <template name="enti" value="entity $ENT_NAME$ &#10;    primary_key $ATTR_KEY$&#10;    described_by $ATTR_KEY$&#10;{&#10;    $ATTR_KEY$ : $ATTR_TYPE$;&#10;    $END$&#10;}"
+              description="SuiGeneris | Generate Entity with Primary Key" toReformat="true" toShortenFQNames="true">
+        <variable name="ENT_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="ATTR_KEY" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="ATTR_TYPE" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="METAMODEL" value="true"/>
+        </context>
+    </template>
+
+
+    <template name="ent" value="entity $ENT_NAME$ &#10;{&#10;    $ATTR_KEY$ : $ATTR_TYPE$;&#10;    $END$&#10;}"
+              description="SuiGeneris | Generate Entity" toReformat="true" toShortenFQNames="true">
+        <variable name="ENT_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="ATTR_KEY" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="ATTR_TYPE" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="METAMODEL" value="true"/>
+        </context>
+    </template>
+
+    <template name="enu" value="enum $ENUM_NAME$ &quot;$ENUM_LABEL$&quot; &#10;{&#10;   $ENUM_ITEM_ID$;&#10;   $END$&#10;}"
+              description="SuiGeneris | Generate Enum" toReformat="true" toShortenFQNames="true">
+        <variable name="ENUM_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="ENUM_LABEL" expression="ENUM_NAME" defaultValue="" alwaysStopAt="true" />
+        <variable name="ENUM_ITEM_ID" expression="" defaultValue="" alwaysStopAt="true" />
+        <context>
+            <option name="METAMODEL" value="true"/>
+        </context>
+    </template>
+
+    <template name="fm" value="form $FORM_NAME$ &quot;$FORM_LABEL$&quot; &#10;{&#10;   $END$&#10;}"
+              description="SuiGeneris | Generate Form" toReformat="true" toShortenFQNames="true">
+        <variable name="FORM_NAME" expression="" defaultValue="" alwaysStopAt="true" />
+        <variable name="FORM_LABEL" expression="ENUM_NAME" defaultValue="FORM_NAME" alwaysStopAt="true" />
+        <context>
+            <option name="METAMODEL" value="true"/>
+        </context>
+    </template>
+
+</templateSet>

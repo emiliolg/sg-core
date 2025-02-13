@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html ng-app="Cart">
+<head>
+    <script src="/external/js/jquery-2.2.4.min.js"> </script>
+    <script src="/external/js/angular-1.5.5.min.js"> </script>
+    <script src="/sg/js/sg-forms.nocache.js"></script>
+
+    <script>
+        // Create Cart module with services
+        angular.module('Cart', ['ngResource', 'sui-forms'])
+                .factory('Products', function ($resource) {
+                    return $resource('api/tekgenesis.sales.cart.Products')
+                })
+                .factory('AddToCart', function ($resource) {
+                    return $resource('api/tekgenesis.sales.cart.AddToCart?_return=amount')
+                });
+
+
+        // Create Cart controller
+        function CartCtrl($scope, Products, AddToCart) {
+            $scope.amount = 0;
+            $scope.currentProductPk = null;
+            $scope.productsResult = Products.get();
+            $scope.addToCart = function (productId) {
+                var add = new AddToCart();
+                add.api = true;
+                add.product = productId;
+                add.$save(function(result) {
+                    $scope.amount = result.amount;
+                });
+            };
+
+            $scope.l = {
+                onLoad : function(fqn, pk) { console.log('Loaded fqn: ' + fqn + " with pk: " + pk); }
+            };
+
+            // cart is loaded using plain jquery plugin
+            $scope.form = $('#form').form();
+            $scope.form.addListener({
+                onUnload:function () { console.log("Canceled!!!"); },
+                onLoad:function (fqn, pk) { console.log(fqn + " with pk: " + pk + " loaded!!!"); },
+                onError:function (msg) { console.error("Error: " + msg); }
+            });
+            $scope.showCart = function () {
+                $scope.form.load('tekgenesis.sales.cart.CartForm');
+                $('#form').toggle();
+            };
+        }
+    </script>
+</head>
+
+<body ng-controller="CartCtrl">
+<div id="cart" class="container-fluid pull-right">
+    <img src="public/img/cart.png" ng-click="showCart()" style="cursor: pointer;"/>
+    <div id="amount" class="badge badge-important" style="text-align:center;font-weight:bold;">{{amount}}</div>
+</div>
+<div id="products" class="container-fluid">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Product Id</th>
+            <th>Image</th>
+            <th>Model</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="product in productsResult.products">
+            <td>{{product.productId}}</td>
+            <td><!--img width="30px" height="30px" ng-src="/sg/resource?id={{product.image}}"/--></td>
+            <td><a ng-click="$parent.currentProductPk=product.productId">{{product.model}}</a></td>
+            <td>{{product.category._describe}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.price}}</td>
+            <td style="text-align:right">
+                <button type="button" ng-disabled="product.active != 'true'" class="btn btn-primary"
+                        ng-click="addToCart(product.productId)">Add to Cart</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="form" style="padding: 50px;display:none;"></div> <!--Should probably be in a dialog using formbox-->
+<sui-formbox fqn="tekgenesis.sales.basic.ProductForm" pk="{{currentProductPk}}"
+         listener="l" history="true" style="padding: 50px;"></sui-formbox>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        
+    <title>Title for home</title>
+    <meta name="description" content="Description for home"></meta>
+    <meta charset="utf-8"></meta>
+
+        
+    <meta property="og:title" content="home"></meta>
+    <meta property="og:type" content="home"></meta>
+    <meta property="og:url" content="home"></meta>
+
+    </head>
+    <body>
+    <div ng-repeat="item in menu.items" sui-scope="/html/site/component/menu.xhtml/2">
+    <a ng-href="{{item.link}}"><span ng-value="item.label"></span></a>
+</div>
+    <div sui-scope="/html/site/component/banner.xhtml/3" class="banner">
+    <img src="http://find.image.url.for.name/home"></img>
+</div>
+    <div ng-repeat="product in products" sui-scope="/html/site/component/list.xhtml/4">
+    <span ng-value="product.productId"></span>
+    <span ng-value="product.model"></span>
+    <span ng-value="product.price"></span>
+</div>
+    
+<script class="suiScopesCache">
+//<![CDATA[
+var suiScopesCache = {"/html/site/component/menu.xhtml/2":{"menu":{"id":"home","items":[{"id":"home0","label":"home0","link":"http://home0"},{"id":"home1","label":"home1","link":"http://home1"},{"id":"home2","label":"home2","link":"http://home2"},{"id":"home3","label":"home3","link":"http://home3"},{"id":"home4","label":"home4","link":"http://home4"}]}},"/html/site/component/banner.xhtml/3":{"image":"http://find.image.url.for.name/home"},"/html/site/component/list.xhtml/4":{"products":{"list":1,"products":[{"productId":"home0","model":"home0","description":"home0","price":5.00,"created":"2014-01-31T03:00:00Z"},{"productId":"home1","model":"home1","description":"home1","price":5.00,"created":"2014-01-31T03:00:00Z"},{"productId":"home2","model":"home2","description":"home2","price":5.00,"created":"2014-01-31T03:00:00Z"},{"productId":"home3","model":"home3","description":"home3","price":5.00,"created":"2014-01-31T03:00:00Z"},{"productId":"home4","model":"home4","description":"home4","price":5.00,"created":"2014-01-31T03:00:00Z"}]}}};
+//]]>
+</script>
+</body>
+</html>

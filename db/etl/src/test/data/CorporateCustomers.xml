@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tekgenesis.test.basic.CorporateCustomer>
+  <CorporateCustomer id="DNI:1111:F">
+    <firstName>Laura</firstName>
+    <lastName>Sarasa</lastName>
+    <nickname>Lau1111</nickname>
+    <updateTime>1970-01-01T00:00:00Z</updateTime>
+    <company>LolInc1111</company>
+    <discountCode>derp</discountCode>
+    <discount>12</discount>
+  </CorporateCustomer>
+  <CorporateCustomer id="DNI:1112:F">
+    <firstName>Laura</firstName>
+    <lastName>Sarasa</lastName>
+    <nickname>Lau1112</nickname>
+    <updateTime>1970-01-01T00:00:00Z</updateTime>
+    <company>LolInc1112</company>
+    <discountCode>derp</discountCode>
+    <discount>12</discount>
+  </CorporateCustomer>
+  <CorporateCustomer id="DNI:1113:F">
+    <firstName>Laura</firstName>
+    <lastName>Sarasa</lastName>
+    <nickname>Lau1113</nickname>
+    <updateTime>1970-01-01T00:00:00Z</updateTime>
+    <company>LolInc1113</company>
+    <discountCode>derp</discountCode>
+    <discount>12</discount>
+  </CorporateCustomer>
+  <CorporateCustomer id="DNI:1114:F">
+    <firstName>Laura</firstName>
+    <lastName>Sarasa</lastName>
+    <nickname>Lau1114</nickname>
+    <updateTime>1970-01-01T00:00:00Z</updateTime>
+    <company>LolInc1114</company>
+    <discountCode>derp</discountCode>
+    <discount>12</discount>
+  </CorporateCustomer>
+</tekgenesis.test.basic.CorporateCustomer>

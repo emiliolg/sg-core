@@ -1,0 +1,12 @@
+id,name,parentId
+1,"RootA",NULL
+2,"RootB",NULL
+3,"RootC",NULL
+4,"SubA1",1
+5,"SubA2",1
+6,"SubA3",1
+7,"SubB1",2
+8,"SubB2",2
+9,"NestedA1X",4
+10,"NestedA1Y",4
+11,"NestedA2X",5

@@ -1,0 +1,21 @@
+<?xml version='1.0'?>
+<list>
+    <option name="MM_WIDGET_H">
+        <value>
+            <option name="FOREGROUND" value="705B9A"/>
+            <option name="FONT_TYPE" value="1"/>
+        </value>
+    </option>
+    <option name="MM_OPTION_H">
+        <value>
+            <option name="FOREGROUND" value="2067FE"/>
+            <option name="FONT_TYPE" value="1"/>
+        </value>
+    </option>
+    <option name="MM_FIELD_REF_H">
+        <value>
+            <option name="FOREGROUND" value="006680"/>
+            <option name="FONT_TYPE" value="1"/>
+        </value>
+    </option>
+</list>

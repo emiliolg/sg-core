@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.console.ViewFactory" sg-params="items : tekgenesis.console.handler.ConsoleMenuItem*">
+    <head>
+        <title>TekGenesis</title>
+        <link rel="icon" href="{{#sha}}/sg/img/favicon.png{{/sha}}"/>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="theme-color" content="black">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+        <link rel="icon" sizes="144x144" href="{{#sha}}/sg/img/apple-touch-icon-ipad.png{{/sha}}">
+        <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{#sha}}/sg/img/apple-touch-icon-iphone.png{{/sha}}"/>   <!-- Standard iPhone -->
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{#sha}}/sg/img/apple-touch-icon-iphone.png{{/sha}}"/> <!-- Retina iPhone -->
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{#sha}}/sg/img/apple-touch-icon-ipad.png{{/sha}}"/>     <!-- Standard iPad -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{#sha}}/sg/img/apple-touch-icon-ipad.png{{/sha}}"/>   <!-- Retina iPad -->
+
+        <link rel="stylesheet" href="{{#css-theme}}{{/css-theme}}" id="theme">
+        <link rel="stylesheet" href="{{#sha}}/css/console.css{{/sha}}"/>
+
+    </head>
+
+    <body onload="load()">
+
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">TekGenesis</a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right right-response">
+                    <li class="dropdown">
+                        <a id="userDropdown" class="dropdown-toggle user-dropdown">
+                            <span id="sg-user-name" data-sg-type="userName" data-sg-config='{"picture":true, "username":false}'></span>
+                        </a>
+                        <ul class="dropdown-menu" id="userOptions">
+                            <li id="sg-user-profile" data-sg-type="userProfile"></li>
+                            <li id="sg-shortcuts" data-sg-type="shortcuts"></li>
+                            <li class="divider"></li>
+                            <li id="sg-change-ou" data-sg-type="changeOu"></li>
+                            <li id="sg-switch-user" data-sg-type="switchUser"></li>
+                            <li id="sg-logout" data-sg-type="logout"></li>
+                        </ul>
+                    </li>
+                    <li id="sg-fullscreen" data-sg-type="fullscreen"></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+
+            <div id="sidebarContainer" class="content clearfix main_content">
+                <div class="section menu">
+                    <ul class="navigation nav-collapse list-unstyled">
+                        {{#items}}
+                            <li class="sidebar-item" hash="#form/{{fqn}}">
+                                <a href="#form/{{fqn}}">
+                                    <i class="fa fa-{{icon}}"></i>
+                                    {{#showing}}
+                                        <div style="text-align: end;margin-top: -37px;margin-bottom: 21px;padding-left: 39px;" >
+                                            <div class="badge">{{badgeNumber}}</div>
+                                        </div>
+                                    {{/showing}}
+                                    <span>{{label}}</span>
+                                </a>
+                            </li>
+                        {{/items}}
+                    </ul>
+                </div>
+
+                <div class="section main">
+                    <div id="formBoxDiv" class="shortcut-group section-content">
+                        <div id="form" data-sg-type="form" data-sg-config='{"history":true, "home":false}'></div>
+                    </div>
+                </div>
+
+                <div class="section sidebar">
+                    <a onclick="toggleSidebar();">
+                        <i id="chevron" class="fa fa-chevron-right"></i>
+                    </a>
+                    <div id="rightPanel" data-sg-type="form" data-sg-config='{"history":false, "home":false, "fqn":"tekgenesis.console.StatusForm"}'></div>
+                </div>
+            </div>
+        </div>
+
+        <!--Suigeneris forms bootstrap-->
+        {{#sg-forms-bootstrap}}{{/sg-forms-bootstrap}}
+
+        <script>
+            function toggleSidebar() {
+                var chevron = document.getElementById("chevron");
+                var sidebar = document.getElementById("sidebarContainer");
+                var chevronClassList = chevron.classList;
+                var sidebarClassList = sidebar.classList;
+
+                if(chevronClassList.toggle("fa-chevron-right")) {
+                    chevronClassList.remove("fa-chevron-left");
+                    chevronClassList.add("fa-chevron-right");
+                    sidebarClassList.remove("no-sidebar");
+                    sidebarClassList.add("sidebar");
+                }
+                else {
+                    chevronClassList.add("fa-chevron-left");
+                    sidebarClassList.add("no-sidebar");
+                    sidebarClassList.remove("sidebar");
+
+                }
+            }
+
+            function selectCurrent() {
+
+                var sidebarItems = document.getElementsByClassName("sidebar-item");
+                for (var i = 0; i < sidebarItems.length; i++) {
+                    var sidebarItem = sidebarItems[i];
+                    sidebarItem.classList.remove("current");
+
+                    if (sidebarItem.getAttribute("hash") === window.location.hash) {
+                        sidebarItem.classList.add("current");
+                    }
+                }
+            }
+
+            function load() {
+                var firstItem = document.getElementsByClassName("sidebar-item")[0];
+                if (!location.hash && firstItem)
+                    location.hash = firstItem.getAttribute("hash");
+            }
+
+            window.addEventListener("hashchange", selectCurrent, false);
+
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,11 @@
+dependencies {
+    compile project(':db:transaction')
+    compile (hikari) { exclude group: 'com.google.guava', module: 'guava' }
+    compile guava
+    compile javaxInject
+    compile logback_classic
+
+    testCompile project(':runtime:test')
+    testRuntime hsqldb
+    testCompile oracle
+}

@@ -1,0 +1,20 @@
+import tekgenesis.plugin.mm.MMPlugin
+
+apply plugin : MMPlugin
+dependencies {
+    compile project(':db:entity')
+    compile project(':db:base')
+    compile project(':db:transaction')
+    compile project(':metadata:form')
+    compile project(':metadata:type')
+    compile project(':runtime:task')
+    compile project(':server:cluster')
+    compile javaxInject
+    testCompile project(':db:entity').sourceSets.test.output
+    testCompile project(':samples:basic').sourceSets.main.output
+    testCompile project(':samples:showcase').sourceSets.main.output
+    testCompile project(':runtime:test')
+    testRuntime hsqldb
+    testRuntime oracle
+    testRuntime postgres
+}

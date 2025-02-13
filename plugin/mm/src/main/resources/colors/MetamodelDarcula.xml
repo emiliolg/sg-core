@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<list>
+    <option name="MM_REFERENCE_H">
+        <value>
+            <option name="FOREGROUND" value="80B5DD"/>
+        </value>
+    </option>
+    <option name="MM_FIELD_REF_H">
+        <value>
+            <option name="FOREGROUND" value="009CB8"/>
+            <option name="FONT_TYPE" value="1"/>
+        </value>
+    </option>
+</list>

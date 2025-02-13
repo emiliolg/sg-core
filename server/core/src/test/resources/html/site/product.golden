@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#">
+    <head>
+        
+    <title>Title for product</title>
+    <meta name="description" content="Description for product"></meta>
+    <meta charset="utf-8"></meta>
+
+        
+    <meta property="og:title" content="product"></meta>
+    <meta property="og:type" content="product"></meta>
+    <meta property="og:url" content="product"></meta>
+
+    </head>
+    <body>
+    <div ng-repeat="item in menu.items" sui-scope="/html/site/component/menu.xhtml/2">
+    <a ng-href="{{item.link}}"><span ng-value="item.label"></span></a>
+</div>
+    <div sui-scope="/html/site/component/banner.xhtml/3" class="banner">
+    <img src="http://find.image.url.for.name/product"></img>
+</div>
+    <div sui-scope="/html/site/component/product.xhtml/4" class="product">
+    <span ng-value="product.productId"></span>
+    <span ng-value="product.model"></span>
+    <span ng-value="product.price"></span>
+</div>
+    <div ng-repeat="product in products" sui-scope="/html/site/component/list.xhtml/5">
+    <span ng-value="product.productId"></span>
+    <span ng-value="product.model"></span>
+    <span ng-value="product.price"></span>
+</div>
+    
+<script class="suiScopesCache">
+//<![CDATA[
+var suiScopesCache = {"/html/site/component/menu.xhtml/2":{"menu":{"id":"product","items":[{"id":"product0","label":"product0","link":"http://product0"},{"id":"product1","label":"product1","link":"http://product1"},{"id":"product2","label":"product2","link":"http://product2"},{"id":"product3","label":"product3","link":"http://product3"},{"id":"product4","label":"product4","link":"http://product4"}]}},"/html/site/component/banner.xhtml/3":{"image":"http://find.image.url.for.name/product"},"/html/site/component/product.xhtml/4":{"product":{"productId":"product","model":"product","description":"product","price":5.00,"created":"2014-01-31T03:00:00Z"}},"/html/site/component/list.xhtml/5":{"products":{"list":1,"products":[{"productId":"related0","model":"related0","description":"related0","price":5.00,"created":"2014-01-31T03:00:00Z"},{"productId":"related1","model":"related1","description":"related1","price":5.00,"created":"2014-01-31T03:00:00Z"},{"productId":"related2","model":"related2","description":"related2","price":5.00,"created":"2014-01-31T03:00:00Z"},{"productId":"related3","model":"related3","description":"related3","price":5.00,"created":"2014-01-31T03:00:00Z"},{"productId":"related4","model":"related4","description":"related4","price":5.00,"created":"2014-01-31T03:00:00Z"}]}}};
+//]]>
+</script>
+</body>
+</html>

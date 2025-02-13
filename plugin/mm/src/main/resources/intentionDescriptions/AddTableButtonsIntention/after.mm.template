@@ -1,0 +1,9 @@
+"Orders"       : orders, table {
+		        ordersId          "Id"   : id, internal, optional;
+		        ordersName        "Name" : name;
+		        ordersOrderNumber "N"    : orderNumber;
+		    };
+horizontal, style "margin-top-20" {
+				button(add_row, orders), style "margin-right-5";
+				button(remove_row, orders);
+			};

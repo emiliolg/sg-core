@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta charset="utf-8">
+
+    <style>
+        html {
+            font-family: sans-serif;
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+        body {
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #333;
+            background-color: #fff;
+        }
+        h1 {
+            font-size: 2em;
+            margin: 0.67em 0;
+        }
+        h1, h2, h3, h4, h5, h6 {
+             font-family: inherit;
+             font-weight: 500;
+             line-height: 1.1;
+             color: inherit;
+         }
+        a {
+            color: #337ab7;
+            text-decoration: none;
+        }
+        .main_content {
+            margin-top: 40px !important;
+            font-size: larger;
+        }
+        .description  { margin-left: 40px !important; }
+        .main_content h1 {
+            margin-left: 40px;
+            margin-bottom: 30px;
+            padding-bottom: .3em;
+            border-bottom: 1px solid #eee;
+            font-size: xx-large;
+        }
+        .main_content h1 a {
+            color: #333;
+        }
+        .main_content a {
+            background: 0 0;
+            text-decoration: none;
+        }
+        .fields {margin: 0 40px !important;}
+        .bold-heading {font-size: x-large;}
+        .doc-table td, th {
+            padding-top: 8px !important;
+            padding-bottom: 8px !important;
+            padding-right: 8px !important;
+        }
+        .first-column { padding-left: 15px !important;}
+        .main_content p { margin-bottom: 30px; }
+
+        .container-fluid:before,
+        .container-fluid:after,
+        .row:before,
+        .row:after {
+            content: " ";
+            display: table;
+        }
+        .container-fluid:after,
+        .row:after {
+            clear: both;
+        }
+        .container-fluid {
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .row {
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+        .panel {
+            margin-bottom: 18px;
+            background-color: #ffffff;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        }
+        .panel-heading {
+            padding: 10px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+        .panel > .table {
+            margin-bottom: 0;
+        }
+
+        .panel > .table:first-child {
+            border-top-right-radius: 3px;
+            border-top-left-radius: 3px;
+        }
+        .panel > .table:first-child > thead:first-child > tr:first-child,
+        .panel > .table:first-child > tbody:first-child > tr:first-child {
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+        .panel > .table:first-child > thead:first-child > tr:first-child td:first-child,
+        .panel > .table:first-child > tbody:first-child > tr:first-child td:first-child,
+        .panel > .table:first-child > thead:first-child > tr:first-child th:first-child,
+        .panel > .table:first-child > tbody:first-child > tr:first-child th:first-child {
+            border-top-left-radius: 3px;
+        }
+        .panel > .table:first-child > thead:first-child > tr:first-child td:last-child,
+        .panel > .table:first-child > tbody:first-child > tr:first-child td:last-child,
+        .panel > .table:first-child > thead:first-child > tr:first-child th:last-child,
+        .panel > .table:first-child > tbody:first-child > tr:first-child th:last-child {
+            border-top-right-radius: 3px;
+        }
+        .panel > .table:last-child {
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+        }
+        .panel > .table:last-child > tbody:last-child > tr:last-child {
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+        .panel > .table:last-child > tbody:last-child > tr:last-child td:first-child,
+        .panel > .table:last-child > tbody:last-child > tr:last-child th:first-child {
+            border-bottom-left-radius: 3px;
+        }
+        .panel > .table:last-child > tbody:last-child > tr:last-child td:last-child,
+        .panel > .table:last-child > tbody:last-child > tr:last-child th:last-child {
+            border-bottom-right-radius: 3px;
+        }
+        .panel > .table > tbody:first-child > tr:first-child th,
+        .panel > .table > tbody:first-child > tr:first-child td {
+            border-top: 0;
+        }
+        .panel-default {
+            border-color: #dddddd;
+        }
+        .panel-default > .panel-heading {
+            color: #333333;
+            background-color: #f5f5f5;
+            border-color: #dddddd;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            background-color: transparent;
+        }
+        td,
+        th {
+            padding: 0;
+        }
+        th {
+            text-align: left;
+        }
+        .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 18px;
+        }
+        .table > thead > tr > th,
+        .table > tbody > tr > th,
+        .table > tfoot > tr > th,
+        .table > thead > tr > td,
+        .table > tbody > tr > td,
+        .table > tfoot > tr > td {
+            padding: 5px;
+            line-height: 1.28571429;
+            vertical-align: top;
+            border-top: 1px solid #dddddd;
+        }
+        .table > thead > tr > th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dddddd;
+        }
+        .table > thead:first-child > tr:first-child > th,
+        .table > thead:first-child > tr:first-child > td {
+            border-top: 0;
+        }
+        .table > tbody + tbody {
+            border-top: 2px solid #dddddd;
+        }
+        .table > thead > tr.active > td,
+        .table > tbody > tr.active > td,
+        .table > tfoot > tr.active > td,
+        .table > thead > tr.active > th,
+        .table > tbody > tr.active > th,
+        .table > tfoot > tr.active > th {
+            background-color: #f5f5f5;
+        }
+        .table-hover > tbody > tr:hover {
+            background-color: #f5f5f5;
+        }
+        .table-hover > tbody > tr.active:hover > td,
+        .table-hover > tbody > tr.active:hover > th {
+            background-color: #e8e8e8;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row-fluid main_content">
+        {{#title}}
+            <h1>
+                <a href="#title" name="title"> {{title}} </a>
+            </h1>
+            <div class="row description"><p>{{{description}}}</p></div>
+            <div class="row fields">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading bold-heading">Fields</div>
+
+                    <!-- Table -->
+                    <table class="table table-hover doc-table">
+                        <thead>
+                        <tr>
+                            <th class="first-column">Id</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#fields}}
+                            <tr>
+                                <td class="first-column">{{this.id}}</td>
+                                {{#this.reference}}
+                                    <td><a href="{{outputDir}}{{this.type}}.html">{{this.simpleType}}</a></td>
+                                {{/this.reference}}
+                                {{^this.reference}}
+                                    <td>{{this.simpleType}}</td>
+                                {{/this.reference}}
+                                <td>{{this.description}}</td>
+                            </tr>
+                        {{/fields}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {{/title}}
+        {{^title}}
+            <h1>Documentation not found.</h1>
+        {{/title}}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+<div sui-view="tekgenesis.sales.basic.service.Views" sui-params="products : tekgenesis.sales.basic.service.Product*">
+    <span>Total products: {{products.length}}</span>
+    <div class="product" ng-repeat="product in products">
+        <span>({{product.productId}}) <strong>{{product.model}}</strong></span>
+    </div>
+</div>

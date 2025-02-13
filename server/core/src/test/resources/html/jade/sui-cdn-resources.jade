@@ -1,0 +1,12 @@
+doctype html
+html(sg-view="tekgenesis.service.html.Views")
+    head
+        title='Resources examples'
+        link(rel="icon", href=sg.favicon())
+        link(href= sg.css('theme.css') ).
+        script(src= sg.js('lib.js') ).
+    body
+        img(src= sg.img('image.jpeg'))
+        img(src= sg.img('/some/image.jpeg'))
+        img(src= sg.resource('img/some/image.jpeg'))
+        img(src= sg.sha('img/image.jpeg'))

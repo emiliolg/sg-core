@@ -1,0 +1,15 @@
+dependencies {
+    compileJava {
+        options.compilerArgs = ["-Xlint"]
+    }
+    compileTestJava {
+        options.compilerArgs = ["-Xlint"]
+    }
+
+    compile project(':db:base')
+    compile project(':db:transaction')
+
+    testCompile project(':runtime:test')
+    runtime hsqldb
+    testRuntime oracle
+}

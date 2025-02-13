@@ -1,0 +1,15 @@
+dependencies {
+    compile project(':db:base')
+    compile project(':db:entity')
+    compile project(':db:transaction')
+    compile project(':server:cluster')
+    compile project(':metadata:entity')
+    compile project(':metadata:type')
+    compile infinispan
+    compile javaxInject
+    testCompile project(':db:entity').sourceSets.test.output
+    testCompile project(':runtime:test')
+    testCompile project(':runtime:persistence').sourceSets.main.output
+    testRuntime hsqldb
+    testRuntime oracle
+}

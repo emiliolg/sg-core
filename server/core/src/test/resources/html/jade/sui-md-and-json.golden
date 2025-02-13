@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views" sg-params="product : tekgenesis.samples.service.Product">
+  <head>
+    <title>Markdown and JSON examples</title>
+  </head>
+  <body>
+    <h2>Markdown to html</h2>
+    <div><!-- Comment -->
+<h3><a href="#some-sub-title" name="some-sub-title">Some Sub Title</a></h3>
+<ul>
+  <li>With important</li>
+  <li>Bullets</li>
+</ul>
+    </div>
+    <h2>Parameter to JSON:</h2>
+    <script>var myProductJson ={"productId":"product.id","model":"Some model","description":"Some description with \"quoted\" words.","price":89.99,"created":"2014-01-31T03:00:00Z"}
+    </script>
+  </body>
+</html>

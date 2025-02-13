@@ -1,0 +1,11 @@
+import tekgenesis.plugin.mm.MMPlugin
+
+apply plugin : MMPlugin
+
+dependencies {
+    compile project(':db:base')
+    compile project(':db:entity')
+    compile project(':db:transaction')
+    compile project(':metadata:entity')
+    compile project(':codegen:metamodel')
+}

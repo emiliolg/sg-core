@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':metadata:entity')
+    compile project(':metadata:type')
+    compile project(':metadata:role')
+    compile project(':metadata:workflow')
+    compile project(':metadata:form')
+    compile project(':metadata:expr')
+    compile project(':metadata:handler')
+}

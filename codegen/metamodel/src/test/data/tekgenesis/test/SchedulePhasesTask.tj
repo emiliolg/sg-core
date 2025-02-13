@@ -1,0 +1,16 @@
+package tekgenesis.test;
+
+
+/** User class for Task: SchedulePhasesTask */
+public class SchedulePhasesTask
+    extends SchedulePhasesTaskBase
+{
+    //~ Methods ..................................................................................................................
+
+    /** Phase1 Task */
+    @Override public void p1() { throw new IllegalStateException("To be implemented"); }
+
+    /** Phase2 Task */
+    @Override public void p2() { throw new IllegalStateException("To be implemented"); }
+
+}

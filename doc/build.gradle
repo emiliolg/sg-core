@@ -1,0 +1,694 @@
+
+import groovy.text.SimpleTemplateEngine
+import org.pegdown.LinkRenderer
+import org.pegdown.PegDownProcessor
+import org.pegdown.ToHtmlSerializer
+import org.pegdown.ast.ExpLinkNode
+import org.pegdown.ast.HeaderNode
+import org.pegdown.ast.Node
+import org.pegdown.ast.ParaNode
+import org.pegdown.ast.RootNode
+import org.pegdown.ast.TextNode
+
+import java.nio.charset.StandardCharsets
+
+import groovy.util.XmlSlurper
+import groovy.xml.XmlUtil
+
+import static org.pegdown.Extensions.ALL
+import static org.pegdown.Extensions.ANCHORLINKS
+
+dependencies {
+    compile project(':metadata:type')
+    compile pegdown
+    compile files('../plugin/ideaLibraries/annotations.jar')
+    compile project(':doc:samples:snippets')
+    compile project(':doc:samples:doc-project')
+    compile project(':doc:samples:invites')
+    testCompile project(':metadata:form')
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "org.kordamp:markdown-gradle-plugin:1.1.0"
+        //classpath files("../lib/htmlSanityCheck-0.9.6-SNAPSHOT.jar");
+        classpath "gradle.plugin.org.aim42:htmlSanityCheck:0.9.3"
+
+    }
+}
+apply plugin: 'org.aim42.htmlSanityCheck'
+
+apply plugin: "org.kordamp.markdown.convert"
+apply plugin: DocPreProcessPlugin
+
+class DocPreProcessPlugin implements Plugin<Project> {
+    void apply(Project project) {
+
+        project.task('preprocess').doLast {
+            generateDocFiles(project.projectDir,project.buildDir,false);
+        }
+        project.task('preprocessSingle').doLast {
+            generateDocFiles(project.projectDir,project.buildDir, true);
+        }
+    }
+//    void generateSinglePage(File buildDir){
+//        File sourceDir = new File(buildDir.path + '/classes/main/preprocess-doc')
+//        File outputDir = new File(buildDir.path + '/classes/main/preprocess-doc2')
+//        outputDir.mkdirs();
+//
+//    }
+    void generateDocFiles(File projectDir, File buildDir, boolean isSingle){
+        File sourceDir = new File(projectDir.path+'/src/main/markdown')
+        File outputDir = new File(buildDir.path + '/classes/main/preprocess-doc')
+        File todoFile = new File(outputDir.path +"/todo.md")
+        outputDir.mkdirs()
+        todoFile.delete()
+        todoFile.createNewFile()
+        sourceDir.eachFileRecurse { file ->
+            String todoString=""
+            String relativeFilePath = file.absolutePath - sourceDir.absolutePath
+            File destinationFile = new File("${outputDir}/${relativeFilePath}")
+            if (!file.directory) {
+                if (file.absolutePath.endsWith("md")) {
+                    String input = file.getText(StandardCharsets.UTF_8.displayName())
+
+                    while(true){
+                        String found = input.find("@(?i)TODO.*\n")
+                        if(found!=null) {
+                            //@todo replace is replacing allll occurences.
+                            input = input.replace(found, "\n")
+                            todoString = todoString + "[" + found.substring(0, found.length() - 1) + "](" + (relativeFilePath - "/") + ")\n"
+                        }else{
+                            break;
+                        }
+                    }
+                    input = injectDoc(input,projectDir, file, isSingle);
+                    input = injectCode(input,file);
+                    input = injectSVG(relativeFilePath,input,projectDir,outputDir,file);
+                    copyFiles(input,projectDir, buildDir,file, isSingle)
+                    destinationFile.withWriter(StandardCharsets.UTF_8.displayName()) { w -> w.write(input) }
+                } else {
+                    destinationFile.bytes = file.bytes
+                }
+                if(""!=todoString) {
+                    String allTodo = todoFile.getText(StandardCharsets.UTF_8.displayName())+"\n"+todoString;
+                    todoFile.withWriter(StandardCharsets.UTF_8.displayName()) { w -> w.write(allTodo) }
+                }
+
+            } else {
+                if (!destinationFile.exists()) destinationFile.mkdirs()
+            }
+        }
+    }
+    String injectSVG(String relativePath, String input,File projectDir, File outputDir, File inputFile) {
+        int pathParts = relativePath.split("/").size()-2;
+        File file = new File(projectDir.getAbsolutePath()+"/../parser/metamodel/src/main/resources/MetaModel.xhtml")
+        File svgDir = new File(outputDir.getAbsolutePath()+"/svg")
+        svgDir.mkdirs()
+        def parser = new XmlSlurper()
+        parser.setFeature("http://apache.org/xml/features/disallow-doctype-decl", false)
+        parser.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+
+        def pathPrefix = "svg/";
+        for(int i =0;i<pathParts;i++){
+            pathPrefix = "../"+pathPrefix;
+        }
+        def metamodelGrammar = parser.parse(file)
+        def rootNode = metamodelGrammar;
+        String found;
+        while ((found= input.find("@(?i)inlineGrammar\\(.*\\)"))!=null) {
+            String svgName = found.substring("@inlineGrammar(".length(), found.length() - 1);
+            if(svgName.indexOf(',')!=-1){
+                String [] parts = svgName.split(",");
+                File file1 = new File(projectDir.getAbsolutePath()+"/../"+parts[0]);
+                svgName =parts[1]
+                 rootNode = parser.parse(file1);
+            }else{
+                rootNode = metamodelGrammar;
+            }
+            rootNode.depthFirst().findAll { it.@name == svgName }.each {
+                def parent = it.parent();
+                def children = parent.parent().children()
+                for (int i = 0; i < children.size(); i++) {
+                    if (children.getAt(i).equals(parent)) {
+                        def nodeAsText = XmlUtil.serialize(children.getAt(i + 1))
+                        File svg = new File(svgDir.getAbsolutePath()+"/"+svgName+".svg");
+                        svg.withWriter(StandardCharsets.UTF_8.displayName()) { w -> w.write(nodeAsText) }
+                        def replaceText = "!["+ svgName+"]("+pathPrefix+svgName+".svg)";
+                        input = input .replace(found, replaceText);
+                        break;
+                    }
+                }
+
+            }
+            if(input.contains(found)) {
+                throw new Exception("SVG:" + found + " not found and is referenced in " + inputFile.absolutePath);
+            }
+        }
+        return input;
+    }
+    void copyFiles(String input,File projectDir,File buildDir, File inputFile, boolean isSingle) {
+        List<String> allFound = input.findAll("@(?i)copy\\(.*?\\)")
+        for (int i = 0; i < allFound.size(); i++) {
+            String found = allFound.get(i);
+
+            if(found != null){
+                String argsString = found.substring("@copy(".length(), found.length() - 1);
+                String [] args = argsString.split(" ");
+                File fileToCopy = new File(projectDir.getAbsolutePath()+"/"+args[0]);
+                File destiny = new File(buildDir.path+args[1]);
+                if(fileToCopy.isDirectory()){
+                    GFileUtils.copyDirectory(fileToCopy, destiny);
+                }else{
+                    GFileUtils.copyFile(fileToCopy,destiny)
+                }
+
+            }
+        }
+    }
+    String injectDoc(String input,File projectDir, File inputFile, boolean isSingle) {
+        while(true){
+            String found = input.find("@(?i)inline\\(.*?\\)")
+
+            if (found != null) {
+
+                String file = found.substring("@inline(".length(), found.length() - 1);
+                int end = file.indexOf("#"); // find anchor
+                String fileName = end <=0?file:file.substring(0, end)
+
+                File newFile = new File(projectDir.getAbsolutePath()+"/src/main/markdown/"+fileName);
+                String code = newFile.exists()?newFile.getText(StandardCharsets.UTF_8.displayName()):null;
+
+                if(code!=null) {
+                    if(isSingle)
+                        code = fixMdPaths(code, inputFile.getParentFile(), newFile.getParentFile());
+                    String searchString = end > 0 ? file.substring(end, file.length()) : null
+                    if(searchString !=null) {
+                        code = getAnchorText(code, searchString, fileName)
+                    }else{
+                        if(isSingle)
+                        code = "<p><a name=\""+fileName+"\"></a></p>\n"+code;
+                    }
+                    code = fixImages(code);
+                    input = input.replace(found, code);
+
+                }else{
+                    throw new Exception("File:" + fileName+" not found and is referenced in "+inputFile.absolutePath);
+                }
+            } else {
+                break
+            }
+        }
+        return input;
+    }
+    String fixImages(String code){
+            return code.replaceAll("]\\(/","](");
+    }
+  
+def arelativePath(File base, File name) {
+    File parent = base.parentFile
+
+    def bpath = base.canonicalPath
+    def fpath = name.canonicalPath
+
+    if(fpath.startsWith(bpath)) {
+        return fpath==bpath?".":fpath.substring(bpath.length() + 1);
+    } else {
+        return ('..' + File.separator + arelativePath(parent, name))
+    }
+
+}
+    def fixMdPaths(String content, File file,File base){
+        String relative = file.canonicalPath==base.canonicalPath?"": arelativePath(file, base);
+
+        List<String> allFound = content.findAll("\\!\\[.*\\]\\(.*\\)")
+
+        for (int i = 0; i < allFound.size(); i++) {
+            String found = allFound.get(i)
+
+            String pre = found.substring(0, found.indexOf("("));
+            String toReplace =found.substring(found.indexOf("(")+1, found.indexOf(")"));
+            String result = pre +"("+relative+File.separator+toReplace+")";
+            content = content.replace(found, result);
+
+        }
+
+        allFound = content.findAll("\\[.*?\\]\\(.*?\\)")
+
+        for (int i = 0; i < allFound.size(); i++) {
+            String found = allFound.get(i)
+            if(found.indexOf("](http")>0){ //avoid external links
+                continue;
+            }
+	        int anchor = found.indexOf("#");
+            String pre = found.substring(0, found.indexOf("("));
+            int lastIndex = found.lastIndexOf(File.separator);
+            int firstIndex = anchor>=0? anchor+1:lastIndex>0?lastIndex+1:0;
+            int closeIndex = found.lastIndexOf(")");
+            String toReplace = found.substring(firstIndex, closeIndex);
+            String result = pre +"(#"+toReplace+")";
+            content = content.replace(found, result);
+
+        }
+        return content;
+    }
+
+
+
+    String injectCode(String input, File inputFile) {
+        while(true){
+            String found = input.find("@(?i)inline-code\\(.*\\)")
+
+            if (found != null) {
+                String file = found.substring("@inline-code(".length(), found.length() - 1);
+                String code = getCode(file, inputFile);
+                if(code!=null) {
+                    input = input.replace(found, code);
+                }else{
+                    String broken = "@broken-"+found.substring(1);
+                    input = input.replace(found, broken);
+                }
+            } else {
+                break
+            }
+        }
+        return input;
+    }
+
+    String getCode(String id, File inputFile){
+        int end = id.indexOf("#"); // find anchor
+
+        if(end<=0){
+            end = id.indexOf("?"); //find signature.
+        }
+        String fileName = end <=0?id:id.substring(0, end)
+
+        File codeFile = new File(fileName)
+
+        if(codeFile.exists()) {
+            final String preString =
+                    fileName.endsWith(".java")?"\n```java\n":
+                    fileName.endsWith(".mm")?"\n```mm\n":
+                    fileName.endsWith("html")?"\n```html\n":
+                    fileName.endsWith("css")?"\n```css\n":
+                    fileName.endsWith("less")?"\n```css\n":
+                    fileName.endsWith("js")?"\n```js\n":
+                    "\n```\n";
+
+            final String input = codeFile.getText(StandardCharsets.UTF_8.displayName())
+
+            String searchString = end>0?id.substring(end, id.length()):null
+
+            String codeToInject="";
+
+            if (searchString != null) {
+                if(id.charAt(end) == (char)'#') {
+                    codeToInject = getAnchorText(input, searchString, fileName)
+                }else{
+                    codeToInject = getJavaCode(input, searchString, fileName)
+                }
+            }else{
+                codeToInject = cleanUp(input)
+            }
+            return preString + prettyPrint(codeToInject) + "```\n";
+
+        }else{
+            //fail!
+            System.err.println("File " + codeFile.absolutePath + " not found and it is referenced in "+ inputFile.absolutePath);
+            //throw new Exception("File " + fileName + " not found and it is referenced in documentation");
+
+        }
+    }
+    private String getJavaCode(String input, String searchString, String fileName) {
+        String codeToInject="";
+        int matchBraces = 0;
+        boolean continueAdding = false;
+        boolean done = false;
+        boolean mustFindBraces=false;
+        input.eachLine {
+            if (!done) {
+                if (continueAdding) {
+                    codeToInject = codeToInject + "\n" + it;
+                    int open = it.count("{");
+                    int close = it.count("}");
+                    matchBraces+= open;
+                    matchBraces-=close;
+                    if(open != 0) mustFindBraces = false
+                    if (matchBraces <= 0 &&!mustFindBraces) {
+                        done = true;
+                    }
+                }
+                else if (it.find("(?s).*? " + searchString.substring(1) + "\\(")) { //it's a method signature
+                    codeToInject = codeToInject + "\n" + it;
+                    matchBraces += it.count("{");
+                    matchBraces -= it.count("}");
+                    if(matchBraces <=0){
+                        done = true;
+                    }
+                    continueAdding = true;
+                }
+                else if (it.endsWith(searchString.substring(1))) {                   //it's a class signature
+                     mustFindBraces = true;
+                    codeToInject = codeToInject + "\n" + it;
+                    int open = it.count("{");
+                    int close = it.count("}");
+                    if(open != 0) mustFindBraces = false
+                    matchBraces+= open;
+                    matchBraces-=close;
+                    if(matchBraces <=0 && !mustFindBraces){
+                        done = true;
+                    }
+                    continueAdding = true;
+                }
+                else if (it.find("(?s).*? " + searchString.substring(1) + "\\;")) { //it's an attribute signature
+                    if(it.count("{")==0){
+                        codeToInject = codeToInject + "\n" + it;
+                        done = true;
+                    }
+                }
+             }
+        }
+        if(!done){
+            if(continueAdding){
+                throw new Exception("Search String " + searchString + " in file: " + fileName+ " problem with matching braces "+codeToInject);
+            }
+            else {
+                throw new Exception("Search String " + searchString + " Not found in file: " + fileName);
+            }
+        }
+        codeToInject
+    }
+
+    private String getAnchorText(String input, String searchString, String fileName) {
+        String codeToInject="";
+        String text = input.find(searchString + "\\n(?s).*?" + searchString);
+        if (text != null) {
+            codeToInject = text.substring((searchString + "\\n").length() - 1);
+            String lastMatch = codeToInject.find("//\\s*" + searchString) //antes decia //.*
+            codeToInject = codeToInject.substring(0, codeToInject.length() - lastMatch.length());
+        } else {
+            throw new Exception("Search String " + searchString + " Not found in file: " + fileName);
+        }
+        codeToInject
+    }
+
+    boolean containsSkipable(String text){
+        return text.contains("//~ Methods ..") ||
+                text.contains("//~ Interfaces ..") ||
+                text.contains("//~ Instance Fields ..") ||
+                text.contains("//~ Enums ...") ||
+                text.contains("//~ Constructors ..") ||
+
+                text.contains("@SuppressWarnings")
+    }
+    String prettyPrint(String text){
+        String result = "";
+        int count =0;
+        int offset = 0;
+        while(text.charAt(offset)==(char)('\n')){
+            offset ++;
+        }
+        while(text.charAt(offset+count)==(char)(' ')){
+            count ++;
+        }
+
+        if(count>0 || containsSkipable(text)) {
+            boolean skipEmpty = true;
+            text.eachLine {
+                boolean skip = false;
+                if (skipEmpty) {
+                    if (it.size() == 0) {
+                        skip = true;
+                    } else {
+                        skipEmpty = false;
+                    }
+                }
+                if(containsSkipable(it)){
+                    skip = true;
+                    skipEmpty = true;
+                }
+                if (!skip) {
+                    for (int i = 0; i < count; i++) {
+                        if (it.size() > 0 && it.charAt(0) == (char) ' ') {
+                            it = it.substring(1)
+                        } else {
+                            break;
+                        }
+                    }
+                    result = result + it + "\n"
+                }
+            }
+        }else{
+            result = text;
+        }
+        return result;
+
+    }
+    String cleanUp(String text){
+        String result = "";
+        boolean readRest =false
+        text.eachLine {
+            if(readRest || !(it.startsWith("//") || it.startsWith("package") || it.startsWith("import") || it.isAllWhitespace())){
+                result = result + it +"\n"
+                readRest = true
+            }
+        }
+        return result;
+
+    }
+
+}
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/markdown'
+        }
+    }
+}
+markdownToHtml.dependsOn preprocess
+assemble.dependsOn markdownToHtml
+jar.dependsOn markdownToHtml
+
+markdownToHtml.sourceDir = ensure(new File(buildDir.path + '/classes/main/preprocess-doc'))
+markdownToHtml.all = true
+markdownToHtml.customizePegdown = { ALL | ANCHORLINKS }
+markdownToHtml.customizeRemark = { ALL | ANCHORLINKS }
+
+markdownToHtml.doLast {
+    generateDocs()
+    widgetDocsToDist()
+    otherImagesToDist()
+}
+htmlSanityCheck {
+    dependsOn jar// jar o assemble? //build
+//    sourceDir = new File( "$buildDir/docs" )
+    sourceDir = markdownToHtml.outputDir
+
+    // files to check - in Set-notation
+    //sourceDocuments = [ markdownToHtml.outputDir.path +"/index.html"]
+
+    // where to put results of sanityChecks...
+    checkingResultsDir = new File( buildDir.path +"/htmlchecks" )
+    checkExternalLinks = false
+}
+
+def otherImagesToDist(){
+
+}
+def File ensure(File file){
+    if(!file.exists())file.mkdirs()
+    return file
+}
+def widgetDocsToDist() {
+    def widgetsStr = new File(markdownToHtml.sourceDir.path + '/forms/widgets/widgets.md').text
+    def processor = new PegDownProcessor();
+    RootNode root = processor.parseMarkdown(widgetsStr.toCharArray())
+
+    def widgetTypes = widgetTypes(root)
+
+    def dir = buildDir.path + '/classes/main/plugin-doc'
+    mkdir(dir)
+
+    widgetTypes.each { wt ->
+        def doc = getWidgetDocumentation(root, wt)
+        def out = new File(dir + "/widgets." + wt + '.html')
+        
+        out.withWriter { w -> w.write doc }
+    }
+}
+
+def getPluginProjectPath(){
+    for (Project p : rootProject.subprojects) {
+        if('mm' == p.name) return p.buildDir.path
+    }
+    return '';
+}
+
+def widgetTypes(RootNode root) {
+    def result = []
+
+    for (Node n : root.getChildren()) {
+        if (n instanceof ParaNode) {
+            n.getChildren().get(0).getChildren().each { nn ->
+                if (nn instanceof ExpLinkNode) {
+                    result << nn.getChildren().get(0).getChildren().get(0).text.toLowerCase()
+                }
+            }
+        }
+
+        if (n instanceof HeaderNode && !result.isEmpty()) {
+            if (n.getChildren().get(0).text.toLowerCase() == result.get(0)) break;
+        }
+    }
+
+    return result;
+}
+
+def String getWidgetDocumentation(RootNode root, String widgetId) {
+    RootNode node = buildNodeForWidget(root, widgetId)
+
+    return new ToHtmlSerializerWithoutImage(new LinkRenderer()).toHtml(node)
+}
+
+def RootNode buildNodeForWidget(RootNode root, String widgetId) {
+    def list = []
+
+    boolean collecting = false
+
+    for (int i = 0; i < root.getChildren().size(); i++) {
+        final Node node = root.getChildren().get(i);
+
+        if (node instanceof HeaderNode) {
+            final Node firstChild = node.getChildren().get(0);
+            if (firstChild instanceof TextNode) {
+                if (((TextNode) firstChild).getText().toLowerCase().startsWith(widgetId.toLowerCase())) {
+                    list.add(node);
+                    collecting = true
+                }
+                else collecting = false
+            }
+        }
+        else {
+            if (collecting) list.add(node)
+        }
+    }
+
+    final RootNode rootNode = new RootNode()
+    rootNode.getChildren().addAll(list)
+
+    return rootNode;
+}
+
+class ToHtmlSerializerWithoutImage extends ToHtmlSerializer {
+    ToHtmlSerializerWithoutImage(LinkRenderer linkRenderer) { super(linkRenderer); }
+    void printImageTag(LinkRenderer.Rendering rendering) { }
+    void printLink(LinkRenderer.Rendering rendering) { printer.print(rendering.text); }
+}
+
+private void generateDocs() {
+    def engine = new SimpleTemplateEngine()
+    def css = new File(markdownToHtml.outputDir.path + '/css')
+    def home = new File(markdownToHtml.outputDir.path)
+
+    def template = engine.createTemplate(new File(markdownToHtml.outputDir.path + '/template/gfm.tpl'))
+    def indexGettingStarted = new File(markdownToHtml.outputDir.path+"/index-gettingstarted.html").text
+    def indexWorking = new File(markdownToHtml.outputDir.path+"/index-workingwith-full.html").text;
+    def indexSamples = new File(markdownToHtml.outputDir.path+"/index-samples.html").text;
+    def indexLanguage = new File(markdownToHtml.outputDir.path+"/index-language.html").text;
+
+    def searchContent = new File(markdownToHtml.outputDir.path + '/tipuesearch/tipuesearch_content.js');
+    StringBuffer toWrite = new StringBuffer("var tipuesearch = {\"pages\": [");
+    fileTree(markdownToHtml.outputDir).include('**/*.html').each {
+        File f ->
+            def indexContent = indexWorking
+            boolean mustGenerateIndex = !f.name.contains("index.html")&& !f.name.contains("search.html") && !f.name.contains("index-");
+            if(f.parentFile.name.contains("language"))
+                indexContent = indexLanguage
+            else if(f.parentFile.name.contains("samples"))
+                indexContent = indexSamples
+            else if(f.parentFile.name.contains("starting") || f.name.contains("overview.html"))
+                indexContent = indexGettingStarted
+            else if(f.name.contains("best_practices.html")
+                    || f.name.contains("index.html")
+                    || f.name.contains("search.html"))
+                indexContent = ""
+            indexContent = fixPaths(indexContent,f,home)
+            def path = relativePath(f.parentFile, css)
+            def homePath = relativePath(f.parentFile, home)
+//            indexContent = home.equals(f.parentFile)?indexContent:fixPaths(indexContent,f.parentFile,home);
+//            def path = home.equals(f.parentFile)?"css":relativePath(f.parentFile, css)
+//            def homePath = home.equals(f.parentFile)?".":relativePath(f.parentFile, home)
+            def data = [ title : f.name.replace('.html', '').replace('_', ' ').capitalize(),
+                         content : f.text,
+                         csspath : path, homepath: homePath
+                         , indexContent:indexContent
+                         ,contentClass:indexContent!=""?"col-md-9":"col-md-12",navigatorClass:indexContent!=""?"col-md-3":""]
+
+            def out = new File(f.path + '1')
+            out.withWriter { w -> w.write(template.make(data)) }
+            if(mustGenerateIndex){generateIndex(f.canonicalPath.substring(home.canonicalPath.length()+1),f.text,toWrite)}
+
+
+            f.delete()
+            out.renameTo(f.path)
+    }
+    toWrite.append("]};")
+    searchContent.withWriter { w -> w.write(toWrite.toString()) }
+
+    new File(markdownToHtml.outputDir.path + '/template').deleteDir();
+}
+
+def generateIndex(String path, String content,StringBuffer searchContent){
+    def headers = content.findAll("<h.*?</h");
+    for (int i = 0; i < headers.size(); i++) {
+        String found = headers.get(i)
+        found = found.substring(4,found.length()-3);
+        String writtenText = found.find(">.*?</a>")
+        writtenText = writtenText==null?"":writtenText.substring(1,writtenText.length()-4);
+        String fullUrl="../"+path;
+        String anchor = found.find("=\"#.*?\" ")
+        if(anchor!=null){
+            fullUrl = fullUrl+anchor.substring(2, anchor.length()-2)
+        }
+        String text = "{\"title\": \""+writtenText+"\", \"text\": \""+"\",\"tags\":\"\", \"url\": \""+fullUrl+"\"}"
+        searchContent.append(text+",");
+    }
+}
+
+
+
+def fixPaths(String content,File file,File home ){
+    String relative = relativePath(file.parentFile,home);
+
+    def newContent = content.replace("a href=\"",("a href=\""+ relative+ "/"));
+    newContent = newContent.replace("a href=\""+relative+"/#",("a href=\"#")); //volver pa atras con los relative...
+
+    if(file.canonicalPath.length()>home.canonicalPath.length()){
+        String path =file.canonicalPath.substring(home.canonicalPath.length());
+        def found = newContent.findAll("a href=\"."+path+"\"");
+        newContent = newContent.replaceAll("a href=\"."+path+"\"","a class=\"activeLink\" href=\"."+path+"\"")
+        if(found.isEmpty()){
+            def occurence =newContent.find("a href=\"[^=]*"+path+"\"")
+            if(occurence != null){
+                newContent = newContent.replace(occurence, "a class=\"activeLink\" "  + occurence.substring(1))
+            }
+        }
+    }
+    return newContent;
+}
+
+def relativePath(File base, File name) {
+    def bpath = base.canonicalPath
+    def fpath = name.canonicalPath
+    if(fpath.startsWith(bpath)) {
+        return fpath == bpath?'.':fpath.substring(bpath.length() + 1);
+    } else {
+        File parent = base.parentFile
+        return '..' + File.separator + relativePath(parent, name);
+    }
+}

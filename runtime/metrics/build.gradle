@@ -1,0 +1,8 @@
+dependencies {
+    compile project(':server:cluster')
+    compile metricsCore
+    compile metricsServlet
+    compile metricsJvm
+    compile metricsGraphite
+    testCompile project(':runtime:test')
+}

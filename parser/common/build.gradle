@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':metadata:type')
+    compile project(':metadata:expr')
+}

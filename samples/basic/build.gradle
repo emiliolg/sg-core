@@ -1,0 +1,40 @@
+import tekgenesis.plugin.mm.MMPlugin
+
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+
+apply plugin : MMPlugin
+
+//tasks.mmServices.doLast {
+//    Files.copy(
+//            file(projectDir.absolutePath + "/src_managed/services/mm/tekgenesis/sales/basic/service/ProductHandlerRemote.java").toPath(),
+//            file(projectDir.absolutePath + "/src/main/java/tekgenesis/sales/basic/service/ProductHandlerRemote.java").toPath(),
+//            StandardCopyOption.REPLACE_EXISTING
+//    )
+//    delete projectDir.absolutePath + "/src_managed/services/mm/tekgenesis/sales/basic/service"
+//}
+
+//tasks.mm.dependsOn(mmServices)
+
+dependencies {
+    compile project(':metadata:authorization')
+    compile project(':metadata:entity')
+    compile project(':metadata:form')
+    compile project(':metadata:type')
+    compile project(':db:entity')
+    compile project(':db:base')
+    compile project(':runtime:web')
+    compile project(':runtime:notification')
+    compile project(':runtime:mail')
+    compile project(':runtime:persistence')
+    compile project(':codegen:metamodel')
+    compile project(':codegen:base')
+    compile project(':parser:metamodel')
+    compile project(':runtime:task')
+    compile project(':projects:authorization')
+    compile apacheShiro
+    compile jackson
+    compile jacksonDataBind
+    compile gson
+}
+

@@ -1,0 +1,11 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/Expressions.mm
+(24, 20): Invalid expression
+(30, 20): Invalid expression
+(35, 20): Invalid expression
+(58, 14): Reference 'a' from the Form main Entity was not found
+(6, 26): Cannot resolve 'notFound'.
+(12, 22): Incompatible types, required 'Int' but found 'Date'
+(15, 29): Incompatible types, required 'Int' but found 'String(2)'
+(38, 13): Cycle Detected! Attempting to link 'a' with 'b' having already: 
+(a, b)
+(69, 32): Permission 'print' not declared on form.

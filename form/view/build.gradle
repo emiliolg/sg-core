@@ -1,0 +1,167 @@
+apply plugin: 'war'
+
+configurations {
+    all*.exclude group: 'org.eclipse.jetty', module: 'apache-jsp'
+}
+
+dependencies {
+    compile gwtDev
+    compile gwtUser
+    compile gwtServlet
+
+    compile project(':form:serializer')
+    compile project(':parser:metamodel')
+    compile project(':parser:common')
+    compile project(':server:core')
+    compile project(':metadata:expr')
+    compile project(':metadata:util')
+    compile project(':metadata:workflow')
+    compile project(':runtime:cluster')
+    compile project(':runtime:persistence')
+    compile project(':runtime:metrics')
+    compile project(':runtime:web')
+    compile project(':runtime:task')
+    compile project(':db:base')
+    compile project(':db:cache')
+    compile project(':db:entity')
+    compile project(':db:etl')
+    compile project(':db:transaction')
+    compile project(':ix:db')
+    compile project(':metadata:entity')
+    compile project(':metadata:handler')
+    compile project(':projects:inbox')
+    compile project(':projects:admin')
+    compile project(':projects:console')
+    compile project(':projects:authorization')
+    compile project(':projects:social')
+    compile project(':process:core')
+    compile project(':metadata:builder')
+    compile project(':metadata:form')
+    compile project(':metadata:type')
+    compile project(':metadata:authorization')
+    compile project(':codegen:base')
+    compile project(':codegen:metamodel')
+    compile (gwtAjaxUpload) {
+        exclude group: 'junit', module: 'junit'
+        exclude group: 'com.google.gwt', module: 'gwt-dev'
+    }
+    compile fileUpload
+    compile commonsIo
+    compile infinispan
+    compile jackson
+    compile jacksonDataBind
+    compile hsqldb
+    compile oracle
+    compile postgres
+    compile apacheShiroWeb
+    compile gflot
+    compile openlayers
+    compile gwtCropper
+    compile jettyServlets
+    compile pegdown
+    compile logback_classic
+    compile jodaTime
+    compile (lessCssCompiler) { exclude group: 'org.slf4j', module: 'slf4j-simple' }
+    compile hikari
+    compile javaMail
+
+    compile javaxInject
+    compile slf4j
+    compile jul_to_slf4j
+    runtime scribe
+    compileOnly commonGwt
+    testCompile commonGwt
+
+    testCompile project(':server:core').sourceSets.test.output
+    testCompile project(':server:cluster')
+    testCompile project(':samples:basic')
+    testCompile project(':samples:showcase')
+    testRuntime project(':runtime:mail')
+    testRuntime files("${System.properties['java.home']}/../lib/tools.jar",
+                        "src/test/java",
+                        "src/main/java",
+                        "../serializer/src/main/java",
+                        "../../common/core/src/main/java",
+                        "../../metadata/type/src/main/java",
+                        "../../metadata/form/src/main/java",
+                        "../../metadata/expr/src/main/java")
+}
+
+def gwtDir =  new File(project.buildDir, "gwt")
+
+test {
+    maxHeapSize '2048M'
+    enableAssertions = false
+    systemProperty 'gwt.args', '-sourceLevel 1.8 -localWorkers 3 -draftCompile -logLevel ERROR -devMode'
+    systemProperty 'gwt.persistentunitcache', false
+
+    // debug true
+}
+
+task compileGwt (dependsOn: classes, type: JavaExec) {
+
+    inputs.file sourceSets.main.java.srcDirs
+    inputs.dir sourceSets.main.output.resourcesDir
+    outputs.dir gwtDir
+
+    // Workaround for incremental build (GRADLE-1483)
+    outputs.upToDateSpec = new AndSpec()
+
+    doFirst {
+        file(buildDir).mkdirs()
+    }
+
+    main = 'com.google.gwt.dev.Compiler'
+
+    classpath {
+        [
+                sourceSets.main.java.srcDirs,           // Java source
+                sourceSets.main.output.resourcesDir,    // Generated resources
+                sourceSets.main.output.classesDir,      // Generated classes
+                sourceSets.main.compileClasspath,       // Deps
+                files("../../common/core/src/main/java",
+                "../../form/serializer/src/main/java",
+                "../../metadata/type/src/main/java",
+                "../../metadata/form/src/main/java",
+                "../../metadata/expr/src/main/java")
+        ]
+    }
+
+    def module = System.getProperty('gwt.module', 'tekgenesis.sgforms-dev')
+    def style = System.getProperty('gwt.compileStyle', 'OBF')
+    def draft = Boolean.getBoolean('gwt.draft')
+    def workers = Integer.getInteger('gwt.workers', 3)
+
+    def gwtArgs =
+            [
+                module,
+                '-war', gwtDir.absolutePath,
+                '-sourceLevel', '1.8',
+                '-localWorkers', workers,
+                '-style', style,
+                '-extra', project.buildDir.absolutePath + "/extra",
+            ]
+
+    if(draft) gwtArgs.add('-draftCompile')
+
+    args = gwtArgs
+
+    maxHeapSize = '2048M'
+}
+
+task explodedWar(type: Sync) {
+    into project.buildDir.absolutePath+"/webapp"
+    exclude  "**/META-INF/MANIFEST.MF"
+    with war
+}
+
+war {
+    classpath = classpath.filter{file ->
+       !file.name.startsWith("gwt-dev") && !file.name.startsWith("gwt-user") && !file.name.startsWith("jetty-server") && !file.name.startsWith("junit")
+    }
+    from gwtDir
+}
+
+war.dependsOn compileGwt
+explodedWar.dependsOn compileGwt
+build.dependsOn explodedWar

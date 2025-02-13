@@ -1,0 +1,24 @@
+package monumental;
+
+import tekgenesis.form.Action;
+import javax.annotation.Generated;
+import org.jetbrains.annotations.Nullable;
+
+/** User class for Form: ElBurriForm */
+@Generated(value = "monumental/noMethodSyncPsi.mm", date = "2013-01-16T18:58:32Z")
+public class ElBurriForm
+    extends ElBurriFormBase
+{
+    //~ Methods ..................................................................................................................
+
+    /** Invoked when creating a form instance */
+    @Override @Nullable public Action create() { throw new IllegalStateException("To be implemented"); }
+
+    /** Invoked to find an entity instance */
+    @Override @Nullable public ElBurri find() { throw new IllegalStateException("To be implemented"); }
+
+    @Override
+    @NotNull
+    public tekgenesis.form.Action tiraCanio() {
+        return actions.getDefault();
+    }}

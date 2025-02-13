@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':parser:common')
+    compile project(':metadata:builder')
+    compile project(':metadata:expr')
+    compile project(':metadata:type')
+    compile project(':metadata:form')
+    compile project(':metadata:entity')
+    compile project(':metadata:handler')
+}

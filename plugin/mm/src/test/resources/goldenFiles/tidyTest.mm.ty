@@ -1,0 +1,89 @@
+package catalog schema CATALOG;
+
+form InvoiceForm "Invoice"
+    entity Invoice
+    primary_key type
+{
+    "#"            : number;
+    "Statement"    : statement;
+    "Instructions" : instructions, required;
+                 "Order"        : horizontal {
+        "#"      : order;
+              "Random" : button, on_click randomOrder;
+    };
+    holliday     "Holliday"     : Boolean;
+    "Type"         : type;
+                 "Shortname"    : horizontal {
+        shortname    : String, on_change checkShortname;
+        available    : String;
+    };
+    other        "Other"        : String(20), internal;
+                 "Total"        : Decimal(10, 2), disable;
+}
+
+form ItemForm entity Item;
+
+form ProductForm entity Product;
+
+entity Articulo "Catálogo de los Artículos en stock"
+    primary_key codadm
+    described_by desadm1
+{
+    codadm     "Código de administración" : Decimal(10);
+    desadm1    "1ra descr. del artículo"  : String(20);
+    des2adm    "2da descr. del artículo"  : String(20), optional;
+    estado     "Estado"                   : Estado;
+    familia    "Familia del Articulos"    : Familia;
+}
+
+enum Estado "Estado del producto" {
+    ACTIVO      : "Activo";
+    DISCONTINUO : "Discontinuado";
+}
+
+entity Familia "Familia de Articulos"
+    primary_key id
+    described_by nombre
+{
+    id         "Id de Familia"     : Int;
+    nombre     "Nombre de Familia" : String(30);
+}
+
+entity Invoice "Invoice"
+    primary_key number
+    described_by statement
+{
+    number       "Number"       : Decimal(12);
+    statement    "Statement"    : String(50);
+    instructions "Instructions" : String(100), optional;
+    order        "Order Number" : Int;
+    type         "Type"         : Type;
+    items        "Items"        : Item*;
+}
+
+entity Item "Item"
+    primary_key slot
+    described_by product, qty
+{
+    slot       "Slot"       : Int;
+    product    "Product"    : Product;
+    invoice    "Invoice"    : Invoice;
+    qty        "Quantity"   : Int, default 1;
+    unit_price "Unit Price" : Decimal(10, 2);
+    discount   "Discount"   : Decimal(10, 2);
+}
+
+entity Product "Product"
+    primary_key id
+    described_by description
+{
+    id          "Id"          : String(20);
+    description "Description" : String(50);
+}
+
+enum Type "Invoice Type" {
+    STANDARD  : "Standard";
+    AUTO_BILL : "Auto-Bill";
+    PRO_FORMA : "Pro-Forma";
+    QUICK     : "Quick";
+}

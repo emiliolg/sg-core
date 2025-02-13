@@ -1,0 +1,3 @@
+create index IndexName(AUTHORIZATION, USER_EMAIL_IDXT)
+	on QName(AUTHORIZATION, USER) (EMAIL);;
+

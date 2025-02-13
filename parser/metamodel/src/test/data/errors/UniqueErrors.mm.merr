@@ -1,0 +1,3 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/UniqueErrors.mm
+(9, 6): Field not found or illegal: 'attr4' in type: 'Entity1'
+(29, 23): Adding duplicate field attr2 to unique

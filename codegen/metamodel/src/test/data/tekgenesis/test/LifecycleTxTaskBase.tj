@@ -1,0 +1,23 @@
+package tekgenesis.test;
+
+import tekgenesis.task.LifecycleTaskInstance;
+
+/** 
+ * Generated base class for task: LifecycleTxTask.
+ * Don't modify this as this is an auto generated class that's gets generated
+ * every time the meta model file is modified. Use subclass instead.
+ */
+@SuppressWarnings("WeakerAccess")
+public abstract class LifecycleTxTaskBase
+    extends LifecycleTaskInstance
+{
+
+    //~ Methods ..................................................................................................................
+
+    /** Invoked when the Server is starting */
+    public abstract void onStartup();
+
+    /** Invoked when the Server is shutting down */
+    public abstract void onShutdown();
+
+}

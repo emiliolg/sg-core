@@ -1,0 +1,53 @@
+<div sui-view="tekgenesis.sales.sui.Views" itemscope="itemscope" itemtype="http://schema.org/Product">
+
+    <!-- CATEGORIES BREADCRUMB -->
+    <div itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <!--<span itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="http://www.garbarino.com" title="Garbarino" itemprop="url">
+                <span itemprop="title">Garbarino</span>
+            </a> »
+        </span>-->
+        <span itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="http://www.garbarino.com/tv-dvd" title="TV/Video" itemprop="url">
+                <span itemprop="title">TV/Video</span>
+            </a> »
+        </span>
+        <span itemscope="itemscope" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="http://www.garbarino.com/tv-dvd/televisores" title="Televisores" itemprop="url">
+                <span itemprop="title">Televisores</span>
+            </a>
+        </span>
+    </div>
+
+    <div>Id: {{product.id}}</div>
+    <div itemprop="name">{{product.description}}</div>
+
+    
+    <!-- RATINGS -->
+    <div itemprop="aggregateRating" itemscope="itemscope" itemtype="http://schema.org/AggregateRating">
+
+        <img id="starImage" alt="Overall Rating" src="http://ak1.ostkcdn.com/img/mxc/stars4_6.gif" />
+        Rating
+
+        <span itemprop="ratingValue">4.6</span>
+        <span class="ratingsSep"> | </span>
+        <a id="readReviewsLink" title="Read Reviews">
+            <span itemprop="reviewCount">190</span> reviews
+        </a>
+        <span class="ratingsSep"> | </span>
+    </div>
+
+
+    
+    <!-- PRICE -->
+    <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer">
+        <div itemprop="price">${{product.price}}</div>
+    </div>
+
+    
+    <!-- STOCK -->
+    <!--<link itemprop="availability" href="http://schema.org/InStock" content="In Stock" />-->
+
+    <div ng-click="newRandomMsg()">Random: {{randomMsg}}</div>
+
+</div>

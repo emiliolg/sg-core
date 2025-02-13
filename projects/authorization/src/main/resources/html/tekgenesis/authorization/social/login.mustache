@@ -1,0 +1,24 @@
+<html sui-view="tekgenesis.authorization.Views" sui-params="fblogin : String, googlelogin : String">
+<head>
+    <title>Social Login</title>
+    {{>tekgenesis/authorization/head}}
+</head>
+
+<body>
+
+<div style="text-align:center; padding:1em; padding-top:4em">
+    <div class="btn-group">
+        <a class='btn btn-danger' href='{{googlelogin}}' style="width:16em;"><i class="fa fa-google-plus" style="width:16px; height:20px"></i> Sign in with Google</a>
+    </div>
+    <br/><br/>
+    <div class="btn-group">
+        <a class='btn btn-primary ' href='{{fblogin}}' style="width:16em"><i class="fa fa-facebook" style="width:16px; height:20px"></i> Sign in with Facebook</a>
+    </div>
+    <br/><br/>
+    <div class="btn-group">
+        <a class='btn btn-info ' href='#' style="width:16em"><i class="fa fa-twitter" style="width:16px; height:20px"></i> Sign in with Twitter</a>
+    </div>
+</div>
+
+</body>
+</html>

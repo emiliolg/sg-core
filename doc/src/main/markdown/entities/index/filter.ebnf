@@ -1,0 +1,9 @@
+// To generate the .html :
+// go to : 'http://railroad.my28msec.com/rr/ui'
+// go to: 'http://www.bottlecaps.de/rr/ui'
+// Paste the grammar into the 'edit grammar' tab
+// Go to the 'view diagram' tab. right click', save frame as..., save it under MetaModel.xhtml
+// In Chrome: right click, view frame source, select all text, copy it and paste it in MetaModel.xhtml
+
+FilterExpression ::= 'filter' '(' FilterField+ ')'
+FilterField ::= searchableField ( '='| '!=')('(' expression+')' | expression)('when' boolExpr)?

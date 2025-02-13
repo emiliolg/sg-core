@@ -1,0 +1,15 @@
+package tekgenesis.test;
+
+import org.jetbrains.annotations.NotNull;
+import tekgenesis.task.PhaseStatus;
+
+/** User class for Task: LifecycleDepsTxTask */
+public class LifecycleDepsTxTask
+    extends LifecycleDepsTxTaskBase
+{
+    //~ Methods ..................................................................................................................
+
+    /** Execute Task */
+    @Override @NotNull public PhaseStatus execute() { throw new IllegalStateException("To be implemented"); }
+
+}

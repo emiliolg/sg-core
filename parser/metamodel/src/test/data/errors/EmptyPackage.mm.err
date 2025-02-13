@@ -1,0 +1,4 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/EmptyPackage.mm
+Total Errors: 2
+(3, 13): Expecting ';', but 'Entity' found.
+(3, 13): Unexpected 'Entity'.

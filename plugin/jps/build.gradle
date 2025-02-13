@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':codegen:metamodel')
+    compile project(':metadata:builder')
+    compile project(':metadata:type')
+    compile project(':parser:metamodel')
+    compile project(':parser:common')
+    compile project(':ix:parser')
+    provided fileTree(dir: '../ideaLibraries', include: '**/*.jar', exclude: '**/junit-*.jar')
+}

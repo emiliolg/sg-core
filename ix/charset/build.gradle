@@ -1,0 +1,13 @@
+apply plugin:'application'
+
+mainClassName = "tekgenesis.ix.IxDecode"
+
+dependencies {
+}
+
+compileJava {
+    //enable compilation in a separate daemon process
+    options.compilerArgs = ["-Xlint", "-g", "-Xlint:-path", "-Xlint:-processing"]
+}
+
+

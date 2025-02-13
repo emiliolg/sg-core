@@ -1,0 +1,7 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/WidgetsDef.mm
+(15, 19): Invalid type 'tekgenesis.sales.basic.RandomEnt' for a field 'name'. Entities are not allowed
+(3, 23): Subform 'subf' isn't allowed in a Widget Definition
+(11, 8): Widget definition must have an id.
+(12, 10): Widget definition must have an id.
+(25, 4): Binding Form 'OtherForm' to a CoordinateType is not allowed. Only entities are.
+(10, 41): Cannot resolve 'tekgenesis.sales.basic.CoordinateWidget'.

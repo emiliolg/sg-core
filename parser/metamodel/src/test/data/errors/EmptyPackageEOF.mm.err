@@ -1,0 +1,4 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/EmptyPackageEOF.mm
+Total Errors: 2
+ (2, 0): Expecting 'IDENTIFIER', but <empty_token> found.
+ (2, 0): Expecting ';', but <empty_token> found.

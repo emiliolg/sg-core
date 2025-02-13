@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views" sg-params="text:String, number:Int, list:String*">
+<head>
+    <title>Parameters examples</title>
+</head>
+<body>
+
+<h2>No value, no fail</h2>
+<div>No Text: {{text}}</div>
+<div>No List: {{list}}</div>
+<div>Zero Number: {{number}}</div>
+
+<h2>No value, no true condition</h2>
+<div>Empty Text Condition: {{#text}}Text?{{/text}}</div>
+<div>Zero Number Condition: {{#number}}Not Zero?{{/number}}</div>
+<div>Empty List Condition: {{#list}}List with values?{{/list}}</div>
+
+</body>
+</html>

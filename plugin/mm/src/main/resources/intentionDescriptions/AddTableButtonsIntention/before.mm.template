@@ -1,0 +1,6 @@
+"Orders"       : orders, table {
+		        ordersId          "Id"   : id, internal, optional;
+		        ordersName        "Name" : name;
+		        ordersOrderNumber "N"    : orderNumber;
+		    };
+		    <spot></spot>

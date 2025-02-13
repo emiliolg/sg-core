@@ -1,0 +1,2 @@
+#!/bin/bash
+java $JAVA_OPTIONS -cp "`dirname $0`/../lib/boot/*:`dirname $0`/../lib/*":$JAVA_HOME/lib/tools.jar  tekgenesis.app.SuiGeneris -a `dirname $0`/../webapp "$@"

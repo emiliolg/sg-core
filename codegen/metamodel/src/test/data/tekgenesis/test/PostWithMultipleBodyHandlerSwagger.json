@@ -1,0 +1,84 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "PostWithMultipleBodyHandler",
+    "description" : "Post With Multiple Body"
+  } ],
+  "paths" : {
+    "/products" : {
+      "post" : {
+        "tags" : [ "PostWithMultipleBodyHandler" ],
+        "summary" : "",
+        "operationId" : "create",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Payload body",
+          "required" : true,
+          "schema" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/tekgenesis.test.Product"
+            }
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "tekgenesis.test.Product" : {
+      "type" : "object",
+      "description" : "Product",
+      "properties" : {
+        "productId" : {
+          "description" : "Id",
+          "type" : "string",
+          "default" : "\"xyz\""
+        },
+        "model" : {
+          "description" : "Model No.",
+          "type" : "string"
+        },
+        "description" : {
+          "description" : "Description",
+          "type" : "string"
+        },
+        "price" : {
+          "description" : "Price",
+          "type" : "number",
+          "format" : "double",
+          "minimum" : 0.0
+        },
+        "serial" : {
+          "description" : "Serial No.",
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0.0,
+          "default" : "2000000"
+        },
+        "created" : {
+          "description" : "Created",
+          "type" : "string",
+          "format" : "date-time"
+        }
+      },
+      "required" : [ "model", "price", "created" ]
+    }
+  }
+}

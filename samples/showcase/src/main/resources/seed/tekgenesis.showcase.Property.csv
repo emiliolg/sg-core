@@ -1,0 +1,6 @@
+name,type,multiple
+"Age",INT,false
+"Appointments",DATE,true
+"Availability",STRING,true
+"Period",INT,false
+"Rates",REAL,true

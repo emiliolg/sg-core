@@ -1,0 +1,2 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/Handler.mm
+(7, 25): HandlerTestError must be an exception enum to be risen

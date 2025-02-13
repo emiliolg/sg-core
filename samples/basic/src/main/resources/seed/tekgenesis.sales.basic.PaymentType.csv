@@ -1,0 +1,6 @@
+id,type,subtype,description,updateTime
+1,CASH,"ARS","Argentinian Pesos",2013-10-15T12:38:08.45Z
+2,CASH,"USD","American Dollars",2013-10-15T12:38:28.12Z
+3,DEBIT,"Visa Electron","Visa Electron",2013-10-15T12:39:04.49Z
+4,CREDIT,"Visa","Visa",2013-10-15T12:39:20.11Z
+5,CREDIT,"American Express","American Express",2013-10-15T12:39:28.73Z

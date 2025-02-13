@@ -1,0 +1,14 @@
+dependencies {
+    compile project(':db:base')
+    compile project(':db:entity')
+    compile project(':metadata:authorization')
+    compile project(':metadata:builder')
+    compile project(':metadata:type')
+    compile project(':metadata:form')
+    compile project(':report:base')
+    compile javaxServlet
+    compile jackson
+    compile jacksonDataBind
+    compile jetty
+    compile thumbnailator
+}

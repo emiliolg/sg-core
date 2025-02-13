@@ -1,0 +1,133 @@
+package tekgenesis.sales.basic;
+
+entity Category "Category"
+    primary_key id
+    described_by descr
+{
+    id "Id #" : Int, check id > 0 : "Must be positive";
+    name "Name" : String(30);
+    descr "Description" : String(120), default name;
+    products "Products" : Product* using category;
+}
+
+form CategoryForm "Category-[Default Form]"
+    entity Category
+{
+    id "Id #" : tekgenesis.sales.basic.Category.id, text_field, check id > 0 :  "Must be positive";
+    name "Name" : tekgenesis.sales.basic.Category.name, text_field;
+    descr "Description" : tekgenesis.sales.basic.Category.descr, text_field, default name;
+}
+
+entity Customer "Customer"
+    primary_key documentId
+    described_by firstname, lastname
+{
+    documentType "Document Type" : DocType;
+    documentId "Document" : Decimal(10, 0);
+    firstname "First" : String(50);
+    lastname "Last" : String(100);
+    sex "Sex" : Sex;
+}
+
+form CustomerForm "Binded Customer Form"
+    entity Customer
+{
+    documentId "Document" : tekgenesis.sales.basic.Customer.documentId, text_field;
+    firstname "First" : tekgenesis.sales.basic.Customer.firstname, text_field;
+    lastname "Last" : tekgenesis.sales.basic.Customer.lastname, text_field;
+    sex "Sex" : tekgenesis.sales.basic.Customer.sex, combo_box;
+}
+
+enum DocType
+    open
+{
+    DNI : "DNI";
+    PASS : "Passport";
+}
+
+form EntityLessForm "Entity-Less Form"
+{
+    documentId "Document" : Decimal(10), text_field;
+    firstname "First" : String(50), text_field;
+    lastname "Last" : String(100), text_field;
+    sex "Sex" : Sex, combo_box;
+}
+
+entity Invoice "Invoice"
+    primary_key id
+    described_by id
+{
+    id "Id" : Int;
+    date "Date" : Date;
+    customer "Customer" : Customer;
+    items "Items" : entity Item* {
+        product "Product" : Product;
+        quantity "Quantity" : Int;
+    };
+}
+
+form InvoiceForm "Invoice Form"
+    entity Invoice
+{
+    id "Id" : tekgenesis.sales.basic.Invoice.id, text_field;
+    date "Date" : tekgenesis.sales.basic.Invoice.date, date_box;
+    G4 : horizontal_group {
+        customer "Customer" : tekgenesis.sales.basic.Invoice.customer, suggest_box;
+        S3 "+" : button, on_click createCustomer;
+    };
+    S5 "Invoice Total" : Decimal(10, 2), text_field;
+}
+
+enum PaymentType
+{
+    CASH : "Cash";
+    CREDIT : "Credit";
+    CHECK : "Check";
+}
+
+entity Product "Product"
+    primary_key productId
+    described_by model, description
+{
+    productId "Id" : String(8), mask "XX-XXXX-XX";
+    model "Model No." : String(20);
+    description "Description" : String(100), optional;
+    price "Price" : Decimal(10, 2);
+    state "State" : State;
+    category "Category" : Category;
+}
+
+form ProductForm "Product Custom Form"
+    entity Product
+{
+    productId "Id" : tekgenesis.sales.basic.Product.productId, text_field;
+    model "Model No." : tekgenesis.sales.basic.Product.model, text_field;
+    description "Description" : tekgenesis.sales.basic.Product.description, text_field, default model, optional;
+    price "Price" : tekgenesis.sales.basic.Product.price, text_field;
+    state "State" : tekgenesis.sales.basic.Product.state, combo_box;
+    G7 : horizontal_group {
+        category "Category" : tekgenesis.sales.basic.Product.category, suggest_box;
+        S6 "+" : button, on_click createCategory;
+    };
+}
+
+enum Sex
+{
+    F : "Female";
+    M : "Male";
+}
+
+enum State
+{
+    ACTIVE : "Active";
+    DISCONTINUED : "Discontinued";
+}
+
+form UnbindedCustomerForm "Unbinded Customer Form"
+    entity Customer
+{
+    documentId "Document" : Decimal(10), text_field;
+    firstname "First" : String(50), text_field;
+    lastname "Last" : String(100), text_field;
+    sex "Sex" : Sex, combo_box;
+}

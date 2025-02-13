@@ -1,0 +1,58 @@
+<div sui-view="tekgenesis.showcase.sui.Views">
+
+    <style scoped="scoped">
+        .arc path {
+            stroke: #fff;
+        }
+    </style>
+
+    <fieldset class="page-header" id="$H0">
+        <h1>Inline Html Fragment</h1>
+    </fieldset>
+
+    <div id="pie"></div>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script>
+        window.setTimeout(function() {
+            var data = suiServiceCache['data'].pie;
+            console.log(data);
+
+            var width = 960,
+                    height = 500,
+                    radius = Math.min(width, height) / 2;
+
+            var color = d3.scale.ordinal()
+                    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+
+            var arc = d3.svg.arc()
+                    .outerRadius(radius - 10)
+                    .innerRadius(0);
+
+            var pie = d3.layout.pie()
+                    .sort(null)
+                    .value(function(d) { return d.superman; });
+
+            var svg = d3.select("#pie").append("svg")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .append("g")
+                    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+            var g = svg.selectAll(".arc")
+                    .data(pie(data))
+                    .enter().append("g")
+                    .attr("class", "arc");
+
+            g.append("path")
+                    .attr("d", arc)
+                    .style("fill", function(d) { return color(d.data.d); });
+
+            g.append("text")
+                    .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+                    .attr("dy", ".35em")
+                    .style("text-anchor", "middle")
+                    .text(function(d) { return d.data.d; });
+        }, 300);
+    </script>
+</div>

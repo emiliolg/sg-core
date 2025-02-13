@@ -1,0 +1,4 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/Expressions.mm
+Total Errors: 2
+(24, 22): Unexpected ')'.
+(35, 26): Expecting ')', but ';' found.

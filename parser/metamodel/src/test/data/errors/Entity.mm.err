@@ -1,0 +1,18 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/Entity.mm
+Total Errors: 16
+(7, 18): Expecting ';', but 'sales' found.
+(10, 15): Unexpected 'primary_koy'.
+(13, 43): Unexpected '('.
+(13, 51): Unexpected 'mask'.
+(14, 9): Unexpected ';'.
+(15, 45): Expecting ';', but '?' found.
+(15, 45): Expecting 'IDENTIFIER', but '?' found.
+(15, 46): Expecting ':', but '!' found.
+(18, 8): Expecting ';', but 'des2adm' found.
+(18, 59): Unexpected 'optionaxl'.
+(25, 34): Unexpected </** doc1 */>.
+(32, 11): Expecting a metamodel after documentation, but /** doc3 */ found.
+(32, 11): Unexpected </** doc3 */>.
+(48, 31): Unexpected 'augments'.
+(71, 6): Expecting a metamodel after documentation, but import found.
+(71, 6): Unexpected 'import'.

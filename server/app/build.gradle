@@ -1,0 +1,197 @@
+apply plugin: 'distribution'
+
+configurations {
+    deployment
+    samples { transitive = false}
+    deploymentTest { transitive = false}
+    deploymentTestTrans { transitive = true}
+}
+dependencies {
+    compile project(':db:base')
+    compile project(':db:entity')
+    compile project(':db:transaction')
+    compile project(':server:core')
+    compile project(':runtime:persistence')
+    compile project(':runtime:task')
+    compile jetty
+    compile jettyWebApp
+    compile jettyJmx
+    compile spdyCore
+    compile (spdyJetty)  {
+        exclude group: 'junit', module: 'junit'
+    }
+    compile (spdyJettyHttp) {
+        exclude group: 'junit', module: 'junit'
+    }
+//    compile npnApi
+    compile alpnServer
+    deployment alpnBoot
+    compile commonsCli
+    compile logback_classic
+    deployment project(':projects:inbox')
+    deployment project(':projects:console')
+    deployment project(':ix:parser')
+    deployment project(':server:core')
+    deployment project(':server:aws')
+    deployment project(':eventbus:aws')
+    deployment project(':eventbus:kafka')
+    deployment project(':report:base')
+    deployment project(':runtime:mail')
+    deployment project(':runtime:notification')
+    deployment project(':form:serializer')
+    deployment project(':form:view')
+    deployment project(':db:es')
+    deployment jettyServlets
+    deployment javaxAnnotation
+    deployment asm
+    deployment jettyPlus
+    compile jettyAnnotations
+    deployment jettyJmx
+    deploymentTest project(':runtime:test')
+    deploymentTest project(':db:introspect')
+    deploymentTest project(':selenium:common')
+    deploymentTest junit
+    deploymentTest assertj
+    deploymentTest greenMail
+    deploymentTest commonTest
+    deploymentTestTrans rxNetty
+    samples project(':samples:basic')
+    samples project(':samples:showcase')
+}
+
+def jettyJars = project.configurations.compile.files.findAll { f -> f.name.startsWith("jetty-") || f.name.startsWith("spdy") || f.name.startsWith("websocket")}
+def jettyDeploymentJars = project.configurations.deployment.files.findAll { f -> f.name.startsWith("jetty-") || f.name.startsWith("spdy") || f.name.startsWith("websocket")}
+distributions {
+    main {
+        baseName "suigeneris"
+        contents  {
+
+            into '/'
+            fileMode = 0755
+
+            into ('samples') {
+                exclude '**/build.gradle'
+                exclude '**/*.iml'
+                from (configurations.samples.files)
+                from (project.rootDir.absolutePath +"/samples")
+                from (project.rootDir.absolutePath +"/doc/samples")
+                from (project.rootDir.absolutePath +'/gradlew')
+            }
+
+            from (project.buildDir.absolutePath + '/../../form/view/webapp') {
+                exclude {
+                    details -> details.file.absolutePath.contains('WEB-INF/deploy/sgforms/symbolMaps') || details.file.absolutePath.contains('WEB-INF/lib')
+                }
+                into 'webapp'
+            }
+
+            into ('lib') {
+                from(configurations.deployment.files.findAll { f -> !f.absolutePath.contains("form-view") && !f.name.startsWith("jetty") && !f.name.startsWith("spdy") && !f.name.startsWith("websocket") && !f.name.startsWith("gwt-user") && !f.name.startsWith("alpn") && !f.name.startsWith("gwt-dev") && !f.name.startsWith("asm-3.") })
+                from(project(':plugin:gradle').jar.archivePath)
+            }
+
+            into ('doc') {
+                from { project.rootDir.absolutePath+ '/target/parser/metamodel/classes/main/MetaModel.xhtml' }
+                from { project.rootDir.absolutePath+ '/target/suigen/doc/gen-html' }
+            }
+
+            from (project(':server:webproxy').jar.archivePath) {
+                into 'ext'
+            }
+
+            into('lib/test') {
+                from (configurations.deploymentTest.files)
+                from (configurations.deploymentTestTrans.files )
+            }
+
+            from (project.rootDir.absolutePath +'/gradle') {
+                into('gradle')
+            }
+
+            from (project.rootDir.absolutePath+ '/target/sources') {
+                into 'sources'
+            }
+
+            from (project.rootDir.absolutePath+ '/target/plugin/mm/install'){
+                into 'plugin'
+            }
+
+            from (project.buildDir.absolutePath +"/symbolMaps.zip") {
+                into 'webapp/WEB-INF/deploy/sgforms'
+            }
+
+            into ('lib/boot') {
+                from jar.archivePath
+                from { jettyJars }
+                from { jettyDeploymentJars }
+                from { configurations.deployment.files.findAll { f -> f.name.startsWith("alpn") } }
+                duplicatesStrategy = "EXCLUDE"
+            }
+
+            into ('/') {
+                from { project.buildDir.absolutePath + '/version.properties' }
+                from { project.buildDir.absolutePath + '/artifact.json' }
+            }
+
+        }
+    }
+}
+
+
+task zipSymbolMaps(type: Zip) {
+    from { project.buildDir.absolutePath + '/../../form/view/webapp/WEB-INF/deploy/sgforms/symbolMaps' }
+    destinationDir = new File(project.buildDir.absolutePath)
+    archiveName = 'symbolMaps.zip'
+}
+
+
+task createVersionProperties(){
+    def versionProps = new File(project.buildDir, '/version.properties')
+    versionProps.getParentFile().mkdirs()
+    versionProps.write("#Version Info")
+    versionProps.append("\nbuild.version="+buildVersion)
+    versionProps.append("\nbuild.number="+buildNumber)
+    versionProps.append("\nbuild.branch="+buildBranch)
+    versionProps.append("\nbuild.key=com.tekgenesis:suigeneris:"+buildVersion+"."+buildNumber+"-"+buildBranch+"\n")
+}
+
+task createArtifactJson() {
+    def artifactJson = new File(project.buildDir, '/artifact.json')
+    artifactJson.getParentFile().mkdirs()
+    artifactJson.write("{ \"key\" : \"com.tekgenesis:suigeneris:"+buildVersion+"."+buildNumber+"-"+buildBranch+"\"}\n")
+}
+
+final Configuration configuration = project.getConfigurations().getByName('deployment');
+installDist.dependsOn(configuration.getTaskDependencyFromProjectDependency(true, 'jar'));
+installDist.dependsOn(configuration.getTaskDependencyFromProjectDependency(true, 'markdownToHtml'));
+installDist.dependsOn('jar');
+installDist.dependsOn(configuration.getTaskDependencyFromProjectDependency(true, 'explodedWar'));
+installDist.dependsOn('createVersionProperties');
+installDist.dependsOn('createArtifactJson');
+installDist.dependsOn('zipSymbolMaps');
+
+
+distZip.dependsOn(configuration.getTaskDependencyFromProjectDependency(true, 'jar'));
+distZip.dependsOn(configuration.getTaskDependencyFromProjectDependency(true, 'markdownToHtml'));
+distZip.dependsOn('jar');
+distZip.dependsOn(configuration.getTaskDependencyFromProjectDependency(true, 'explodedWar'));
+distZip.dependsOn('createVersionProperties');
+distZip.dependsOn('createArtifactJson');
+distZip.dependsOn('zipSymbolMaps');
+
+group = "com.tekgenesis"
+
+
+apply plugin: 'maven-publish'
+
+    publishing {
+        publications {
+            mavenDist(MavenPublication) {
+                artifact distZip
+            }
+
+        }
+        repositories {
+            add project.repositories.tekgenRepo
+        }
+}

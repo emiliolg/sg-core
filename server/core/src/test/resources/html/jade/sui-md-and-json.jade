@@ -1,0 +1,21 @@
+doctype html
+html( sg-view="tekgenesis.service.html.Views", sg-params="product : tekgenesis.samples.service.Product")
+    head
+        title= 'Markdown and JSON examples'
+    body
+        h2= 'Markdown to html'
+        div
+            :md
+                <!-- Comment -->
+
+                ### Some Sub Title
+
+                - With important
+                - Bullets
+
+        h2= 'Parameter to JSON:'
+        script
+            :plain
+                var myProductJson =
+            :json
+                product

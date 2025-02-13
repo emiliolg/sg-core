@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.authorization.Views" sg-params="username : String, error : String, forgotPasswordUrl : String, forgotPasswordLabel : String, modal : Boolean, redirection : String" sg-messages="msg : tekgenesis.authorization.Messages">
+<head>
+    <title>{{msg.LOGIN}}</title>
+    {{>tekgenesis/authorization/head}}
+</head>
+<body>
+
+<div class="container login-container">
+    <form method="post" class="col-sm-4 col-sm-offset-4" action="/login{{redirection}}">
+        <input type="hidden" id="timezone" name="timezone" value="0"/>
+        <fieldset>
+            <legend>{{msg.LOGIN}}</legend>
+
+            <div class="form-group">
+                <label for="username">{{msg.USERNAME}}</label>
+                <input type="text"  class="form-control" id="username" name="username" autofocus="autofocus" value="{{username}}"/>
+            </div>
+
+            <div class="form-group">
+                <label for="password">{{msg.PASSWORD}}</label>
+                <input type="password" class="form-control" id="password" name="password"/>
+            </div>
+
+            {{#error}}
+                <div class="alert alert-danger">{{error}}</div>
+            {{/error}}
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">{{msg.LOGIN}}</button>
+
+                {{^modal}}
+                    {{#forgotPasswordUrl}}
+                        <a href="{{forgotPasswordUrl}}">
+                            {{forgotPasswordLabel}}
+                        </a>
+                    {{/forgotPasswordUrl}}
+                {{/modal}}
+            </div>
+
+        </fieldset>
+    </form>
+
+</div>
+<div id="qrcode" class="qr-container"></div>
+<script src="/external/js/jquery-2.2.4.min.js"></script>
+<script src="/external/js/jquery.qrcode.min.js"></script>
+<script>
+    $(document).keyup(function (event) {
+        if (parent && parent.document != document && event.keyCode == 27)
+            $(parent.document.body).trigger($.Event("keyup", { keyCode : 27 }))
+    });
+    $('#timezone').val(new Date().getTimezoneOffset() / -60);
+
+    var baseUrl = window.location.protocol + "//" + window.location.host
+    var eventSource = new EventSource(baseUrl+"/sg/sse/events/");
+
+    eventSource.onmessage = function(event) {
+        console.log(event);
+        if (event.data.startsWith("token:"))
+        {
+            var qrElement = $('#qrcode');
+            qrElement.html('');
+            qrElement.qrcode({text : event.data.substring(7)});
+        }
+        else {
+            var content = JSON.parse(event.data);
+
+            var req = new XMLHttpRequest();
+            var url =  baseUrl + '/sg/transfer/login';
+
+            req.open("POST", url, true);
+
+            req.withCredentials = true;
+            req.setRequestHeader("Content-type", "application/json");
+            req.setRequestHeader("X-TEK-APP-TOKEN", content.token);
+
+            req.onreadystatechange = function() {
+                if(req.readyState == 4 && req.status == 200) {
+                    window.location.href =  baseUrl + content.targetUrl;
+                }
+            }
+            req.send();
+        }
+    };
+</script>
+
+<!--Start prefetch of forms scripts-->
+<script src="/sgforms/sgforms.nocache.js" defer sync></script>
+
+</body>
+</html>

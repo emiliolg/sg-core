@@ -1,0 +1,349 @@
+apply plugin: 'idea'
+idea {
+    project {
+        //if you want to set specific jdk and language level
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+
+    module {
+        excludeDirs += file('target')
+        excludeDirs += file('gradle')
+    }
+}
+
+private boolean excludeCommonTest(Project p) {
+    p.parent.name == "common" && p.name == "ext" || p.name == "env" || p.name == "core"
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+
+    ext.buildNumber = System.getProperty("suigen.build.number", "Working Copy")
+    version = "3.0"
+    ext.buildVersion = version
+    ext.buildBranch = System.getProperty("suigen.build.branch", "Working Copy")
+    if(buildBranch != "Working Copy") {
+        if (buildBranch != "release") {
+            version = "$version.$buildNumber-$buildBranch"
+        } else version = "$version.$buildNumber"
+    }
+
+    compileJava {
+        options.compilerArgs = ["-Xlint", "-Werror"]
+    }
+    compileTestJava {
+        options.compilerArgs = ["-Xlint", "-Werror"]
+    }
+
+    configurations {
+        all*.exclude module: 'slf4j-log4j12'
+        all*.exclude module: 'org.slf4j'
+        all*.exclude group: 'log4j'
+        provided
+    }
+    idea {
+        module {
+            scopes.PROVIDED.plus += [configurations.provided]
+            downloadJavadoc = true
+            downloadSources = true
+        }
+    }
+
+
+    repositories {
+        mavenCentral()
+    }
+
+    javadoc {
+        failOnError false
+        options.addStringOption("XlintDoc:none")
+    }
+
+    task listAllDependencies(type: DependencyReportTask) {}
+
+    ext {
+        annotations     = files('../../plugin/ideaLibraries/annotations.jar')
+        aopAlliance     = 'aopalliance:aopalliance:1.0'
+        apacheShiro     = 'org.apache.shiro:shiro-core:1.2.0'
+        apacheShiroWeb  = 'org.apache.shiro:shiro-web:1.2.0'
+        assertj         = 'org.assertj:assertj-core:3.6.1'
+        asm             = 'org.ow2.asm:asm:5.0.3'
+
+        bingTranslate   = 'com.memetix:microsoft-translator-java-api:0.6.1'
+        hikari          = 'com.zaxxer:HikariCP:2.4.7'
+        closureCompiler = 'com.google.javascript:closure-compiler:v20131014'
+        commonsCli      = 'commons-cli:commons-cli:1.3.1'
+        commonsIo       = 'commons-io:commons-io:2.2'
+        fileUpload      = 'commons-fileupload:commons-fileupload:1.2.2'
+        fop             = 'org.apache.xmlgraphics:fop:1.0'
+        gflot           = 'com.googlecode.gflot:gflot:3.3.0'
+        gwtAjaxUpload   = 'com.google.gwt.google-apis:gwt-ajaxloader:1.1.0'
+        gwtCropper      = 'com.googlecode.gwt-cropper:gwt-crop:0.4.6'
+
+        gwtDev        = 'com.google.gwt:gwt-dev:2.8.0'
+        gwtServlet    = 'com.google.gwt:gwt-servlet:2.8.0'
+        gwtUser       = 'com.google.gwt:gwt-user:2.8.0'
+
+        elasticSearch   = 'org.elasticsearch:elasticsearch:2.4.1'
+
+        infinispan      = 'org.infinispan:infinispan-core:7.1.1.Final'
+        hsqldb          = 'org.hsqldb:hsqldb:2.3.4'
+        jackson         = 'com.fasterxml.jackson.core:jackson-core:2.6.2'
+        jacksonDataBind = 'com.fasterxml.jackson.core:jackson-databind:2.6.2'
+        javaxAnnotation = 'javax.annotation:javax.annotation-api:1.2'
+        javaxInject     = 'javax.inject:javax.inject:1'
+        javaxServlet    = 'javax.servlet:javax.servlet-api:3.1.0'
+
+        //Jetty
+        jetty           = 'org.eclipse.jetty:jetty-server:9.2.14.v20151106'
+        jettyAnnotations= 'org.eclipse.jetty:jetty-annotations:9.2.14.v20151106'
+        jettyPlus       = 'org.eclipse.jetty:jetty-plus:9.2.14.v20151106'
+        jettyJmx        = 'org.eclipse.jetty:jetty-jmx:9.2.14.v20151106'
+        jettyServlets   = 'org.eclipse.jetty:jetty-servlets:9.2.14.v20151106'
+        jettyWebApp     = 'org.eclipse.jetty:jetty-webapp:9.2.14.v20151106'
+        spdyCore        = 'org.eclipse.jetty.spdy:spdy-core:9.2.14.v20151106'
+        spdyJettyHttp   = 'org.eclipse.jetty.spdy:spdy-http-server:9.2.14.v20151106'
+        spdyJetty       = 'org.eclipse.jetty.spdy:spdy-client:9.2.14.v20151106'
+        webSocketClient = 'org.eclipse.jetty.websocket:websocket-client:9.2.14.v20151106'
+        webSocket       = 'org.eclipse.jetty.websocket:websocket-server:9.2.14.v20151106'
+        alpnServer      = 'org.eclipse.jetty:jetty-alpn-server:9.2.14.v20151106'
+        alpnBoot        = 'org.mortbay.jetty.alpn:alpn-boot:8.1.3.v20150130'
+
+        jmustache       = 'com.samskivert:jmustache:1.12'
+        jade4j          = 'de.neuland-bfi:jade4j:1.2.3'
+
+        jna             =  'net.java.dev.jna:jna:4.2.1'
+        guava           = 'com.google.guava:guava:19.0'
+        junit           = 'junit:junit:4.12'
+        lessCssCompiler = 'org.lesscss:lesscss:1.7.0.1.1'
+        logback_classic = 'ch.qos.logback:logback-classic:1.1.6'
+        logback_core    = 'ch.qos.logback:logback-core:1.1.6'
+        logback_gelf    = 'me.moocar:logback-gelf:0.12'
+        openlayers      = 'org.gwtopenmaps.openlayers:gwt-openlayers-client:0.9'
+        oracle          = files("../../lib/ojdbc7.jar")
+        postgres        = files("../../lib/postgresql-9.4.1207.jar")
+        seleniumJava    = 'org.seleniumhq.selenium:selenium-java:3.0.1'
+        simpleFramework = 'org.simpleframework:simple:4.1.21'
+
+        slf4j           = 'org.slf4j:slf4j-api:1.7.19'
+        slf4j_jdk14     = 'org.slf4j:slf4j-jdk14:1.7.5'
+        jul_to_slf4j    = 'org.slf4j:jul-to-slf4j:1.7.5'
+        jclOverSl4j     = 'org.slf4j:jcl-over-slf4j:1.7.12'
+
+        asyncHttpClient = 'com.ning:async-http-client:1.9.38'
+        springCore      = 'org.springframework:spring-core:2.5.6'
+        springTest      = 'org.springframework:spring-test:2.5.6'
+        thumbnailator   = 'net.coobird:thumbnailator:0.4.6'
+        metricsCore     = 'io.dropwizard.metrics:metrics-core:3.1.2'
+        metricsServlet  = 'io.dropwizard.metrics:metrics-servlet:3.1.2'
+        metricsJvm      = 'io.dropwizard.metrics:metrics-jvm:3.1.2'
+        metricsGraphite = 'io.dropwizard.metrics:metrics-graphite:3.1.2'
+
+        xalan           = 'xalan:xalan:2.7.1'
+        javaMail        = 'javax.mail:mail:1.4.7'
+        greenMail       = 'com.icegreen:greenmail:1.4.1'
+        rxJava          = 'io.reactivex:rxjava:1.0.14'
+        rxNetty         = 'io.reactivex:rxnetty:0.5.1'
+        redis           = 'redis.clients:jedis:2.7.2'
+        pegdown         = 'org.pegdown:pegdown:1.6.0'
+        gson            = 'com.google.code.gson:gson:2.3.1'
+        jbossLogging    = 'org.jboss.logging:jboss-logging:3.1.2.GA'
+        jodaTime        = 'joda-time:joda-time:2.8.2'
+        scribe          = 'com.github.scribejava:scribejava-apis:2.5.3'
+
+        commonAll       = 'com.tekgenesis:common-all:3.0.45-master'
+        commonTest      = 'com.tekgenesis:common-test:3.0.45-master'
+        commonGwt       = 'com.tekgenesis:common-core-gwt:3.0.45-master'
+
+        awsDynamo       = 'com.amazonaws:aws-java-sdk-dynamodb:1.11.91'
+        awsEc2          = 'com.amazonaws:aws-java-sdk-ec2:1.11.91'
+        awsKinesisClient= 'com.amazonaws:amazon-kinesis-client:1.7.4'
+        awsKpl          = 'com.amazonaws:amazon-kinesis-producer:0.12.3'
+
+        kafkaClient     = 'org.apache.kafka:kafka-clients:0.10.1.1'
+    }
+//    configurations.all {
+//        resolutionStrategy {
+//            force slf4j, logback_classic, jacksonDataBind,
+//                    'commons-logging:commons-logging:1.1.3',
+//                    'xml-apis:xml-apis:2.0.2',
+//                    'com.google.guava:guava:19.0',
+//                    'org.apache.httpcomponents:httpclient:4.3.6',
+//                    'io.netty:netty:3.9.0.Final',
+//                    'com.google.code.gson:gson:2.3.1'
+//
+//          // failOnVersionConflict()
+//        }
+//    }
+
+
+    dependencies {
+        compile annotations
+        compile commonAll
+        testCompile junit
+        if (!excludeCommonTest(project)) {
+            testCompile commonTest
+        }
+        testCompile assertj
+    }
+    buildDir = new File(rootProject.projectDir, "target/" +projectDir.parentFile.name+"/"+project.name)
+
+    sourceSets {
+        main {
+            compileClasspath += configurations.provided
+            output.resourcesDir = output.classesDir
+
+            java {
+                exclude '**/gwtonly/**'
+            }
+        }
+        test {
+            compileClasspath += configurations.provided
+            runtimeClasspath += configurations.provided
+            output.resourcesDir = output.classesDir
+        }
+    }
+
+    jar.doFirst {
+        sourceSets.main.output.resourcesDir = "/dev/null2"
+    }
+    jar.doLast {
+        sourceSets.main.output.resourcesDir = sourceSets.main.output.classesDir
+    }
+
+
+    test {
+        workingDir = "../.."
+        systemProperty 'test.databases' ,System.getProperty("test.databases", "mem")
+        systemProperty 'suigen.tests.oracle' ,System.getProperty("suigen.tests.oracle", "false")
+        systemProperty 'suigen.tests.postgres' ,System.getProperty("suigen.tests.postgres", "false")
+        systemProperty 'test.oracleUrl',  System.getProperty("test.oracleUrl","oracle.tekgenesis.com:1521:oracle")
+        systemProperty 'java.security.egd','file:///dev/urandom'
+
+        // Assign all Java system properties from the command line to the JavaExec task.
+        systemProperties System.properties
+
+        //     systemProperty 'docker.url',  System.getProperty("docker.url","http://10.0.1.105:2376")
+        if(project.name != "ext" && project.name != "core" && project.name != "env"){
+            useJUnit {
+                excludeCategories 'tekgenesis.common.tools.test.AppTests'
+                excludeCategories 'tekgenesis.common.tools.test.LrgTests'
+            }
+        }
+    }
+
+
+    if(!excludeCommonTest(project)) {
+        task lrgTests(type: Test) {
+            workingDir = "../.."
+            systemProperty 'test.databases' ,System.getProperty("test.databases", "mem")
+            systemProperty 'suigen.tests.oracle' ,System.getProperty("suigen.tests.oracle", "false")
+            systemProperty 'suigen.tests.postgres' ,System.getProperty("suigen.tests.postgres", "false")
+            systemProperty 'test.oracleUrl',  System.getProperty("test.oracleUrl","oracle.tekgenesis.com:1521:oracle")
+            systemProperty 'docker.url',  System.getProperty("docker.url","http://10.0.1.105:2376")
+            systemProperty 'java.security.egd','file:///dev/urandom'
+            useJUnit {
+                includeCategories 'tekgenesis.common.tools.test.LrgTests'
+
+            }
+        }
+        task appTests(type: Test) {
+            workingDir = "../.."
+            systemProperty 'test.databases', System.getProperty("test.databases", "mem")
+            systemProperty 'suigen.tests.oracle', System.getProperty("suigen.tests.oracle", "false")
+            systemProperty 'suigen.tests.postgres', System.getProperty("suigen.tests.postgres", "false")
+
+            systemProperty 'suigen.selenium.baseUrl', System.getProperty("suigen.selenium.baseUrl", "http://localhost:8024")
+            systemProperty 'suigen.selenium.user', System.getProperty("suigen.selenium.user", "admin")
+            systemProperty 'suigen.selenium.password', System.getProperty("suigen.selenium.password", "password")
+            systemProperty 'suigen.selenium.userDataDir', System.getProperty("suigen.selenium.userDataDir", "")
+            systemProperty 'suigen.install.dir', System.getProperty("suigen.install.dir", null)
+            systemProperty 'suigen.selenium.port', System.getProperty("suigen.selenium.port", "8024")
+            systemProperty 'selenium.hub.url', System.getProperty("selenium.hub.url", null)
+            systemProperty 'test.oracleUrl',  System.getProperty("test.oracleUrl","oracle.tekgenesis.com:1521:oracle")
+            systemProperty 'docker.url',  System.getProperty("docker.url","http://10.0.1.105:2376")
+            systemProperty 'java.security.egd','file:///dev/urandom'
+
+
+            useJUnit {
+                includeCategories 'tekgenesis.common.tools.test.AppTests'
+                exclude 'tekgenesis/selenium/test/**'
+            }
+        }
+
+        task seleniumTests(type: Test) {
+            workingDir = "../.."
+            systemProperty 'test.databases', System.getProperty("test.databases", "mem")
+            systemProperty 'suigen.tests.oracle', System.getProperty("suigen.tests.oracle", "false")
+            systemProperty 'suigen.tests.postgres', System.getProperty("suigen.tests.postgres", "false")
+
+            systemProperty 'suigen.selenium.baseUrl', System.getProperty("suigen.selenium.baseUrl", "http://localhost:8024")
+            systemProperty 'suigen.selenium.user', System.getProperty("suigen.selenium.user", "admin")
+            systemProperty 'suigen.selenium.password', System.getProperty("suigen.selenium.password", "password")
+            systemProperty 'suigen.selenium.userDataDir', System.getProperty("suigen.selenium.userDataDir", "")
+            systemProperty 'suigen.install.dir', System.getProperty("suigen.install.dir", null)
+            systemProperty 'suigen.selenium.port', System.getProperty("suigen.selenium.port", "8024")
+            systemProperty 'selenium.hub.url', System.getProperty("selenium.hub.url", null)
+            systemProperty 'test.oracleUrl',  System.getProperty("test.oracleUrl","oracle.tekgenesis.com:1521:oracle")
+            systemProperty 'docker.url',  System.getProperty("docker.url","http://10.0.1.105:2376")
+            systemProperty 'java.security.egd','file:///dev/urandom'
+
+
+            useJUnit {
+                includeCategories 'tekgenesis.common.tools.test.AppTests'
+                include 'tekgenesis/selenium/test/**'
+            }
+        }
+
+    }
+
+    task allTests(type: Test) {
+        workingDir = "../.."
+        systemProperty 'test.databases' ,System.getProperty("test.databases", "mem")
+        systemProperty 'suigen.tests.oracle' ,System.getProperty("suigen.tests.oracle", "false")
+        systemProperty 'suigen.tests.postgres' ,System.getProperty("suigen.tests.postgres", "false")
+        systemProperty 'test.oracleUrl',  System.getProperty("test.oracleUrl","oracle.tekgenesis.com:1521:oracle")
+        systemProperty 'docker.url',  System.getProperty("docker.url","http://10.0.1.105:2376")
+        systemProperty 'java.security.egd','file:///dev/urandom'
+        useJUnit {
+            excludeCategories 'tekgenesis.common.tools.test.AppTests'
+            exclude 'tekgenesis/selenium/test/**'
+        }
+
+    }
+
+    def moduleName =  projectDir.parentFile.name+"-"+project.name
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+        destinationDir new File(rootProject.projectDir, "target/sources")
+        archiveName  moduleName + "-src.jar"
+    }
+
+    artifacts {
+        archives sourcesJar
+    }
+
+    jar.archiveName = moduleName+".jar"
+    idea {
+        module {
+            excludeDirs += file('src/main/java/tekgenesis/gwtonly')
+            inheritOutputDirs = false
+            outputDir = new File(buildDir, "classes/main")
+            testOutputDir = new File(buildDir, "classes/test")
+            sourceDirs +=   file('src/main/mm')
+            sourceDirs +=   file('src_managed/main/mm')
+            generatedSourceDirs +=   file('src_managed/main/mm')
+            testSourceDirs +=   file('src/test/mm')
+            testSourceDirs +=   file('src_managed/test/mm')
+            generatedSourceDirs +=   file('src_managed/test/mm')
+	        name = moduleName
+        }
+    }
+
+    clean.doFirst {
+        file(project.projectDir.absolutePath + "/src_managed").deleteDir()
+    }
+}

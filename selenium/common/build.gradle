@@ -1,0 +1,14 @@
+dependencies {
+    compile project(':runtime:test')
+    compile project(':server:core')
+    compile assertj
+    compile junit
+    compile (seleniumJava) {
+        exclude group: 'org.webbitserver', module: 'webbit'
+        exclude group: 'org.eclipse.jetty'
+    }
+    compile jetty
+    compile jettyWebApp
+}
+
+

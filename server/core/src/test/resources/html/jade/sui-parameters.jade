@@ -1,0 +1,11 @@
+doctype html
+html(sg-view="tekgenesis.service.html.Views", sg-params="text:String, number:Int, decimal:Decimal, bool:Boolean, list:String*")
+    head
+        title='Parameters examples'
+    body
+        div='Text: ' + text
+        div='Number: ' + number
+        div='Decimal: ' + decimal
+        div='Currency: ' + sg.currency(decimal)
+        div='Bool: ' + bool
+        div='String list: ' + list

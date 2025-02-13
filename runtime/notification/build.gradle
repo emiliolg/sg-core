@@ -1,0 +1,14 @@
+import tekgenesis.plugin.mm.MMPlugin
+apply plugin : MMPlugin
+dependencies {
+    jackson
+    compile project(':db:base')
+    compile project(':db:entity')
+    compile project(':metadata:authorization')
+    compile project(':runtime:web')
+    compile project(':projects:authorization')
+    compile jackson
+    compile jacksonDataBind
+    compile javaxInject
+    testCompile simpleFramework
+}

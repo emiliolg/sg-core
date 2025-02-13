@@ -1,0 +1,19 @@
+<div class="google-map" sg-view="tekgenesis.sales.basic.Views" sg-params="stores : String">
+    <div class="google-map" ng-init='stores = {{#json}}{{stores}}{{/json}}'>
+        <div class="google-map" ng-controller="StoresMap">
+            <!-- Add store button -->
+            <button id="add" class="btn btn-primary" ng-click="openDialog()">
+                <i class="fa fa-plus"></i>
+                Add
+            </button>
+
+            <!-- Div to inject the map -->
+            <div id="map"></div>
+
+            <!-- Dialog holding a Sui Generis form box -->
+            <div id="form-dialog" ng-show="showDialog">
+                <div id="form" data-sg-type="form" data-sg-config='{"fqn":"tekgenesis.sales.basic.StoreForm"}'></div>
+            </div>
+        </div>
+    </div>
+</div>

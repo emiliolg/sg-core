@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.sales.basic.Views" sg-params="title : String, content : Html" ng-app="StoresApp">
+    <head>
+        <!-- Title from parameter -->
+        <title>{{title}}</title>
+
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+        <link rel="icon" href="{{#sha}}/sg/img/favicon.png{{/sha}}"/>
+
+        <!-- Include basic app styling using less -->
+        <link rel="stylesheet" href="{{#sha}}/css/sales/stores.less{{/sha}}"/>
+        <link rel="stylesheet" href="{{#css-theme}}{{/css-theme}}" id="theme">
+
+        <!-- Include external libs: google maps, jquery and angular -->
+        <script src='//maps.googleapis.com/maps/api/js'></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+
+        <!-- Include our custom stores.js and a Sui Generis sui-module.js dependency -->
+        <script src="{{#sha}}/js/sales/stores.js{{/sha}}"></script>
+
+    </head>
+    <body>
+        {{#sg-include}}content{{/sg-include}}
+
+        <!-- Include Sui Generis forms js bootstrap -->
+        {{#sg-forms-bootstrap}}{{/sg-forms-bootstrap}}
+    </body>
+</html>

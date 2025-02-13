@@ -1,0 +1,24 @@
+import tekgenesis.plugin.ix.IxPlugin
+
+apply plugin : IxPlugin
+dependencies {
+    compile project(':parser:common')
+    compile project(':metadata:builder')
+    compile project(':db:entity')
+    compile project(':db:base')
+    compile project(':metadata:entity')
+    compile project(':metadata:type')
+    compile project(':codegen:metamodel')
+    compile project(':codegen:base')
+    compile project(':ix:db')
+    testCompile project(':db:entity').sourceSets.test.output
+    testCompile project(':runtime:persistence').sourceSets.main.output
+    testCompile project(':runtime:test')
+    testCompile simpleFramework
+    testCompile jackson
+    testCompile jacksonDataBind
+    testCompile jbossLogging
+    testRuntime hsqldb
+}
+
+

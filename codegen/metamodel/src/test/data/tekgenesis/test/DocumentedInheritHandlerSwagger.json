@@ -1,0 +1,68 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "DocumentedInheritHandler",
+    "description" : "Handler Type Inheritance Documentation"
+  } ],
+  "paths" : {
+    "/home" : {
+      "get" : {
+        "tags" : [ "DocumentedInheritHandler" ],
+        "summary" : "",
+        "operationId" : "home",
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "$ref" : "#/definitions/tekgenesis.test.Cat"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "tekgenesis.test.Cat" : {
+      "type" : "object",
+      "description" : "Cat",
+      "allOf" : [ {
+        "$ref" : "#/definitions/tekgenesis.test.Pet"
+      }, {
+        "properties" : {
+          "huntingSkill" : {
+            "description" : "Hunting Skill",
+            "type" : "string"
+          }
+        },
+        "required" : [ "huntingSkill" ]
+      } ]
+    },
+    "tekgenesis.test.Pet" : {
+      "type" : "object",
+      "description" : "Pet",
+      "properties" : {
+        "petId" : {
+          "description" : "Id",
+          "type" : "string"
+        },
+        "name" : {
+          "description" : "Name",
+          "type" : "string"
+        }
+      },
+      "required" : [ "petId", "name" ]
+    }
+  }
+}

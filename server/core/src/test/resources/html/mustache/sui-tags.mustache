@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views">
+<head>
+    <title>Tags examples</title>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a id="userDropdown" class="dropdown-toggle user-dropdown">
+                    <span id="sg-user-name" data-sg-type="userName" data-sg-config='{"picture":true, "username":false}'></span>
+                </a>
+                <ul class="dropdown-menu" id="userOptions">
+                    <li id="sg-user-profile" data-sg-type="userProfile"></li>
+                    <li id="sg-shortcuts" data-sg-type="shortcuts"></li>
+                    <li class="divider"></li>
+                    <li id="sg-change-ou" data-sg-type="changeOu"></li>
+                    <li id="sg-switch-user" data-sg-type="switchUser"></li>
+                    <li id="sg-logout" data-sg-type="logout"></li>
+                </ul>
+            </li>
+            <li id="sg-fullscreen" data-sg-type="fullscreen"></li>
+        </ul>
+        <div class="navbar-header">
+            <a id="sg-toggle-menu" data-sg-type="toggleMenu"></a>
+            <a class="navbar-brand" href="/">TekGenesis</a>
+        </div>
+        <div class="navbar-collapse collapse push-overlay-nav">
+            <div id="sg-menu" data-sg-type="menu" data-sg-config='{"position":"top"}'></div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div id="sg-form" data-sg-type="form" data-sg-config='{"history":true}'></div>
+</div>
+
+{{#sg-forms-bootstrap}}{{/sg-forms-bootstrap}}
+
+</body>
+</html>

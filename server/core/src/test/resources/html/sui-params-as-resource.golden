@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" sui-scope="593774c3f7ae7b6f0c56d70c660f5e2666e5ce91f27d95e2d6c8ccb4596731b7/0">
+    <head>
+    </head>
+    <body>
+    
+<script class="suiScopesCache">
+//<![CDATA[
+var suiScopesCache = {"593774c3f7ae7b6f0c56d70c660f5e2666e5ce91f27d95e2d6c8ccb4596731b7/0":{"a":"Value 'a'","b":"Value 'b'","c":{"productId":"product.id","model":"Some model","description":"Some description with \"quoted\" words.","price":89.99,"created":"2014-01-31T03:00:00Z"}}};
+//]]>
+</script>
+</body>
+</html>

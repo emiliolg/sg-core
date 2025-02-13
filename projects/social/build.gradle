@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':projects:authorization')
+    compile project(':metadata:authorization')
+    compile project(':db:entity')
+    compile project(':db:base')
+    compile scribe
+    compile jacksonDataBind
+}
+

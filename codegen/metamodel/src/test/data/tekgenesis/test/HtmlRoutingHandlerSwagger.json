@@ -1,0 +1,129 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "HtmlRoutingHandler",
+    "description" : "Html Routing"
+  } ],
+  "paths" : {
+    "/home" : {
+      "get" : {
+        "tags" : [ "HtmlRoutingHandler" ],
+        "summary" : "",
+        "operationId" : "home",
+        "produces" : [ "text/html" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/some" : {
+      "get" : {
+        "tags" : [ "HtmlRoutingHandler" ],
+        "summary" : "",
+        "operationId" : "some",
+        "produces" : [ "text/html" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/some/{id}" : {
+      "get" : {
+        "tags" : [ "HtmlRoutingHandler" ],
+        "summary" : "",
+        "operationId" : "someId",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/some/{path}" : {
+      "get" : {
+        "tags" : [ "HtmlRoutingHandler" ],
+        "summary" : "",
+        "operationId" : "somePath",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "path",
+          "in" : "path",
+          "description" : "Path",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/example/{with}/multiple/{params}" : {
+      "get" : {
+        "tags" : [ "HtmlRoutingHandler" ],
+        "summary" : "",
+        "operationId" : "multiple",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "with",
+          "in" : "path",
+          "description" : "With",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "params",
+          "in" : "path",
+          "description" : "Params",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : { }
+}

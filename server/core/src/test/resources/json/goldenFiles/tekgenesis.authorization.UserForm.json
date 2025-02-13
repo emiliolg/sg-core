@@ -1,0 +1,1 @@
+{"edit":true,"passwordScore":3,"id":"demouser","name":"Demo User","defaultOu":"tekgenesis.authorization.OrgUnit/Root Ou","enablePass":false,"internalLocale":"en","locale":"EN","devices":[],"props":[{"required":true,"property":"tekgenesis.authorization.Property/prop1:customize:BOOLEAN","type":"BOOLEAN","value":true}],"roles":[],"deprecate":false}

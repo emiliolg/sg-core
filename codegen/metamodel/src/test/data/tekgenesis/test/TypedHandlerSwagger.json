@@ -1,0 +1,112 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "TypedHandler",
+    "description" : "Typed"
+  } ],
+  "paths" : {
+    "/a/{id}" : {
+      "get" : {
+        "tags" : [ "TypedHandler" ],
+        "summary" : "",
+        "operationId" : "str",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/b/{id}" : {
+      "get" : {
+        "tags" : [ "TypedHandler" ],
+        "summary" : "",
+        "operationId" : "real",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "number",
+          "format" : "double"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/c/{id}" : {
+      "get" : {
+        "tags" : [ "TypedHandler" ],
+        "summary" : "",
+        "operationId" : "date",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string",
+          "format" : "date"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/d/{id}" : {
+      "get" : {
+        "tags" : [ "TypedHandler" ],
+        "summary" : "",
+        "operationId" : "time",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string",
+          "format" : "date-time"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : { }
+}

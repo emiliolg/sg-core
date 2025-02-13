@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" sui-scope="/html/sui-include.xhtml/0">
+    <head>
+        
+    <title>Salvador</title>
+    <link rel="stylesheet" href="http://cdnd.epi.ninja/sg/concat?/sha/public/css/alpha.css/0125c03ab7&amp;/sha/public/css/beta.css/0a4f910a6e"></link>
+    <meta name="description" content="This tests multiple params in an include"></meta>
+    <meta charset="utf-8"></meta>
+
+    
+<meta property="og:title" content="Salvador betting page"></meta>
+<meta property="og:image" content="img/image.jpeg"></meta>
+<meta property="og:image:width" content="200"></meta>
+<meta property="og:image:height" content="200"></meta>
+<meta property="og:image" content="img/image2.jpeg"></meta>
+<meta property="og:image:width" content="200"></meta>
+<meta property="og:image:height" content="200"></meta></head>
+
+    <body>
+        <div sui-scope="/html/sui-include-referenced-content.xhtml/2" class="alpha beta">
+    <img src="babies/Salvador"></img>
+    <a href="https://www.facebook.com/dialog/oauth?client_id=&amp;redirect_uri=http://tekgenesis.net:8080/sg/fb/login//secure/page&amp;scope=email,user_friends"></a>
+</div>
+    
+<script class="suiScopesCache">
+//<![CDATA[
+var suiScopesCache = {"/html/sui-include.xhtml/0":{"title":"Salvador"},"/html/sui-include-referenced-content.xhtml/2":{"baby":"Salvador"}};
+//]]>
+</script>
+</body>
+</html>

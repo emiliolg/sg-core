@@ -1,0 +1,21 @@
+import tekgenesis.plugin.mm.MMPlugin
+
+apply plugin : MMPlugin
+dependencies {
+    compile project(':metadata:authorization')
+    compile project(':metadata:builder')
+    compile project(':metadata:entity')
+    compile project(':metadata:expr')
+    compile project(':metadata:type')
+    compile project(':metadata:form')
+    compile project(':db:entity')
+    compile project(':db:base')
+    compile project(':runtime:persistence')
+    compile project(':runtime:web')
+    compile project(':codegen:metamodel')
+    compile project(':codegen:base')
+    compile project(':parser:metamodel')
+    compile jackson
+    compile jacksonDataBind
+}
+

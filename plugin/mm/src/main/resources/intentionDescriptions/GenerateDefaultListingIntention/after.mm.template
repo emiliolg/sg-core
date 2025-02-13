@@ -1,0 +1,11 @@
+entity Customer "Customer"
+	described_by name
+	searchable
+{
+	name "Name" : String(20);
+	bool "Bool": Boolean;
+	orders "Orders": Order*;
+	superOrders "Super Orders": SuperOrder*;
+}
+
+form CustomerForm listing Customer;

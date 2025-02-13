@@ -1,0 +1,267 @@
+<!--suppress DeprecatedClassUsageInspection -->
+<idea-plugin version="2" xmlns="http://plugins.intellij.net/plugin.dtd">
+    <id>tekgenesis.mm</id>
+    <name>Meta Model Language</name>
+    <description>Sui Generis MetaModel Definition Language Plugin</description>
+    <version>@BUILD_VERSION@ Build @BUILD_NUMBER@ </version>
+    <vendor>TekGenesis</vendor>
+
+    <application-components>
+        <component>
+            <implementation-class>tekgenesis.lang.mm.translate.KeyManager</implementation-class>
+        </component>
+        <component>
+            <implementation-class>tekgenesis.lang.mm.translate.LanguageManager</implementation-class>
+        </component>
+        <component>
+            <implementation-class>tekgenesis.lang.mm.settings.MMApplicationSettingManager</implementation-class>
+        </component>
+    </application-components>
+
+    <project-components>
+        <component>
+            <implementation-class>tekgenesis.lang.mm.MMProjectComponent</implementation-class>
+        </component>
+    </project-components>
+
+    <project-components>
+        <component>
+            <implementation-class>tekgenesis.lang.mm.MMHotSwapManager</implementation-class>
+        </component>
+    </project-components>
+
+    <module-components>
+        <component>
+            <implementation-class>tekgenesis.lang.mm.MMModuleComponent</implementation-class>
+        </component>
+    </module-components>
+
+    <actions>
+        <action id="NewMMAction" class="tekgenesis.lang.mm.NewMMAction" text="Meta Model">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+        </action>
+
+        <action id="EntitiesFromDBAction" class="tekgenesis.lang.mm.actions.introspector.EntitiesFromDBAction" text="Entities from DB">
+            <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewMMAction"/>
+        </action>
+
+        <group id="MMMenu" icon="/tekgenesis/lang/mm/MMIcon7.png" popup="true" description="MMMenu" text="MM Actions">
+            <add-to-group group-id="ToolsMenu" anchor="last" />
+
+            <action id="GDFA" class="tekgenesis.lang.mm.actions.GenerateDefaultFormAction" text="Generate Default Form For Entity"
+                    description="Generates a one line default form for an entity">
+            </action>
+            <action id="GDWA" class="tekgenesis.lang.mm.actions.GenerateDefaultWidgetAction" text="Generate Default Widget Definition For Model"
+                    description="Generates a one line default widgetdef for an entity or a type">
+            </action>
+            <action id="GDLA" class="tekgenesis.lang.mm.actions.GenerateDefaultListingAction" text="Generate Default Listing For Entity"
+                    description="Generates a one line default listing for an entity">
+            </action>
+            <action id="GenerateForm" class="tekgenesis.lang.mm.actions.DefaultUiModelExpansionAction" text="Expand Default Form or Widget" description="Expands a default form or widget">
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt F"/>
+            </action>
+            <action id="GenerateSearchable" class="tekgenesis.lang.mm.actions.DefaultSearchableExpansionAction" text="Expand Default Searchable" description="Expands a default searchable">
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt S"/>
+            </action>
+            <action id="AddToMenu" class="tekgenesis.lang.mm.actions.AddToMenuAction" text="Add To Menu" description="Add Form/Menu to Menu">
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt A"/>
+            </action>
+            <action id="selectedMMGraph" class="tekgenesis.lang.mm.actions.SelectedMMGraphAction" text="Selected MMGraph"
+                    description="MMGraph for a selected entity">
+            </action>
+            <action id="LocalizeMetaModelAction" class="tekgenesis.lang.mm.actions.LocalizeMetaModelAction"
+                    text="Localize Meta Model" description="Internationalize Meta Model">
+            </action>
+            <action id="AddToStaticTable" class="tekgenesis.lang.mm.actions.AddButtonsToStaticTableAction" text="Add Buttons To Static Table"
+                    description="Adds add and remove buttons to a static table">
+            </action>
+
+            <separator/>
+
+            <action id="GDSQLA" class="tekgenesis.lang.mm.actions.GenerateDefaultSQLAction" text="Generate Default SQL" description="Generates Default SQL for File">
+                <add-to-group group-id="EditorPopupMenu"/>
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt shift S"/>
+            </action>
+            <action id="GSQLA" class="tekgenesis.lang.mm.actions.GenerateSQLAction" text="Generate SQL" description="Generates SQL for File">
+                <add-to-group group-id="EditorPopupMenu"/>
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt S"/>
+            </action>
+            <action id="GSQLAE" class="tekgenesis.lang.mm.actions.DatabaseEvolutionAction" text="Database Automatic Evolution SQL" description="Database Automatic Evolution">
+                <add-to-group group-id="EditorPopupMenu"/>
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt E"/>
+            </action>
+
+            <separator/>
+
+            <action id="tekgenesis.lang.mm.actions.UltimateMMGraphAction" class="tekgenesis.lang.mm.actions.UltimateMMGraphAction"
+                    text="SuperMMGraph(Only For Ultimate)" description="Complete Graph only for Idea Ultimate">
+                <add-to-group group-id="EditorPopupMenu"/>
+            </action>
+            <action id="LocalizePackage" class="tekgenesis.lang.mm.actions.LocalizePackageAction" text="Localize Package"
+                    description="Localize all Files in Package ">
+                <add-to-group group-id="EditorPopupMenu"/>
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt L"/>
+            </action>
+            <action id="LocalizeAction" class="tekgenesis.lang.mm.actions.LocalizeFileAction"
+                    text="Localize File" description="Internationalize File">
+                <add-to-group group-id="EditorPopupMenu"/>
+            </action>
+            <action id="DocumentAction" class="tekgenesis.lang.mm.actions.GenerateDocumentationFileAction"
+                    text="Generate Documentation File" description="Generate Documentation File">
+                <add-to-group group-id="EditorPopupMenu"/>
+            </action>
+            <action id="TidyFile" class="tekgenesis.lang.mm.actions.TidyFileAction" text="Tidy File" description="Tidies a File">
+                <add-to-group group-id="EditorPopupMenu"/>
+                <keyboard-shortcut keymap="$default" first-keystroke="meta alt T"/>
+            </action>
+
+            <separator/>
+
+            <action id="BrowseDocumentation" class="tekgenesis.lang.mm.actions.BrowseDocumentationAction" text="Sui Generis Documentation" description="Open Sui Generis Documentation">
+                <add-to-group group-id="EditorPopupMenu"/>
+                <keyboard-shortcut first-keystroke="ctrl F1" keymap="$default"/>
+            </action>
+
+            <action id="diegoHelp" class="tekgenesis.lang.mm.actions.DiegoHelpAction" text="Help! Diegor!"
+                    description="Who's the Man? Diegor's the Man">
+            </action>
+        </group>
+
+    </actions>
+    <extensions defaultExtensionNs="com.intellij">
+        <lang.surroundDescriptor language="MetaModel" implementationClass="tekgenesis.lang.mm.surround.MMFormFieldSurroundDescriptor"/>
+        <lang.surroundDescriptor language="JAVA" implementationClass="tekgenesis.lang.mm.surround.LoggerSurroundDescriptor"/>
+        <statementUpDownMover implementation="tekgenesis.lang.mm.move.MetaModelMemberMover"/>
+        <fileTypeFactory implementation="tekgenesis.lang.mm.MMFileTypeFactory"/>
+        <lang.braceMatcher language="MetaModel" implementationClass="tekgenesis.lang.mm.MMBraceMatcher"/>
+        <lang.syntaxHighlighterFactory key="MetaModel" implementationClass="tekgenesis.lang.mm.MMSyntaxHighlighterFactory"/>
+        <lang.commenter language="MetaModel" implementationClass="tekgenesis.lang.mm.MMCommenter"/>
+        <lang.parserDefinition language="MetaModel" implementationClass="tekgenesis.lang.mm.MMParserDefinition"/>
+        <lang.ast.factory language="MetaModel" implementationClass="tekgenesis.lang.mm.psi.MMASTFactory"/>
+        <lang.findUsagesProvider language="MetaModel" implementationClass="tekgenesis.lang.mm.psi.EntityFindUsagesProvider"/>
+        <annotator language="MetaModel" implementationClass="tekgenesis.lang.mm.psi.MMAnnotator"/>
+        <annotator language="XHTML" implementationClass="tekgenesis.lang.mm.psi.XHTMLAnnotator"/>
+        <colorSettingsPage implementation="tekgenesis.lang.mm.MMColorsPage"/>
+        <lang.foldingBuilder language="MetaModel" implementationClass="tekgenesis.lang.mm.folding.MetaModelFolding"/>
+        <lang.foldingBuilder language="JAVA" implementationClass="tekgenesis.lang.mm.folding.GeneratedJavaFoldingBuilder"/>
+        <lang.foldingBuilder language="MetaModel" implementationClass="tekgenesis.lang.mm.MMFoldingBuilder"/>
+        <lang.psiStructureViewFactory language="MetaModel" implementationClass="tekgenesis.lang.mm.psi.structure.MetaModelStructureViewFactory"/>
+        <lang.formatter language="MetaModel" implementationClass="tekgenesis.lang.mm.psi.EntityFormattingBuilder"/>
+        <lang.documentationProvider language="MetaModel" implementationClass="tekgenesis.lang.mm.documentationProvider.MMDocumentationProvider"/>
+        <configurationType implementation="tekgenesis.lang.mm.runner.MMConfigurationType"/>
+        <configurationType implementation="tekgenesis.lang.mm.runner.MMTaskConfigurationType"/>
+        <framework.type implementation="tekgenesis.lang.mm.facet.MMFrameworkType"/>
+        <facetType implementation="tekgenesis.lang.mm.facet.MMFacetType"/>
+        <framework.detector implementation="tekgenesis.lang.mm.facet.MMFrameworkDetector"/>
+        <liveTemplateContext implementation="tekgenesis.lang.mm.template.MMContextType"/>
+        <liveTemplateMacro implementation="tekgenesis.lang.mm.template.MMTypeMacro"/>
+        <liveTemplateMacro implementation="tekgenesis.lang.mm.template.MMCapitalizeFirstMacro"/>
+        <liveTemplateMacro implementation="tekgenesis.lang.mm.template.MMCamelCaseMacro"/>
+        <defaultLiveTemplatesProvider implementation="tekgenesis.lang.mm.template.MMLiveTemplateProvider"/>
+        <treeStructureProvider implementation="tekgenesis.lang.mm.psi.structure.projectStructure.MMProjectStructureViewProvider" order="last"/>
+        <applicationConfigurable instance="tekgenesis.lang.mm.settings.MMInternationalizeSettings"/>
+        <applicationConfigurable instance="tekgenesis.lang.mm.settings.MMSettings"/>
+        <codeInsight.lineMarkerProvider language="MetaModel" implementationClass="tekgenesis.lang.mm.gutter.MMLineMarkerProvider"/>
+        <codeInsight.lineMarkerProvider language="JAVA" implementationClass="tekgenesis.lang.mm.gutter.JavaMMLineMarker"/>
+        <codeInsight.lineMarkerProvider language="XHTML" implementationClass="tekgenesis.lang.mm.gutter.XhtmlMMLineMarker"/>
+        <codeInsight.lineMarkerProvider language="MUSTACHE" implementationClass="tekgenesis.lang.mm.gutter.XhtmlMMLineMarker"/>
+        <codeInsight.lineMarkerProvider language="Jade" implementationClass="tekgenesis.lang.mm.gutter.XhtmlMMLineMarker"/>
+        <renamePsiElementProcessor implementation="tekgenesis.lang.mm.rename.RenamePsiMetaModelProcessor" order="first"/>
+        <renamePsiElementProcessor implementation="tekgenesis.lang.mm.rename.RenamePsiFieldProcessor" order="first"/>
+        <lang.refactoringSupport language="MetaModel" implementationClass="tekgenesis.lang.mm.delete.SafeDeleteMMSupportProvider"/>
+        <refactoring.safeDeleteProcessor implementation="tekgenesis.lang.mm.delete.PsiMetaModelSafeDeleteProcessor" order="first"/>
+        <elementDescriptionProvider implementation="tekgenesis.lang.mm.descriptor.MMElementTypeDescriptionProvider"/>
+        <codeInsight.template.postfixTemplateProvider language="JAVA" implementationClass="tekgenesis.lang.mm.postfixTemplate.CustomJavaPostfixTemplateProvider"/>
+        <quoteHandler fileType="MetaModel" className="tekgenesis.lang.mm.MMQuoteHandler"/>
+
+        <xml.attributeDescriptorsProvider implementation="tekgenesis.lang.mm.html.SgAttributeDescriptorProvider"/>
+        <xml.elementDescriptorProvider implementation="tekgenesis.lang.mm.html.SgElementDescriptorProvider"/>
+        <xml.tagNameProvider implementation="tekgenesis.lang.mm.html.SgElementDescriptorProvider"/>
+        <xml.xmlExtension implementation="tekgenesis.lang.mm.html.SgXhtmlExtension" order="first"/>
+
+        <pathReferenceProvider implementation="tekgenesis.lang.mm.html.ResourcePathReferenceProvider" order="last"/>
+
+        <gotoClassContributor implementation="tekgenesis.lang.mm.navigate.MMGoToClassContributor"/>
+        <gotoSymbolContributor implementation="tekgenesis.lang.mm.navigate.MMGoToSymbolContributor"/>
+
+        <completion.contributor language="MetaModel" implementationClass="tekgenesis.lang.mm.completion.MetaModelCompletionContributor" id="mm" order="first"/>
+
+        <codeStyle.ReferenceAdjuster language="MetaModel" implementationClass="tekgenesis.lang.mm.style.MetaModelReferenceAdjuster"/>
+
+        <codeInsight.unresolvedReferenceQuickFixProvider implementation="tekgenesis.lang.mm.quickfix.MetaModelCodeReferenceQuickFixProvider"/>
+
+        <highlightVisitor implementation="tekgenesis.lang.mm.highlight.MMHighlightVisitor"/>
+        <highlightRangeExtension implementation="tekgenesis.lang.mm.highlight.MMHighlightRangeExtension"/>
+
+        <compileServer.plugin classpath="@CLASSPATH@"/>
+
+        <sdkType implementation="tekgenesis.lang.mm.sdk.SuiGenerisSdk"/>
+
+        <moduleBuilder builderClass="tekgenesis.lang.mm.module.SuiGenerisModuleBuilder"/>
+
+        <projectWizard.projectCategory implementation="tekgenesis.lang.mm.module.SuiGenerisProjectCategory"/>
+
+        <editorNotificationProvider implementation="tekgenesis.lang.mm.properties.PropertiesFileEncodingNotificationProvider"/>
+        <editorNotificationProvider implementation="tekgenesis.lang.mm.sdk.SetupSuiGenerisSdkNotificationProvider"/>
+        <editorNotificationProvider implementation="tekgenesis.lang.mm.sdk.SanitizeSuiGenerisSdkNotificationProvider"/>
+
+        <additionalTextAttributes scheme="Default" file="colors/MetamodelDefault.xml"/>
+        <additionalTextAttributes scheme="Darcula" file="colors/MetamodelDarcula.xml"/>
+
+        <codeInsight.unresolvedReferenceQuickFixProvider implementation="com.intellij.jarFinder.FindJarQuickFixProvider"/>
+
+        <intentionAction>
+            <className>tekgenesis.lang.mm.intention.AddTableButtonsIntention</className>
+        </intentionAction>
+        <intentionAction>
+            <className>tekgenesis.lang.mm.intention.GenerateDefaultFormIntention</className>
+        </intentionAction>
+        <intentionAction>
+            <className>tekgenesis.lang.mm.intention.GenerateDefaultWidgetIntention</className>
+        </intentionAction>
+        <intentionAction>
+            <className>tekgenesis.lang.mm.intention.GenerateDefaultListingIntention</className>
+        </intentionAction>
+        <intentionAction>
+            <className>tekgenesis.lang.mm.intention.MMGraphEntityIntention</className>
+        </intentionAction>
+        <intentionAction>
+            <className>tekgenesis.lang.mm.intention.AddToMenuIntention</className>
+        </intentionAction>
+        <intentionAction>
+            <className>tekgenesis.lang.mm.intention.LocalizeMetaModelIntention</className>
+        </intentionAction>
+        <intentionAction>
+            <className>tekgenesis.lang.mm.intention.ReplaceFqnWithImportIntention</className>
+        </intentionAction>
+
+        <consoleFilterProvider implementation="tekgenesis.lang.mm.ConsoleLinkFilterProvider" />
+
+        <languageInjector implementation="tekgenesis.lang.mm.injection.MetaModelLanguageInjector"/>
+
+        <!-- inspections -->
+        <localInspection implementationClass="tekgenesis.lang.mm.codeInspection.UnusedValueFromPureFunction" hasStaticDescription="true"
+                         displayName="Unused Value from Pure Function" groupName="Java: General" shortName="UnusedValueFromPureFunction" id="UnusedPure" level="ERROR"
+                         enabledByDefault="true" language="JAVA"/>
+        <localInspection implementationClass="tekgenesis.lang.mm.codeInspection.DefaultWidgetInspection"
+                         displayName="Default Widget Inspection" groupName="MM: General" shortName="DefaultWidget" id="DWidget" level="WARNING"
+                         enabledByDefault="true" language="MetaModel"/>
+        <localInspection implementationClass="tekgenesis.lang.mm.codeInspection.GeneratedTranslationInspection"
+                         displayName="Generated Translation Inspection" groupName="MM: General" shortName="GeneratedTranslation" id="GTI" level="WARNING"
+                         enabledByDefault="true" language="MetaModel"/>
+        <localInspection implementationClass="tekgenesis.lang.mm.codeInspection.NavigationTranslationInspection"
+                         displayName="Navigation Translation Inspection" groupName="MM: General" shortName="NavigationTranslation" id="NTI" level="WARNING"
+                         enabledByDefault="true" language="MetaModel"/>
+        <localInspection implementationClass="tekgenesis.lang.mm.codeInspection.TruncatedNameInspection"
+                         displayName="Truncated Name Inspection" groupName="MM: General" shortName="TruncatedName" id="TNI" level="WARNING"
+                         enabledByDefault="true" language="MetaModel"/>
+        <localInspection implementationClass="tekgenesis.lang.mm.codeInspection.MissingIdForTranslationInspection"
+                         displayName="Missing Id for translation" groupName="MM: General" shortName="MissingIdForTranslation" id="MITI" level="WARNING"
+                         enabledByDefault="true" language="MetaModel"/>
+        <localInspection implementationClass="tekgenesis.lang.mm.codeInspection.IgnoreLabelInspection"
+                         displayName="Redundant Label" groupName="MM: General" shortName="IgnoreLabel" id="IL" level="WARNING"
+                         enabledByDefault="true" language="MetaModel"/>
+        <!-- end inspections-->
+
+    </extensions>
+</idea-plugin>

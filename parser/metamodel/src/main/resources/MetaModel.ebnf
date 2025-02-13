@@ -1,0 +1,168 @@
+// MetaModel Grammar
+//
+// To generate the .html :
+// go to : 'http://railroad.my28msec.com/rr/ui'
+// go to: 'http://www.bottlecaps.de/rr/ui'
+// Paste the grammar into the 'edit grammar' tab
+// Go to the 'view diagram' tab. right click', save frame as..., save it under MetaModel.xhtml
+// In Chrome: right click, view frame source, select all text, copy it and paste it in MetaModel.xhtml
+
+metModelFile        ::=  packageDefinition ';' metaModel*
+
+packageDefinition   ::= 'package' packageId ';'
+
+packageId           ::= ID ('.' ID)*
+
+metaModel           ::= enum | entity | form | type
+
+type                ::= 'type' ID '=' simpleType ';'
+
+enum                ::= 'open'? 'enum' ID label?  '{' enumElement+ '}'
+
+enumElement         ::= ID ( ':' STRING )? ';'
+
+label               ::= STRING
+
+entity              ::= 'entity' ID label? 'primary_key' field_list describedBy? searchBy? unique* index* '{' entityField+ '}'
+
+describedBy         ::= 'described_by' field_list?
+
+searchBy            ::= 'search_by' ('primary_key' (',' field_list)? | field_list)
+
+unique              ::= 'unique' (ID '('field_list')' | field_list)
+
+index               ::= 'index' (ID '('field_list')' | field_list)
+
+fieldList           ::= ID (',' ID)*
+
+entityField         ::= ID label? ':' fieldType (',' fieldOption)* ';'
+
+fieldType           ::= simpleType
+                      | entityReference ('*')? 'using' ID
+                      | enumReference
+                      | 'entity' ID ('*')? label? describedBy? searchBy? '{' entityField+ '}'
+                      | enum
+
+simpleType            ::= 'String' ('(' INT ')')?
+                      | 'Decimal' '(' INT (',' INT)? ')'
+                      | 'Int'
+                      | 'Real'
+                      | 'Boolean'
+                      | 'Date'
+                      | 'DateTime' ('(' INT ')')?
+
+entityReference     ::= (packageId '.')? ID
+
+enumReference       ::= (packageId '.')? ID
+
+fieldOption         ::= 'optional' ('when' expression)?
+                      | 'mask' expression
+                      | 'default' expression
+                      | 'check' (expression (':' STRING)?)*
+
+form                ::= 'form' ID label? ('entity' entityReference)? ('on_load' ID)? ('on_cancel' ID)? '{' formField+ '}'
+
+formField           ::= (((ID label?) | label) ':')? ((formType (',' widget)? (',' widgetOption)* )
+                                                     | widget (',' widgetOption))
+                                                     ('{' formField+ '}')? ';'
+
+formType            ::= simpleType
+                    |   entityReference
+                    |   enumReference
+                    |   binding
+
+binding             ::= (entityReference '.')? ID
+
+
+widget              ::= 'check_box'
+                      | 'combo_box'
+                      | 'link'
+                      | 'radio'
+                      | 'date_box'
+                      | 'date_time_box'
+                      | 'image'
+                      | 'label'
+                      | 'list'
+                      | 'suggest_box'
+                      | 'password_field'
+                      | 'toggle_button'
+                      | 'internal'
+                      | 'horizontal'
+                      | 'vertical'
+                      | 'tabbed_group'
+                      | 'tags'
+                      | 'breadcrumb'
+                      | 'tags_combo_box'
+                      | 'tree_view'
+                      | 'rich_text_area'
+                      | 'date_picker'
+                      | 'time_picker'
+                      | 'color_picker'
+                      | 'text_field' ('(' INT ')')?
+                      | 'text_area' ('(' INT ')')?
+                      | 'list_box' ('(' INT ')')?
+                      | 'table' ('(' INT ')')?
+                      | 'sub_form' ('(' ID ')')?
+                      | 'button' ('(' ( 'save' | 'cancel' | 'delete' ) ')')?
+                      | 'tabs' ('(' ( 'left' | 'right' | 'top' | 'bottom' | 'pill' ) ')')?
+                      | 'message' ('(' ( 'error' | 'warning' | 'info' | 'success' | 'plain' ) ')')?
+                      | 'gallery' ('(' fileType ')')?
+
+
+widgetOption        ::= 'check' (expression (':' ('(' inline ')')? ('(' ( 'error' | 'warning' | 'info' | 'success' | 'plain' ) ')')? STRING)?)*
+                    |   'mask' expression
+                    |   'hide' ('when' expression)?
+                    |   'disable' ('when' expression)?
+                    |   'placeholder' expression
+                    |   'hint' expression
+                    |   'default' expression
+                    |   'is' expression
+                    |   'optional' ('when' expression)?
+                    |   'required'
+                    |   'style' expression
+                    |   'unique'
+                    |   'static (table)'
+                    |   'row_style (table)' expression
+                    |   'from (dates*)' expression
+                    |   'to (dates*)' expression
+                    |   'destination' STRING
+                    |   'on_change' ID
+                    |   'on_click (button)' ID
+                    |   'on_load (form)' ID
+                    |   'on_cancel (form)' ID
+                    |   'on_new (suggest_box)' ID
+                    |   'on_new_form (suggest_box)' ID
+                    |   'filter (suggest_box)' expression
+                    |   'display (sub_form)' expression
+                    |   'multiple (list_box, gallery)'
+
+fieldValue          ::= INT | STRING
+
+fieldsValue         ::= ID '=' fieldValue (',' (ID '=' fieldValue))*
+
+formLink            ::= ID ('(' fieldsValue ')')?
+
+menuItem            ::= ID label? ':' ( formLink | 'link' STRING  | 'menu' ID)
+
+menu                ::= 'menu' ID label? '{' menuItem+ ';' '}'
+
+taskLifecycleSpec   ::= '(' ( 'client' | 'server') ')' ('depends_on' STRING)?
+
+taskScheduledSpec   ::= STRING ('exclusion_group' STRING)?
+
+taskPhase           ::= ID label? ';'
+
+task                ::= 'task' ID label? ('schedule' taskScheduledSpec |
+                                          'lifecycle' taskLifecycleSpec)
+                        'transactional'? '{' taskPhase+ '}'
+
+<?TOKENS?>
+
+ID         ::= ( [a-z] | [A-Z] )+
+INT       ::= [0-9]+
+STRING ::= '"' ( EscapeSequence | [^\"] )* '"'
+
+EscapeSequence  ::= '\' ( 'b' | 't' | 'n' | 'f' | 'r' | '"' | "'" | '\' )
+                            | '\' 'u' xdigit xdigit xdigit xdigit
+
+xdigit ::= [0-9]  | [a-f] | [A-F]

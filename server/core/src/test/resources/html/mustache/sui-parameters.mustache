@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views" sg-params="text:String, number:Int, decimal:Decimal, bool:Boolean, list:String*">
+<head>
+    <title>Parameters examples</title>
+</head>
+<body>
+
+<div>Text: {{text}}</div>
+<div>Number: {{number}}</div>
+<div>Decimal: {{decimal}}</div>
+<div>Currency: {{#$}}{{decimal}}{{/$}}</div>
+<div>Bool: {{#bool}}{{bool}}{{/bool}}</div>
+
+
+<div>Bool Condition: {{#bool}}{{bool}}{{/bool}}</div>
+<div>Bool Inverse Condition: {{^bool}}{{bool}}{{/bool}}</div>
+<div>String list: {{#list}}{{this}}{{^-last}}, {{/-last}}{{/list}}</div>
+
+</body>
+</html>

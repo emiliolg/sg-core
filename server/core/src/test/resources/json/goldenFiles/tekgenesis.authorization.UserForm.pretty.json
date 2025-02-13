@@ -1,0 +1,30 @@
+{
+  "edit" : true,
+  "passwordScore" : 3,
+  "id" : "demouser",
+  "name" : "Demo User",
+  "defaultOu" : "tekgenesis.authorization.OrgUnit/Root Ou",
+  "email" : null,
+  "password" : null,
+  "confirmPassword" : null,
+  "hashPass" : null,
+  "enablePass" : false,
+  "internalLocale" : "en",
+  "locale" : "EN",
+  "assignRoles" : null,
+  "picture" : null,
+  "devices" : [ ],
+  "props" : [ {
+    "required" : true,
+    "property" : "tekgenesis.authorization.Property/prop1:customize:BOOLEAN",
+    "type" : "BOOLEAN",
+    "value" : true
+  } ],
+  "user" : null,
+  "copy" : null,
+  "assign" : null,
+  "copyRoles" : null,
+  "allPermissions" : null,
+  "roles" : [ ],
+  "deprecate" : false
+}

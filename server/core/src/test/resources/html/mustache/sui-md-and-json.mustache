@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views" sg-params="product : tekgenesis.samples.service.Product">
+<head>
+    <title>Markdown and JSON examples</title>
+</head>
+<body>
+
+<h2>Markdown to html</h2>
+<div>
+
+    {{#md}}
+
+<!-- Comment -->
+
+### Some Sub Title
+
+- With important
+- Bullets
+
+    {{/md}}
+
+</div>
+
+<h2>Parameter to JSON:</h2>
+<pre>
+    var myProductJson = {{#json}} {{product.toJson}} {{/json}}
+</pre>
+
+</body>
+</html>

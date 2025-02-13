@@ -1,0 +1,47 @@
+ (1, 7) FILE: 
+ (1, 7)     PACKAGE: 'package'
+(1, 18)         REFERENCE: [reference]
+(1, 18)             REFERENCE: [reference]
+(1, 18)                 REFERENCE: [reference]
+(1, 18)                     IDENTIFIER: tekgenesis
+(1, 24)                 IDENTIFIER: sales
+(1, 30)             IDENTIFIER: basic
+ (3, 4)     MENU: 'menu'
+ (3, 4)         MODEL: [model]
+(3, 19)         LABELED_ID: [labeled_id]
+(3, 19)             IDENTIFIER: SalesBasicMenu
+(3, 33)             STRING_LITERAL: "Sales Basic"
+ (4, 1)         LIST: [list]
+(5, 16)             MENU_ELEMENT: [menu_element]
+(5, 16)                 REFERENCE: [reference]
+(5, 16)                     IDENTIFIER: CategoryForm
+(6, 16)             MENU_ELEMENT: [menu_element]
+(6, 16)                 REFERENCE: [reference]
+(6, 16)                     IDENTIFIER: CustomerForm
+(7, 19)             MENU_ELEMENT: [menu_element]
+(7, 19)                 REFERENCE: [reference]
+(7, 19)                     IDENTIFIER: PreferencesForm
+(8, 15)             MENU_ELEMENT: [menu_element]
+(8, 15)                 REFERENCE: [reference]
+(8, 15)                     IDENTIFIER: InvoiceForm
+(9, 21)             MENU_ELEMENT: [menu_element]
+(9, 21)                 REFERENCE: [reference]
+(9, 21)                     IDENTIFIER: InvoiceReviewForm
+(10, 19)             MENU_ELEMENT: [menu_element]
+(10, 19)                 REFERENCE: [reference]
+(10, 19)                     IDENTIFIER: PaymentTypeForm
+(11, 15)             MENU_ELEMENT: [menu_element]
+(11, 15)                 REFERENCE: [reference]
+(11, 15)                     IDENTIFIER: ProductForm
+(12, 13)             MENU_ELEMENT: [menu_element]
+(12, 13)                 REFERENCE: [reference]
+(12, 13)                     IDENTIFIER: EmailForm
+(13, 23)             MENU_ELEMENT: [menu_element]
+(13, 23)                 REFERENCE: [reference]
+(13, 23)                     IDENTIFIER: CustomerSearchableForm
+(14, 31)             MENU_ELEMENT: [menu_element]
+(14, 31)                 REFERENCE: [reference]
+(14, 31)                     IDENTIFIER: DatabaseCustomerSearchableForm
+(15, 17)             MENU_ELEMENT: [menu_element]
+(15, 17)                 REFERENCE: [reference]
+(15, 17)                     IDENTIFIER: SearchFilterForm

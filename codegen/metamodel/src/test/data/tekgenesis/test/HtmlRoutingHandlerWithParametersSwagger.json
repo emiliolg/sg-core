@@ -1,0 +1,234 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "HtmlRoutingHandlerWithParameters",
+    "description" : "Html Routing With Parameters"
+  } ],
+  "paths" : {
+    "/nothing" : {
+      "get" : {
+        "tags" : [ "HtmlRoutingHandlerWithParameters" ],
+        "summary" : "",
+        "operationId" : "nothing",
+        "produces" : [ "text/html" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/home" : {
+      "get" : {
+        "tags" : [ "HtmlRoutingHandlerWithParameters" ],
+        "summary" : "",
+        "operationId" : "home",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "from",
+          "in" : "query",
+          "description" : "From",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "to",
+          "in" : "query",
+          "description" : "To",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/some/{id}" : {
+      "get" : {
+        "tags" : [ "HtmlRoutingHandlerWithParameters" ],
+        "summary" : "",
+        "operationId" : "someId",
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "scheme",
+          "in" : "query",
+          "description" : "Scheme",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "description" : "Type",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    },
+    "/product/{id}" : {
+      "post" : {
+        "tags" : [ "HtmlRoutingHandlerWithParameters" ],
+        "summary" : "",
+        "operationId" : "create",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "a",
+          "in" : "query",
+          "description" : "A",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "b",
+          "in" : "query",
+          "description" : "B",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0.0
+        }, {
+          "name" : "c",
+          "in" : "query",
+          "description" : "C",
+          "required" : true,
+          "type" : "boolean"
+        }, {
+          "name" : "d",
+          "in" : "query",
+          "description" : "D",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0.0
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Payload body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/tekgenesis.test.Product"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    },
+    "/returning/{id}" : {
+      "post" : {
+        "tags" : [ "HtmlRoutingHandlerWithParameters" ],
+        "summary" : "",
+        "operationId" : "create",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "text/html" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "x",
+          "in" : "query",
+          "description" : "X",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Payload body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/tekgenesis.test.Product"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "302" : {
+            "description" : "Redirect to login page if unauthorized (found)"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "tekgenesis.test.Product" : {
+      "type" : "object",
+      "description" : "Product",
+      "properties" : {
+        "productId" : {
+          "description" : "Id",
+          "type" : "string",
+          "default" : "\"xyz\""
+        },
+        "model" : {
+          "description" : "Model No.",
+          "type" : "string"
+        },
+        "description" : {
+          "description" : "Description",
+          "type" : "string"
+        },
+        "price" : {
+          "description" : "Price",
+          "type" : "number",
+          "format" : "double",
+          "minimum" : 0.0
+        },
+        "serial" : {
+          "description" : "Serial No.",
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 0.0,
+          "default" : "2000000"
+        },
+        "created" : {
+          "description" : "Created",
+          "type" : "string",
+          "format" : "date-time"
+        }
+      },
+      "required" : [ "model", "price", "created" ]
+    }
+  }
+}

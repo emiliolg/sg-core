@@ -1,0 +1,27 @@
+import tekgenesis.plugin.mm.MMPlugin
+
+apply plugin : MMPlugin
+dependencies {
+    compile project(':metadata:entity')
+    compile project(':metadata:type')
+    compile project(':db:cache')
+    compile project(':db:base')
+    compile project(':db:entity')
+    compile project(':ix:db')
+    compile project(':db:transaction')
+    compile project(':server:cluster')
+    compile project(':metadata:form')
+    compile project(':runtime:persistence')
+    compile project(':runtime:metrics')
+    compile infinispan
+    compile javaxInject
+    compile jackson
+    compile jacksonDataBind
+    compile slf4j
+    testCompile project(':runtime:test')
+    testCompile project(':db:entity').sourceSets.test.output
+    testCompile 'net.jodah:concurrentunit:0.4.2'
+    testRuntime hsqldb
+    testRuntime oracle
+    testRuntime postgres
+}

@@ -1,0 +1,5 @@
+form CustomerForm entity Customer;
+
+menu Menu {
+	<spot></spot>
+}

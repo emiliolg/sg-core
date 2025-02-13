@@ -1,0 +1,10 @@
+<div sg-view="tekgenesis.admin.sg.Views" sg-params="version : String, memory : tekgenesis.admin.status.MemoryInfo, db : tekgenesis.admin.status.DatabaseInfo">
+    <img src="/public/sg/img/logo-TekGenesis.png" width="140px" height="35px">
+
+    <h2>Sui Generis Version</h2>
+    {{version}}
+    <h2>Memory</h2>
+    Max: {{memory.max}} Free: {{memory.free}} Total: {{memory.total}}
+    <h2>Database Connections</h2>
+    Total: {{db.total}} Active: {{db.active}} Idle: {{db.idle}} Waiting: {{db.waiting}}
+</div>

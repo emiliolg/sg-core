@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="App" sui-view="tekgenesis.admin.sg.Views" sui-params="title : String">
+<head>
+    <title>{{title}}</title>
+    <link rel="icon" href="@Sha(/sg/img/favicon.png)"/>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="@Sha(/sg/img/apple-touch-icon-iphone.png)"/>   <!-- Standard iPhone -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="@Sha(/sg/img/apple-touch-icon-iphone.png)"/> <!-- Retina iPhone -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="@Sha(/sg/img/apple-touch-icon-ipad.png)"/>     <!-- Standard iPad -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="@Sha(/sg/img/apple-touch-icon-ipad.png)"/>   <!-- Retina iPad -->
+
+    <script src="/external/js/jquery-2.2.4.min.js"></script>
+    <script src="/external/js/angular-1.5.5.min.js"></script>
+    <script src="/sg/js/sg-forms.nocache.js"></script>
+    <script src="@Sha(/sg/js/sg-index.js)"></script>
+
+    <script>
+        angular.module('App', ['sui-forms']);
+    </script>
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+                <a id="userDropdown" class="dropdown-toggle user-dropdown">
+                    <sui-username has-username="false" has-picture="true"/>
+                </a>
+                <ul class="dropdown-menu" id="userOptions">
+                    <li><a data-locale="es">Español</a></li>
+                    <li><a data-locale="en">English</a></li>
+                    <li class="divider"/>
+                    <li><a data-theme="@Sha(/sg/css/theme/bootstrap.css)">Bootstrap</a></li>
+                    <li class="active"><a data-theme="@Sha(/sg/css/theme/tekgenesis.css)">TekGenesis</a></li>
+                    <li><a data-theme="@Sha(/sg/css/theme/slate.css)">Slate</a></li>
+                    <li><a data-theme="@Sha(/sg/css/theme/united.css)">United</a></li>
+                    <li><a data-theme="@Sha(/sg/css/theme/paper.css)">Paper</a></li>
+                    <li class="divider"/>
+                    <sui-userprofile/>
+                    <sui-shortcuts/>
+                    <li class="divider"/>
+                    <sui-changeou/>
+                    <sui-switchuser/>
+                    <sui-logout/>
+                </ul>
+            </li>
+            <sui-fullscreen/>
+        </ul>
+        <div class="navbar-header">
+            <sui-toggle/>
+            <a class="navbar-brand" href="/">{{title}}</a>
+        </div>
+        <div class="navbar-collapse collapse push-overlay-nav">
+            <sui-menu id="menu" position="top">
+                <div class="loading-menu">Loading...</div>
+            </sui-menu>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <sui-formbox id="form" history="true"/>
+</div>
+
+</body>
+</html>

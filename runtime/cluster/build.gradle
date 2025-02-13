@@ -1,0 +1,16 @@
+dependencies {
+    compile project(':db:base')
+    compile project(':db:cache')
+    compile project(':db:entity')
+    compile project(':db:transaction')
+    compile project(':metadata:entity')
+    compile project(':metadata:form')
+    compile project(':metadata:type')
+    compile project(':runtime:mail')
+    compile project(':runtime:persistence')
+    compile project(':runtime:task')
+    compile project(':server:cluster')
+    compile infinispan
+    compile jackson
+    compile jacksonDataBind
+}

@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':parser:common')
+    provided fileTree(dir: '../ideaLibraries', include: '**/*.jar', exclude: '**/junit-*.jar')
+    if(Boolean.getBoolean("teamcity.inspections"))
+        compile fileTree(dir: '../ideaLibraries', include: '**/*.jar', exclude: '**/junit-*.jar')
+}

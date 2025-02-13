@@ -1,0 +1,64 @@
+#!/bin/bash
+DIR=$(dirname $0)
+APP_INSTALLATION_DIR=$DIR/..
+
+backupAndUpdatePlugin()
+{
+    #backup plugin if exists
+    if [ -d "$1"/$PLUGIN_FILENAME ]; then    			
+        echo Backup plugin from "$1"/$PLUGIN_FILENAME to /tmp/mm-plugin.old ...
+	    rm -rf /tmp/mm-plugin.old
+        mv "$1"/$PLUGIN_FILENAME /tmp/mm-plugin.old
+    fi
+
+    #update plugin
+    echo Copying updated plugin from "$APP_INSTALLATION_DIR/plugin/$PLUGIN_FILENAME" to "$1"/$PLUGIN_FILENAME ...
+    rm -rf $PLUGIN_FILENAME.jar
+    cp -r "$APP_INSTALLATION_DIR/plugin/$PLUGIN_FILENAME" "$1"
+}
+
+bye () {
+    echo >&2 "$@"
+    exit -1
+}
+
+lowercase() {
+    echo "$1" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
+}
+
+#OS type
+OS=`lowercase \`uname\``
+
+#variables
+VERBOSE="false"
+DATE=$(date +"%Y%m%d.%H%M%S")
+PLUGIN_FILENAME=mm-plugin
+
+#IDEA folders
+if [ "$OS" == "linux" ]; then
+  if ls $HOME/.Idea* 1> /dev/null 2>&1; then
+    for dir in $HOME/.IdeaI*; do
+        backupAndUpdatePlugin "$dir/config/plugins"
+    done
+  fi
+  if ls $HOME/.IntelliJ* 1> /dev/null 2>&1; then
+    for dir in $HOME/.IntelliJ*; do
+        backupAndUpdatePlugin "$dir/config/plugins"
+    done
+  fi
+
+elif [ "$OS" == "darwin" ]; then
+  if ls $HOME/Library/Application\ Support/IdeaI* 1> /dev/null 2>&1; then
+
+    for dir in $HOME/Library/Application\ Support/IdeaI*; do
+        backupAndUpdatePlugin "$dir"
+    done
+  fi
+  if ls $HOME/Library/Application\ Support/IntelliJI* 1> /dev/null 2>&1; then
+    for dir in $HOME/Library/Application\ Support/IntelliJI*; do
+        backupAndUpdatePlugin "$dir"
+    done
+  fi
+else
+  bye "Unknown Operating System."
+fi

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" sui-scope="e7674d6a833df882d3fdae7821a911244611b7bfedb9bd43208b4796c8261585/0">
+    <head>
+        
+    <title>From resource!</title>
+    <link rel="stylesheet" href="http://cdnd.epi.ninja/sg/concat?/sha/public/css/alpha.css/0125c03ab7&amp;/sha/public/css/beta.css/0a4f910a6e"></link>
+    <meta name="description" content="This tests multiple params in an include"></meta>
+    <meta charset="utf-8"></meta>
+
+    
+<meta property="og:some" content="metadata"></meta></head>
+
+    <body>
+        <span>Hello include from resource!</span>
+    
+<script class="suiScopesCache">
+//<![CDATA[
+var suiScopesCache = {"e7674d6a833df882d3fdae7821a911244611b7bfedb9bd43208b4796c8261585/0":{"title":"From resource!"}};
+//]]>
+</script>
+</body>
+</html>

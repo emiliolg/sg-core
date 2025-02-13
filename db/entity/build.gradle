@@ -1,0 +1,17 @@
+import tekgenesis.plugin.mm.MMPlugin
+
+apply plugin : MMPlugin
+dependencies {
+    compile project(':metadata:type')
+    compile project(':db:base')
+    compile project(':db:transaction')
+    compile project(':db:es')
+    compile jacksonDataBind
+    testCompile project(':runtime:test')
+    testCompile project(':runtime:persistence').sourceSets.main.output
+    testCompile project(':samples:basic').sourceSets.main.output
+    testCompile project(':samples:showcase').sourceSets.main.output
+    testRuntime hsqldb
+    testRuntime oracle
+    testRuntime postgres
+}

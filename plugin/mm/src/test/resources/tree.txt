@@ -1,0 +1,423 @@
+    (0) FILE: 
+    (0)     PACKAGE: package tekgenesis.sales;
+    (8)         QUALIFIED_ID: tekgenesis.sales
+    (8)             IDENTIFIER: tekgenesis
+   (19)             IDENTIFIER: sales
+   (27)     ENTITY: entity Invoice "Invoice"
+    primary_key number
+    described_by statement
+{
+	number  "Number"                : Decimal(12);
+	statement   "Statement"         : String(50);
+	instructions  "Instructions"    : String(100), optional;
+	order  "Order Number"           : Int;
+	/*date    "Date"                  : Date;*/
+	type    "Type"			        : Type;
+    items   "Items"                 : Item*;
+}
+   (34)         LABELED_ID: Invoice "Invoice"
+   (34)             IDENTIFIER: Invoice
+   (42)             STRING_LITERAL: "Invoice"
+   (56)         PRIMARY_KEY: primary_key number
+   (68)             FIELD_REF: number
+   (68)                 IDENTIFIER: number
+   (79)         DESCRIBED_BY: described_by statement
+   (92)             FIELD_REF: statement
+   (92)                 IDENTIFIER: statement
+  (102)         LIST: {
+	number  "Number"                : Decimal(12);
+	statement   "Statement"         : String(50);
+	instructions  "Instructions"    : String(100), optional;
+	order  "Order Number"           : Int;
+	/*date    "Date"                  : Date;*/
+	type    "Type"			        : Type;
+    items   "Items"                 : Item*;
+}
+  (105)             FIELD: number  "Number"                : Decimal(12);
+  (105)                 LABELED_ID: number  "Number"
+  (105)                     IDENTIFIER: number
+  (113)                     STRING_LITERAL: "Number"
+  (139)                 TYPE: Decimal(12)
+  (139)                     DECIMAL: Decimal(12)
+  (147)                         DEC_INT: 12
+  (153)             FIELD: statement   "Statement"         : String(50);
+  (153)                 LABELED_ID: statement   "Statement"
+  (153)                     IDENTIFIER: statement
+  (165)                     STRING_LITERAL: "Statement"
+  (187)                 TYPE: String(50)
+  (187)                     STRING: String(50)
+  (194)                         DEC_INT: 50
+  (200)             FIELD: instructions  "Instructions"    : String(100), optional;
+  (200)                 LABELED_ID: instructions  "Instructions"
+  (200)                     IDENTIFIER: instructions
+  (214)                     STRING_LITERAL: "Instructions"
+  (234)                 TYPE: String(100)
+  (234)                     STRING: String(100)
+  (241)                         DEC_INT: 100
+  (247)                 OPTIONAL: optional
+  (258)             FIELD: order  "Order Number"           : Int;
+  (258)                 LABELED_ID: order  "Order Number"
+  (258)                     IDENTIFIER: order
+  (265)                     STRING_LITERAL: "Order Number"
+  (292)                 TYPE: Int
+  (292)                     INT: Int
+  (343)             FIELD: type    "Type"			        : Type;
+  (343)                 LABELED_ID: type    "Type"
+  (343)                     IDENTIFIER: type
+  (351)                     STRING_LITERAL: "Type"
+  (370)                 TYPE: Type
+  (370)                     QUALIFIED_ID: Type
+  (370)                         IDENTIFIER: Type
+  (380)             FIELD: items   "Items"                 : Item*;
+  (380)                 LABELED_ID: items   "Items"
+  (380)                     IDENTIFIER: items
+  (388)                     STRING_LITERAL: "Items"
+  (414)                 TYPE: Item*
+  (414)                     QUALIFIED_ID: Item
+  (414)                         IDENTIFIER: Item
+  (418)                     ASTERISK: *
+  (424)     ENTITY: entity Product "Product"
+    primary_key id
+    described_by description
+{
+    id "Id"                     : String(20);
+    description "Description"   : String(50);
+}
+  (431)         LABELED_ID: Product "Product"
+  (431)             IDENTIFIER: Product
+  (439)             STRING_LITERAL: "Product"
+  (453)         PRIMARY_KEY: primary_key id
+  (465)             FIELD_REF: id
+  (465)                 IDENTIFIER: id
+  (472)         DESCRIBED_BY: described_by description
+  (485)             FIELD_REF: description
+  (485)                 IDENTIFIER: description
+  (497)         LIST: {
+    id "Id"                     : String(20);
+    description "Description"   : String(50);
+}
+  (503)             FIELD: id "Id"                     : String(20);
+  (503)                 LABELED_ID: id "Id"
+  (503)                     IDENTIFIER: id
+  (506)                     STRING_LITERAL: "Id"
+  (533)                 TYPE: String(20)
+  (533)                     STRING: String(20)
+  (540)                         DEC_INT: 20
+  (549)             FIELD: description "Description"   : String(50);
+  (549)                 LABELED_ID: description "Description"
+  (549)                     IDENTIFIER: description
+  (561)                     STRING_LITERAL: "Description"
+  (579)                 TYPE: String(50)
+  (579)                     STRING: String(50)
+  (586)                         DEC_INT: 50
+  (594)     ENTITY: entity Item "Item"
+	primary_key slot
+	described_by product,qty
+{
+    slot "Slot"             : Int;
+    product "Product"       : Product;
+    invoice "Invoice"       : Invoice;
+    qty "Quantity"          : Int, default 1;
+    unit_price "Unit Price" : Decimal(10,2);
+    discount "Discount"     : Decimal(10,2);
+}
+  (601)         LABELED_ID: Item "Item"
+  (601)             IDENTIFIER: Item
+  (606)             STRING_LITERAL: "Item"
+  (614)         PRIMARY_KEY: primary_key slot
+  (626)             FIELD_REF: slot
+  (626)                 IDENTIFIER: slot
+  (632)         DESCRIBED_BY: described_by product,qty
+  (645)             FIELD_REF: product
+  (645)                 IDENTIFIER: product
+  (653)             FIELD_REF: qty
+  (653)                 IDENTIFIER: qty
+  (657)         LIST: {
+    slot "Slot"             : Int;
+    product "Product"       : Product;
+    invoice "Invoice"       : Invoice;
+    qty "Quantity"          : Int, default 1;
+    unit_price "Unit Price" : Decimal(10,2);
+    discount "Discount"     : Decimal(10,2);
+}
+  (663)             FIELD: slot "Slot"             : Int;
+  (663)                 LABELED_ID: slot "Slot"
+  (663)                     IDENTIFIER: slot
+  (668)                     STRING_LITERAL: "Slot"
+  (689)                 TYPE: Int
+  (689)                     INT: Int
+  (698)             FIELD: product "Product"       : Product;
+  (698)                 LABELED_ID: product "Product"
+  (698)                     IDENTIFIER: product
+  (706)                     STRING_LITERAL: "Product"
+  (724)                 TYPE: Product
+  (724)                     QUALIFIED_ID: Product
+  (724)                         IDENTIFIER: Product
+  (737)             FIELD: invoice "Invoice"       : Invoice;
+  (737)                 LABELED_ID: invoice "Invoice"
+  (737)                     IDENTIFIER: invoice
+  (745)                     STRING_LITERAL: "Invoice"
+  (763)                 TYPE: Invoice
+  (763)                     QUALIFIED_ID: Invoice
+  (763)                         IDENTIFIER: Invoice
+  (776)             FIELD: qty "Quantity"          : Int, default 1;
+  (776)                 LABELED_ID: qty "Quantity"
+  (776)                     IDENTIFIER: qty
+  (780)                     STRING_LITERAL: "Quantity"
+  (802)                 TYPE: Int
+  (802)                     INT: Int
+  (807)                 DEFAULT: default 1
+  (815)                     DEC_INT: 1
+  (822)             FIELD: unit_price "Unit Price" : Decimal(10,2);
+  (822)                 LABELED_ID: unit_price "Unit Price"
+  (822)                     IDENTIFIER: unit_price
+  (833)                     STRING_LITERAL: "Unit Price"
+  (848)                 TYPE: Decimal(10,2)
+  (848)                     DECIMAL: Decimal(10,2)
+  (856)                         DEC_INT: 10
+  (859)                         DEC_INT: 2
+  (867)             FIELD: discount "Discount"     : Decimal(10,2);
+  (867)                 LABELED_ID: discount "Discount"
+  (867)                     IDENTIFIER: discount
+  (876)                     STRING_LITERAL: "Discount"
+  (893)                 TYPE: Decimal(10,2)
+  (893)                     DECIMAL: Decimal(10,2)
+  (901)                         DEC_INT: 10
+  (904)                         DEC_INT: 2
+  (911)     FORM: form InvoiceForm "Invoice"
+    entity Invoice
+{
+	number "#" : number;
+    statement;
+    instructions, required;
+	"Order" : horizontal {
+	    "#" : order;
+	    "Random" : button, on_click randomOrder;
+	    };
+    /*date;*/
+    holliday "Holliday" : check_box;
+	type;
+	"Shortname" : horizontal {
+	    shortname : text_field, on_change checkShortname;
+	    available : text_field;
+	    };
+	other "Other" : String(20), internal;
+	items {
+	    slot;
+	    product, combo_box;
+        qty;
+        unit_price, disable;
+        discount;
+        price "Price" : Decimal(10,2), is unit_price * qty, disable;
+	};
+	"Total" : Decimal(10,2)/*, is sum(price)*/, disable;
+}
+  (916)         LABELED_ID: InvoiceForm "Invoice"
+  (916)             IDENTIFIER: InvoiceForm
+  (928)             STRING_LITERAL: "Invoice"
+  (942)         ENTITY_REF: entity Invoice
+  (949)             QUALIFIED_ID: Invoice
+  (949)                 IDENTIFIER: Invoice
+  (957)         LIST: {
+	number "#" : number;
+    statement;
+    instructions, required;
+	"Order" : horizontal {
+	    "#" : order;
+	    "Random" : button, on_click randomOrder;
+	    };
+    /*date;*/
+    holliday "Holliday" : check_box;
+	type;
+	"Shortname" : horizontal {
+	    shortname : text_field, on_change checkShortname;
+	    available : text_field;
+	    };
+	other "Other" : String(20), internal;
+	items {
+	    slot;
+	    product, combo_box;
+        qty;
+        unit_price, disable;
+        discount;
+        price "Price" : Decimal(10,2), is unit_price * qty, disable;
+	};
+	"Total" : Decimal(10,2)/*, is sum(price)*/, disable;
+}
+  (960)             FORM_ELEMENT: number "#" : number;
+  (960)                 LABELED_ID: number "#"
+  (960)                     IDENTIFIER: number
+  (967)                     STRING_LITERAL: "#"
+  (973)                 TYPE: number
+  (973)                     QUALIFIED_ID: number
+  (973)                         IDENTIFIER: number
+  (985)             FORM_ELEMENT: statement;
+  (985)                 TYPE: statement
+  (985)                     QUALIFIED_ID: statement
+  (985)                         IDENTIFIER: statement
+ (1000)             FORM_ELEMENT: instructions, required;
+ (1000)                 TYPE: instructions
+ (1000)                     QUALIFIED_ID: instructions
+ (1000)                         IDENTIFIER: instructions
+ (1014)                 REQUIRED: required
+ (1025)             FORM_ELEMENT: "Order" : horizontal {
+	    "#" : order;
+	    "Random" : button, on_click randomOrder;
+	    };
+ (1025)                 LABELED_ID: "Order"
+ (1025)                     STRING_LITERAL: "Order"
+ (1035)                 WIDGET: horizontal
+ (1035)                     IDENTIFIER: horizontal
+ (1052)                 LIST: {
+	    "#" : order;
+	    "Random" : button, on_click randomOrder;
+	    }
+ (1059)                     FORM_ELEMENT: "#" : order;
+ (1059)                         LABELED_ID: "#"
+ (1059)                             STRING_LITERAL: "#"
+ (1065)                         TYPE: order
+ (1065)                             QUALIFIED_ID: order
+ (1065)                                 IDENTIFIER: order
+ (1077)                     FORM_ELEMENT: "Random" : button, on_click randomOrder;
+ (1077)                         LABELED_ID: "Random"
+ (1077)                             STRING_LITERAL: "Random"
+ (1088)                         WIDGET: button
+ (1088)                             IDENTIFIER: button
+ (1096)                         ON_CLICK: on_click randomOrder
+ (1105)                             IDENTIFIER: randomOrder
+ (1144)             FORM_ELEMENT: holliday "Holliday" : check_box;
+ (1144)                 LABELED_ID: holliday "Holliday"
+ (1144)                     IDENTIFIER: holliday
+ (1153)                     STRING_LITERAL: "Holliday"
+ (1166)                 WIDGET: check_box
+ (1166)                     IDENTIFIER: check_box
+ (1178)             FORM_ELEMENT: type;
+ (1178)                 TYPE: type
+ (1178)                     QUALIFIED_ID: type
+ (1178)                         IDENTIFIER: type
+ (1185)             FORM_ELEMENT: "Shortname" : horizontal {
+	    shortname : text_field, on_change checkShortname;
+	    available : text_field;
+	    };
+ (1185)                 LABELED_ID: "Shortname"
+ (1185)                     STRING_LITERAL: "Shortname"
+ (1199)                 WIDGET: horizontal
+ (1199)                     IDENTIFIER: horizontal
+ (1216)                 LIST: {
+	    shortname : text_field, on_change checkShortname;
+	    available : text_field;
+	    }
+ (1223)                     FORM_ELEMENT: shortname : text_field, on_change checkShortname;
+ (1223)                         LABELED_ID: shortname
+ (1223)                             IDENTIFIER: shortname
+ (1235)                         WIDGET: text_field
+ (1235)                             IDENTIFIER: text_field
+ (1247)                         ON_CHANGE: on_change checkShortname
+ (1257)                             IDENTIFIER: checkShortname
+ (1278)                     FORM_ELEMENT: available : text_field;
+ (1278)                         LABELED_ID: available
+ (1278)                             IDENTIFIER: available
+ (1290)                         WIDGET: text_field
+ (1290)                             IDENTIFIER: text_field
+ (1311)             FORM_ELEMENT: other "Other" : String(20), internal;
+ (1311)                 LABELED_ID: other "Other"
+ (1311)                     IDENTIFIER: other
+ (1317)                     STRING_LITERAL: "Other"
+ (1327)                 TYPE: String(20)
+ (1327)                     STRING: String(20)
+ (1334)                         DEC_INT: 20
+ (1339)                 WIDGET: internal
+ (1339)                     IDENTIFIER: internal
+ (1350)             FORM_ELEMENT: items {
+	    slot;
+	    product, combo_box;
+        qty;
+        unit_price, disable;
+        discount;
+        price "Price" : Decimal(10,2), is unit_price * qty, disable;
+	};
+ (1350)                 TYPE: items
+ (1350)                     QUALIFIED_ID: items
+ (1350)                         IDENTIFIER: items
+ (1356)                 LIST: {
+	    slot;
+	    product, combo_box;
+        qty;
+        unit_price, disable;
+        discount;
+        price "Price" : Decimal(10,2), is unit_price * qty, disable;
+	}
+ (1363)                     FORM_ELEMENT: slot;
+ (1363)                         TYPE: slot
+ (1363)                             QUALIFIED_ID: slot
+ (1363)                                 IDENTIFIER: slot
+ (1374)                     FORM_ELEMENT: product, combo_box;
+ (1374)                         TYPE: product
+ (1374)                             QUALIFIED_ID: product
+ (1374)                                 IDENTIFIER: product
+ (1383)                         WIDGET: combo_box
+ (1383)                             IDENTIFIER: combo_box
+ (1402)                     FORM_ELEMENT: qty;
+ (1402)                         TYPE: qty
+ (1402)                             QUALIFIED_ID: qty
+ (1402)                                 IDENTIFIER: qty
+ (1415)                     FORM_ELEMENT: unit_price, disable;
+ (1415)                         TYPE: unit_price
+ (1415)                             QUALIFIED_ID: unit_price
+ (1415)                                 IDENTIFIER: unit_price
+ (1427)                         DISABLE: disable
+ (1444)                     FORM_ELEMENT: discount;
+ (1444)                         TYPE: discount
+ (1444)                             QUALIFIED_ID: discount
+ (1444)                                 IDENTIFIER: discount
+ (1462)                     FORM_ELEMENT: price "Price" : Decimal(10,2), is unit_price * qty, disable;
+ (1462)                         LABELED_ID: price "Price"
+ (1462)                             IDENTIFIER: price
+ (1468)                             STRING_LITERAL: "Price"
+ (1478)                         TYPE: Decimal(10,2)
+ (1478)                             DECIMAL: Decimal(10,2)
+ (1486)                                 DEC_INT: 10
+ (1489)                                 DEC_INT: 2
+ (1493)                         IS: is unit_price * qty
+ (1496)                             ASTERISK: unit_price * qty
+ (1496)                                 FIELD_REF: unit_price
+ (1496)                                     IDENTIFIER: unit_price
+ (1509)                                 FIELD_REF: qty
+ (1509)                                     IDENTIFIER: qty
+ (1514)                         DISABLE: disable
+ (1528)             FORM_ELEMENT: "Total" : Decimal(10,2)/*, is sum(price)*/, disable;
+ (1528)                 LABELED_ID: "Total"
+ (1528)                     STRING_LITERAL: "Total"
+ (1538)                 TYPE: Decimal(10,2)
+ (1538)                     DECIMAL: Decimal(10,2)
+ (1546)                         DEC_INT: 10
+ (1549)                         DEC_INT: 2
+ (1572)                 DISABLE: disable
+ (1584)     ENUM: enum Type "Invoice Type"
+{
+    STANDARD    : "Standard";
+    AUTO_BILL  	: "Auto-Bill";
+    PRO_FORMA  	: "Pro-Forma";
+    QUICK  	    : "Quick";
+}
+ (1589)         LABELED_ID: Type "Invoice Type"
+ (1589)             IDENTIFIER: Type
+ (1594)             STRING_LITERAL: "Invoice Type"
+ (1609)         LIST: {
+    STANDARD    : "Standard";
+    AUTO_BILL  	: "Auto-Bill";
+    PRO_FORMA  	: "Pro-Forma";
+    QUICK  	    : "Quick";
+}
+ (1615)             ENUM_VALUE: STANDARD    : "Standard";
+ (1615)                 IDENTIFIER: STANDARD
+ (1629)                 STRING_LITERAL: "Standard"
+ (1645)             ENUM_VALUE: AUTO_BILL  	: "Auto-Bill";
+ (1645)                 IDENTIFIER: AUTO_BILL
+ (1659)                 STRING_LITERAL: "Auto-Bill"
+ (1676)             ENUM_VALUE: PRO_FORMA  	: "Pro-Forma";
+ (1676)                 IDENTIFIER: PRO_FORMA
+ (1690)                 STRING_LITERAL: "Pro-Forma"
+ (1707)             ENUM_VALUE: QUICK  	    : "Quick";
+ (1707)                 IDENTIFIER: QUICK
+ (1721)                 STRING_LITERAL: "Quick"

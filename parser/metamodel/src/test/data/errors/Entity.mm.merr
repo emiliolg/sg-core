@@ -1,0 +1,22 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/Entity.mm
+(14, 5): No type specified for 'asaa'.
+(15, 45): No type specified for ''.
+(27, 6): Invalid field name  'id'
+(23, 6): Field not found or illegal: 'id2' in type: 'Familia'
+(34, 27): Adding duplicate field attr1 to primary_key
+(40, 13): Only constants are allowed in 'default' option
+(59, 16): Model 'lowercase' name starts with lowercase character.
+(64, 12): Model 'Class' name is a java reserved word.
+(40, 13): Only constants are allowed in 'default' option
+(13, 42): Cannot resolve 'mon.Strg'.
+(15, 43): Cannot resolve 'mon.enumo'.
+(16, 30): Cannot resolve 'mon.Into'.
+(19, 44): Cannot resolve 'mon.Estado'.
+(25, 22): Cannot resolve 'descr'.
+(40, 13): Only constants are allowed in 'default' option
+(13, 42): Cannot resolve 'mon.Strg'.
+(15, 43): Cannot resolve 'mon.enumo'.
+(16, 30): Cannot resolve 'mon.Into'.
+(19, 44): Cannot resolve 'mon.Estado'.
+(25, 22): Cannot resolve 'descr'.
+(40, 13): Only constants are allowed in 'default' option

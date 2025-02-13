@@ -1,0 +1,45 @@
+alter  table QName(AUTHORIZATION, APPLICATION)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, APPLICATION_AUDIT)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, DEVICE)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, FAVORITE)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, INVALIDATED_SESSION)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, ORG_UNIT)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, ORG_UNIT_PROPERTIES)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, PERMISSIONS)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, PROPERTY)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, ROLE)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, ROLE_ASSIGNMENT)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, ROLE_PERMISSION)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, SOCIAL_PROFILE)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, USER)
+	drop column INSTANCE_VERSION;;
+
+alter  table QName(AUTHORIZATION, USER_PROPERTIES)
+	drop column INSTANCE_VERSION;;
+

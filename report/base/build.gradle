@@ -1,0 +1,5 @@
+dependencies {
+    compile (fop) { exclude group: 'org.apache.xmlgraphics', module: 'batik-js'
+                    exclude group: 'commons-io', module: 'commons-io'
+    }
+}

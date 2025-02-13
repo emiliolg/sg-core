@@ -1,0 +1,29 @@
+import tekgenesis.plugin.mm.MMPlugin
+
+apply plugin : MMPlugin
+
+dependencies {
+    compile project(':codegen:base')
+    compile project(':metadata:type')
+    compile project(':metadata:entity')
+    compile project(':metadata:handler')
+    compile project(':metadata:workflow')
+    compile project(':metadata:form')
+    compile project(':metadata:util')
+    compile project(':metadata:expr')
+    compile project(':metadata:builder')
+    compile project(':parser:metamodel')
+    compile project(':db:introspect')
+    compile project(':db:base')
+    compile jacksonDataBind
+    compile jade4j
+    compile jmustache
+    testRuntime hsqldb
+    testRuntime oracle
+    testRuntime postgres
+
+    testCompile project(':db:entity')
+    testCompile project(':runtime:web')
+
+    testCompile project(':metadata:builder').sourceSets.test.output
+}

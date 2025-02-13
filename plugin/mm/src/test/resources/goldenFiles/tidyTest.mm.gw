@@ -1,0 +1,14 @@
+
+widget ItemWidget "Item Widget" : Item {
+    "Slot"       : slot, mask decimal;
+    "Product"    : product;
+    "Invoice"    : invoice;
+    "Quantity"   : qty, default 1, mask decimal;
+    "Unit Price" : unit_price, mask decimal;
+    "Discount"   : discount, mask decimal;
+}
+
+widget CategoryTypeWidget "Category Type Widget" : CategoryType {
+    "Code" : code, mask decimal;
+    "Name" : name;
+}

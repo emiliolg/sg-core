@@ -1,0 +1,9 @@
+dependencies {
+    compile project(':db:base')
+    compile project(':db:transaction')
+    compile javaxInject
+    compile infinispan
+   // compile awsEc2
+}
+
+

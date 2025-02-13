@@ -1,0 +1,52 @@
+#! /bin/bash
+set -e
+# Run the mm project builder
+
+# OS specific support. $var _must_ be set to either true or false.
+cygwin=false;
+darwin=false;
+case "`uname`" in
+  CYGWIN*) cygwin=true ;;
+  Darwin*) darwin=true ;;
+esac
+
+# add in the dependency .jar files
+ROOTDIR=$(dirname $0)
+
+if [ -z "$SUIGEN_DIR" ] ; then
+	SUIGEN_DIR="$ROOTDIR/../../suigen"
+fi
+
+DIRS=$SUIGEN_DIR/target/*/*/classes
+
+for i in ${DIRS}
+do
+  if [ -z "$CP" ] ; then
+    CP=$i
+  else
+    CP="$i":$CP
+  fi
+done
+
+if [ "$1" == "-cp" ]
+then
+   CP="$2"
+   shift;shift
+fi
+
+# For Cygwin, switch paths to Windows format before running java
+if $cygwin; then
+  CP=`cygpath --path --windows "$CP"`
+fi
+
+if [ $DEBUG_MMBUILD ]
+then
+	lckfile=/tmp/mmbuild.lock
+	trap "rm ${lckfile}" EXIT
+	while ! shlock -f ${lckfile} -p $$
+	do
+		sleep 1
+	done
+	JAVA_OPTIONS="-agentlib:jdwp=transport=dt_socket,address=localhost:5005,server=y,suspend=y,quiet=y"
+fi
+java $JAVA_OPTIONS -classpath "$CP" tekgenesis.codegen.project.MmBuild $*

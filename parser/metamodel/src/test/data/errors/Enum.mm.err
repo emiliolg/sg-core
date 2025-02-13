@@ -1,0 +1,5 @@
+File: parser/metamodel/src/test/data/badModels/tekgenesis/sales/Enum.mm
+Total Errors: 3
+(6, 16): Expecting "STRING_LITERAL", but 'mono' found.
+(6, 16): Expecting ';', but 'mono' found.
+(7, 10): Expecting "STRING_LITERAL", but ';' found.

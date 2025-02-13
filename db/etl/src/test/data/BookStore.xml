@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tekgenesis.etl.BookStore>
+  <BookStore id="100">
+    <codigo>100</codigo>
+    <name>Ateneo</name>
+    <extraCode>
+    </extraCode>
+  </BookStore>
+  <BookStore id="200">
+    <codigo>200</codigo>
+    <name>Jenny</name>
+    <extraCode></extraCode>
+  </BookStore>
+</tekgenesis.etl.BookStore>

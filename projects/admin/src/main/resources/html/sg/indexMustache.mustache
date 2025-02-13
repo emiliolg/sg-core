@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.admin.sg.Views" sg-params="title : String, demo : Boolean">
+<head>
+    <title>{{title}}</title>
+    <link rel="icon" href="{{#sha}}/sg/img/favicon.png{{/sha}}"/>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="theme-color" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+
+    <link rel="icon" sizes="144x144" href="{{#sha}}/sg/img/apple-touch-icon-ipad.png{{/sha}}">
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{#sha}}/sg/img/apple-touch-icon-iphone.png{{/sha}}"/>   <!-- Standard iPhone -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{#sha}}/sg/img/apple-touch-icon-iphone.png{{/sha}}"/> <!-- Retina iPhone -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{#sha}}/sg/img/apple-touch-icon-ipad.png{{/sha}}"/>     <!-- Standard iPad -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{#sha}}/sg/img/apple-touch-icon-ipad.png{{/sha}}"/>   <!-- Retina iPad -->
+
+    <link rel="stylesheet" href="{{#css-theme}}{{/css-theme}}" id="theme">
+</head>
+
+<body>
+
+<div class="page-wrap">
+  <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+
+          <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                  <a id="userDropdown" class="dropdown-toggle user-dropdown">
+                      <span id="sg-user-name" data-sg-type="userName" data-sg-config='{"picture":true, "username":false}'></span>
+                  </a>
+                  <ul class="dropdown-menu" id="userOptions">
+                      {{#demo}}
+                      <li><a data-locale="es">Español</a></li>
+                      <li><a data-locale="en">English</a></li>
+                      <li class="divider"></li>
+                      <li><a data-theme="{{#sha}}/sg/css/theme/bootstrap.css{{/sha}}">Bootstrap</a></li>
+                      <li class="active"><a data-theme="{{#sha}}/sg/css/theme/tekgenesis.css{{/sha}}">TekGenesis</a></li>
+                      <li><a data-theme="{{#sha}}/sg/css/theme/slate.css{{/sha}}">Slate</a></li>
+                      <li><a data-theme="{{#sha}}/sg/css/theme/united.css{{/sha}}">United</a></li>
+                      <li><a data-theme="{{#sha}}/sg/css/theme/paper.css{{/sha}}">Paper</a></li>
+                      <li class="divider"></li>
+                      {{/demo}}
+                      <li id="sg-user-profile" data-sg-type="userProfile"></li>
+                      <li id="sg-shortcuts" data-sg-type="shortcuts"></li>
+                      <li class="divider"></li>
+                      <li id="sg-change-ou" data-sg-type="changeOu"></li>
+                      <li id="sg-switch-user" data-sg-type="switchUser"></li>
+                      <li id="sg-logout" data-sg-type="logout"></li>
+                  </ul>
+              </li>
+              <li id="sg-fullscreen" data-sg-type="fullscreen"></li>
+          </ul>
+
+          <div class="navbar-header">
+              <button id="sg-toggle-menu" data-sg-type="toggleMenu"></button>
+              <a class="navbar-brand" href="/">
+                  {{title}}
+              </a>
+          </div>
+
+          <div class="navbar-collapse collapse push-overlay-nav">
+              <div id="sg-menu" data-sg-type="menu" data-sg-config='{"position":"top"}'>
+                  <div class="loading-menu">
+                      Loading...
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </nav>
+  <div class="container">
+      <div id="form" data-sg-type="form" data-sg-config='{"history":true}'></div>
+  </div>
+</div>
+
+<footer class="page-footer">
+  <hr class="soften"/>
+  <div>{{#sg-versions}}{{/sg-versions}} / Powered by <img alt="TekGenesis" src="{{#sha}}/img/logo-TekGenesis-mini.png{{/sha}}"/></div>
+</footer>
+
+
+<!--Suigeneris forms bootstrap-->
+{{#sg-forms-bootstrap}}{{/sg-forms-bootstrap}}
+
+<!--Just for the theme and locale menu-->
+<script src="{{#sha}}/sg/js/sg-index.js{{/sha}}" defer async></script>
+
+</body>
+</html>

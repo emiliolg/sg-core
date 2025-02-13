@@ -1,0 +1,117 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "DocumentedRoutingHandler",
+    "description" : "Handler Documentation"
+  } ],
+  "paths" : {
+    "/home" : {
+      "get" : {
+        "tags" : [ "DocumentedRoutingHandler" ],
+        "summary" : "Route Documentation",
+        "operationId" : "home",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "param",
+          "in" : "query",
+          "description" : "Param Documentation",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "body",
+          "in" : "body",
+          "description" : "Payload body",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/tekgenesis.test.Product"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)",
+            "schema" : {
+              "$ref" : "#/definitions/tekgenesis.test.Product"
+            }
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          },
+          "400" : {
+            "description" : "Application error (bad request)",
+            "schema" : {
+              "$ref" : "#/definitions/tekgenesis.test.ErrorEnum"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "tekgenesis.test.Product" : {
+      "type" : "object",
+      "description" : "Product",
+      "properties" : {
+        "productId" : {
+          "description" : "Id",
+          "type" : "string"
+        },
+        "model" : {
+          "description" : "Model No.",
+          "type" : "string"
+        },
+        "description" : {
+          "description" : "Description",
+          "type" : "string"
+        },
+        "price" : {
+          "description" : "Price",
+          "type" : "number",
+          "format" : "double",
+          "minimum" : 0.0,
+          "default" : "0.0"
+        },
+        "created" : {
+          "description" : "Created",
+          "type" : "string",
+          "format" : "date-time"
+        },
+        "hasSales" : {
+          "description" : "Has Sales",
+          "type" : "boolean",
+          "default" : "false"
+        }
+      },
+      "required" : [ "productId", "model", "created" ]
+    },
+    "tekgenesis.test.ErrorEnum" : {
+      "type" : "object",
+      "description" : "Product",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "enum" : [ "tekgenesis.test.ErrorEnum.NOT_FOUND", "tekgenesis.test.ErrorEnum.ERROR" ]
+        },
+        "msg" : {
+          "type" : "string",
+          "enum" : [ "Some Application Not found error", "Some Application Error" ]
+        },
+        "enumName" : {
+          "type" : "string",
+          "enum" : [ "NOT_FOUND", "ERROR" ]
+        },
+        "enumClass" : {
+          "type" : "string",
+          "default" : "tekgenesis.test.ErrorEnum"
+        }
+      }
+    }
+  }
+}

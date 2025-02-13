@@ -1,0 +1,44 @@
+dependencies {
+    testCompile project(':selenium:common')
+    testCompile project(':codegen:metamodel')
+    testCompile project(':samples:basic')
+    testCompile project(':samples:showcase')
+    testCompile project(':projects:authorization')
+    testCompile project(':projects:inbox')
+    testCompile project(':runtime:mail')
+    testCompile project(':runtime:task')
+    testCompile project(':runtime:web')
+    testCompile project(':db:base')
+    testCompile project(':db:entity')
+    testCompile project(':metadata:form')
+    testCompile seleniumJava
+
+    testRuntime project(':form:serializer')
+    testRuntime project(':projects:admin')
+    testRuntime project(':projects:console')
+
+    testRuntime metricsCore
+    testRuntime metricsServlet
+    testRuntime metricsJvm
+    testRuntime fileUpload
+    testRuntime jettyServlets
+
+    testRuntime hsqldb
+    testRuntime oracle
+    testRuntime postgres
+
+    testRuntime files("${System.properties['java.home']}/../lib/tools.jar")
+
+}
+
+seleniumTests {
+    systemProperty 'java.net.preferIPv4Stack', true
+    systemProperty 'suigen.selenium.screenResolution', '1366,768'
+}
+
+appTests {
+    systemProperty 'java.net.preferIPv4Stack', true
+    systemProperty 'suigen.selenium.screenResolution', '1366,768'
+}
+
+

@@ -1,0 +1,9 @@
+type Customer
+{
+	name "Name" : String(20);
+	bool "Bool": Boolean;
+	orders "Orders": Order*;
+	superOrders "Super Orders": SuperOrder*;
+}
+
+<spot></spot>

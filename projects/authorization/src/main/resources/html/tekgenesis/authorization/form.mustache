@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.authorization.Views" sg-params="title : String, fqn : String, pk : String">
+    <head>
+        <title>{{title}}</title>
+        {{>tekgenesis/authorization/head}}
+        <style>
+            h1 { font-size: 21px; font-weight: normal; }
+            .control-label { padding-bottom: 5px; }
+        </style>
+    </head>
+
+    <body>
+        <div class="container login-container">
+            <div class="col-sm-4 col-sm-offset-4">
+                <div id="sg-form" data-sg-type="form"
+                     data-sg-config='{ "history" : false, "home" : false, "focusOnLoad" : true, "fqn" : "{{fqn}}", "pk" : "{{pk}}" }'>
+                    Loading...
+                </div>
+            </div>
+        </div>
+
+        <!--Suigeneris forms bootstrap-->
+        {{#sg-forms-bootstrap}}{{/sg-forms-bootstrap}}
+    </body>
+</html>

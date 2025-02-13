@@ -1,0 +1,13 @@
+package tekgenesis.test;
+
+
+/** User class for Task: LifecycleDepsTask */
+public class LifecycleDepsTask
+    extends LifecycleDepsTaskBase
+{
+    //~ Methods ..................................................................................................................
+
+    /** Execute Task */
+    @Override public void execute() { throw new IllegalStateException("To be implemented"); }
+
+}

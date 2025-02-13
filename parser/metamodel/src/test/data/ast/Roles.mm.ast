@@ -1,0 +1,17 @@
+ (1, 7) FILE: 
+ (1, 7)     PACKAGE: 'package'
+(1, 18)         REFERENCE: [reference]
+(1, 18)             REFERENCE: [reference]
+(1, 18)                 REFERENCE: [reference]
+(1, 18)                     IDENTIFIER: tekgenesis
+(1, 24)                 IDENTIFIER: sales
+(1, 30)             IDENTIFIER: basic
+ (3, 4)     ROLE: 'role'
+ (3, 4)         MODEL: [model]
+(3, 13)         LABELED_ID: [labeled_id]
+(3, 13)             IDENTIFIER: Salesman
+(3, 15)         LIST: [list]
+(4, 15)             ROLE_PERMISSIONS: [role_permissions]
+(4, 15)                 ROLE_PERMISSIONS: [role_permissions]
+(4, 15)                     REFERENCE: [reference]
+(4, 15)                         IDENTIFIER: InvoiceForm

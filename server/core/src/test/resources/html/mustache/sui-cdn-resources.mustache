@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views">
+<head>
+    <title>Resources examples</title>
+    <link rel="icon" href="{{#favicon}}{{/favicon}}"/>
+    <link href="{{#css}}theme.css{{/css}}">
+    <link rel="stylesheet" href="{{#sha}}/css/alpha.css,
+            /css/beta.css
+                {{/sha}}">
+    <script src="{{#js}}lib.js{{/js}}"></script>
+</head>
+<body>
+<img src="{{#img}}image.jpeg{{/img}}">
+<img src="{{#img}}/some/image.jpeg{{/img}}">
+<img src="{{#resource}}img/some/image.jpeg{{/resource}}">
+<img src="{{#sha}}img/image.jpeg{{/sha}}">
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.admin.sg.Views" sg-params="helpMd : String">
+<head>
+    <title>Help</title>
+
+    {{>tekgenesis/authorization/head}}
+    <meta charset="utf-8">
+    <link rel="icon" href="{{#sha}}/sg/img/favicon.png{{/sha}}"/>
+    <link rel="stylesheet" href="{{#css-theme}}{{/css-theme}}" id="theme">
+
+    <style>
+        .main_content h2:first-of-type { border-bottom: 1px solid #aaa; }
+    </style>
+<body>
+
+<div class="container">
+    <div class="row-fluid main_content">
+        {{#md}}{{helpMd}}{{/md}}
+    </div>
+</div>
+
+</body>
+</html>

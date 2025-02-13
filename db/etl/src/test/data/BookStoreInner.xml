@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tekgenesis.etl.BookStore>
+  <BookStore id="100">
+    <codigo>100</codigo>
+    <address>
+      <StoreLocation id="1">
+        <dir>Alem 123</dir>
+      </StoreLocation>
+      <StoreLocation id="2">
+        <dir>Mitre 555</dir>
+      </StoreLocation>
+    </address>
+    <name>Ateneo</name>
+  </BookStore>
+  <BookStore id="200">
+    <codigo>200</codigo>
+    <name>Jenny</name>
+    <address>
+      <StoreLocation id="1">
+        <dir>Alem 123</dir>
+      </StoreLocation>
+    </address>
+  </BookStore>
+  <BookStore id="300">
+    <codigo>300</codigo>
+    <address>
+      <StoreLocation id="1">
+        <dir>Alem 123</dir>
+      </StoreLocation>
+    </address>
+    <name>Librito</name>
+  </BookStore>
+  <BookStore id="400">
+    <codigo>400</codigo>
+    <name>Librote</name>
+  </BookStore>
+</tekgenesis.etl.BookStore>

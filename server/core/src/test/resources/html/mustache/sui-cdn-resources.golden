@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views">
+<head>
+    <title>Resources examples</title>
+    <link rel="icon" href="/public/sg/img/favicon.png"/>
+    <link href="http://cdnd.epi.ninja/css/theme.css">
+    <link rel="stylesheet" href="http://cdnd.epi.ninja/sg/concat?/sha/public/css/alpha.css/0125c03ab7&/sha/public/css/beta.css/0a4f910a6e">
+    <script src="http://cdnd.epi.ninja/js/lib.js"></script>
+</head>
+<body>
+<img src="http://cdnd.epi.ninja/sha/img/image.jpeg/c4bfa393f1">
+<img src="http://cdnd.epi.ninja/img/some/image.jpeg">
+<img src="http://cdnd.epi.ninja/img/some/image.jpeg">
+<img src="http://cdnd.epi.ninja/public/img/image.jpeg">
+</body>
+</html>

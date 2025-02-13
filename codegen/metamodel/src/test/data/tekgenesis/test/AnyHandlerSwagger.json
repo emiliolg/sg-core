@@ -1,0 +1,40 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "title" : "Sui Generis",
+    "version" : "Dev"
+  },
+  "host" : "localhost:8080",
+  "basePath" : "/",
+  "schemes" : [ "http" ],
+  "tags" : [ {
+    "name" : "AnyHandler",
+    "description" : "Any"
+  } ],
+  "paths" : {
+    "/a/{id}" : {
+      "post" : {
+        "tags" : [ "AnyHandler" ],
+        "summary" : "",
+        "operationId" : "str",
+        "produces" : [ "text/plain" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "description" : "Id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful operation (ok)"
+          },
+          "401" : {
+            "description" : "Unauthorized error (unauthorized)"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : { }
+}

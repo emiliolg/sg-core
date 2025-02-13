@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html sg-view="tekgenesis.service.html.Views" sg-messages="quotes : tekgenesis.samples.service.FamousQuotes" sg-params="favoriteQuote : tekgenesis.samples.service.FamousQuotes">
+    <head>
+      <title>i18n examples</title>
+    </head>
+    <body>
+      <h2>All Quotes:</h2>
+      <div>Plato: Life must be lived as play.</div>
+      <div>Jobs: Stay hungry, stay foolish.</div>
+      <div>Dalai: Be kind whenever possible. It is always possible.</div>
+      <h2>Favorite Quote:</h2>
+      <div>Be kind whenever possible. It is always possible.</div>
+    </body>
+</html>

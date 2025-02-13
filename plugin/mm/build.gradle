@@ -1,0 +1,99 @@
+import org.apache.tools.ant.filters.*
+
+configurations {
+    all*.exclude group: 'org.ow2.asm', module: 'asm'
+}
+
+dependencies {
+    compile project(':db:entity')
+    compile project(':db:base')
+    compile project(':db:introspect')
+    compile project(':parser:common')
+    compile project(':parser:metamodel')
+    compile project(':plugin:common')
+    compile project(':plugin:jps')
+    compile project(':codegen:metamodel')
+    compile project(':codegen:base')
+    compile project(':metadata:util')
+    compile project(':metadata:form')
+    compile project(':metadata:type')
+    compile project(':metadata:entity')
+    compile project(':metadata:workflow')
+    compile project(':metadata:handler')
+    compile project(':metadata:builder')
+    compile project(':runtime:persistence')
+    compile project(':doc')
+    runtime project(':projects:authorization')
+    compile bingTranslate
+    provided fileTree(dir: '../ideaLibraries', include: '**/*.jar', exclude: '**/junit-*.jar')
+    compile fileTree(dir: '../lib', include: '**/*.jar')
+    if(Boolean.getBoolean("teamcity.inspections"))
+        compile fileTree(dir: '../ideaLibraries', include: '**/*.jar', exclude: '**/junit-*.jar')
+    testCompile project(':metadata:type')
+    testRuntime files("${System.properties['java.home']}/../lib/tools.jar")
+}
+
+test {
+    debug = true;
+}
+
+test.doFirst {
+    systemProperty 'idea.load.plugins.id', 'tekgenesis.mm'
+    systemProperty 'idea.plugins.path', new File("target/plugin/mm/classes").getAbsolutePath()
+    systemProperty 'idea.system.path', new File("../target/plugin/mm").getAbsolutePath()
+    systemProperty 'idea.config.path', new File("../target/plugin/mm").getAbsolutePath()
+    systemProperty 'idea.home.path', new File("../target/plugin/mm").getAbsolutePath()
+    enableAssertions =  false
+}
+
+idea {
+    module {
+        iml {
+            withXml { provider ->
+                provider.node.@type = "PLUGIN_MODULE"
+                def node = provider.node.component.find { it.@name == 'DevKit.ModuleBuildProperties' }
+                if (!node) {
+                    provider.node.appendNode 'component' , [name: 'DevKit.ModuleBuildProperties',url:'file://$MODULE_DIR$/src/main/resources/META-INF/plugin.xml']
+                }
+
+                def jdkEntry = provider.node.component.orderEntry.find { it.@type == 'inheritedJdk'}
+
+                if(jdkEntry) {
+                   jdkEntry.@type = 'jdk'
+                    if(Boolean.getBoolean("teamcity.inspections"))
+                            jdkEntry.@jdkName = '1.8'
+                    else
+                            jdkEntry.@jdkName = 'IDEA SDK'
+                   jdkEntry.@jdkType = 'IDEA JDK'
+               }
+            }
+        }
+    }
+}
+
+def deps = project.configurations.runtime.files.findAll { f -> !f.absolutePath.contains("ideaLibraries")}
+
+def classpath = ""
+
+project.configurations.compile.files.each {
+    classpath += it.getName()+";";
+}
+
+task('installDist', type: Copy) {
+            from { jar.archivePath }
+            from { deps }
+            into new File(buildDir,'install/mm-plugin/lib')
+}
+
+task copyPluginXml(type: Copy) {
+
+    from new File(project.projectDir,  'src/main/resources')
+    include 'META-INF/plugin.xml'
+    into new File(project.buildDir, 'classes/main')
+    filter(ReplaceTokens,
+            tokens: [BUILD_VERSION: buildVersion, BUILD_NUMBER: buildNumber, CLASSPATH: classpath])
+}
+
+installDist.dependsOn(jar)
+
+jar.dependsOn(copyPluginXml)

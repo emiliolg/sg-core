@@ -1,0 +1,4 @@
+dependencies {
+    compile infinispan
+    compile awsEc2
+}

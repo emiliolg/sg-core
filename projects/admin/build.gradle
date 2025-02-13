@@ -1,0 +1,45 @@
+import tekgenesis.plugin.mm.MMPlugin
+
+apply plugin : MMPlugin
+dependencies {
+    compile project(':metadata:type')
+    compile project(':metadata:form')
+    compile project(':metadata:expr')
+    compile project(':metadata:entity')
+    compile project(':metadata:builder')
+    compile project(':runtime:persistence')
+    compile project(':runtime:web')
+    compile project(':runtime:mail')
+    compile project(':runtime:task')
+    compile project(':runtime:cluster')
+    compile project(':server:cluster')
+    compile project(':server:core')
+    compile project(':codegen:metamodel')
+    compile project(':db:etl')
+    compile project(':db:cache')
+    compile project(':db:entity')
+    compile project(':db:base')
+    compile project(':db:introspect')
+    compile project(':db:transaction')
+    compile project(':projects:authorization')
+    compile apacheShiro
+    compile infinispan
+    compile jackson
+    compile javaxInject
+    testRuntime hsqldb
+    testCompile project(':db:etl').sourceSets.test.output
+    testCompile project(':db:entity').sourceSets.test.output
+    testCompile project(':runtime:task').sourceSets.test.output
+    testCompile project(':runtime:test')
+    testRuntime metricsCore
+    testRuntime metricsServlet
+    testRuntime metricsJvm
+    testRuntime gwtUser
+    testRuntime gwtServlet
+    testRuntime fileUpload
+    testRuntime jettyServlets
+    testRuntime hsqldb
+    testRuntime oracle
+    testRuntime postgres
+}
+
